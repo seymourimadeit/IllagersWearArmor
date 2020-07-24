@@ -12,6 +12,7 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import tallestegg.illagersweararmor.renderers.NewPillagerRenderer;
+import tallestegg.illagersweararmor.renderers.NewVindicatorRenderer;
 
 @Mod("illagersweararmor")
 public class IllagersWearArmor
@@ -32,6 +33,7 @@ public class IllagersWearArmor
     private void doClientStuff(final FMLClientSetupEvent event) 
     {
     	RenderingRegistry.registerEntityRenderingHandler(EntityType.PILLAGER, NewPillagerRenderer::new);
+    	RenderingRegistry.registerEntityRenderingHandler(EntityType.VINDICATOR, NewVindicatorRenderer::new);
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)

@@ -4,10 +4,13 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 
 import net.minecraft.client.renderer.entity.model.BipedModel;
+import net.minecraft.client.renderer.model.ModelHelper;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.monster.AbstractIllagerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.UseAction;
+import net.minecraft.util.HandSide;
+import net.minecraft.util.math.MathHelper;
 
 public class IllagerBipedModel<T extends AbstractIllagerEntity> extends BipedModel<T>
 {
@@ -66,36 +69,104 @@ public class IllagerBipedModel<T extends AbstractIllagerEntity> extends BipedMod
     	UseAction useaction = itemstack.getUseAction();
         this.rightArmPose = BipedModel.ArmPose.EMPTY;
         this.leftArmPose = BipedModel.ArmPose.EMPTY;
-    	switch (useaction) 
-    	{
-    	  default:
-    	  this.rightArmPose = BipedModel.ArmPose.EMPTY;
-    	  if (!itemstack.isEmpty()) this.rightArmPose = BipedModel.ArmPose.ITEM;
-    	  break;
-    	  case BLOCK:
-    	  this.rightArmPose = BipedModel.ArmPose.BLOCK;
-    	  break;
-    	  case BOW:
-    	  this.rightArmPose = BipedModel.ArmPose.BOW_AND_ARROW;
-    	  break;
-    	  case CROSSBOW: 
-    	  this.rightArmPose = BipedModel.ArmPose.CROSSBOW_HOLD;
-    	  if (entityIn.isHandActive()) this.rightArmPose = BipedModel.ArmPose.CROSSBOW_CHARGE;
-    	  break;
-    	  case SPEAR:
-    	  this.rightArmPose = BipedModel.ArmPose.THROW_SPEAR;
-    	  break;
-    	}
+        if (entityIn.getPrimaryHand() == HandSide.RIGHT) 
+        {
+          switch(useaction) 
+          {
+            case BLOCK:
+            this.rightArmPose = BipedModel.ArmPose.BLOCK;
+            break;
+            case CROSSBOW:
+            this.rightArmPose = BipedModel.ArmPose.CROSSBOW_HOLD;
+            if (entityIn.isHandActive()) 
+            {
+          	 this.rightArmPose = BipedModel.ArmPose.CROSSBOW_CHARGE;
+            }
+            break;
+            case BOW:
+            this.rightArmPose = BipedModel.ArmPose.BOW_AND_ARROW;
+            break;
+  		  default:
+  		  this.rightArmPose = BipedModel.ArmPose.EMPTY;
+  		  if (!itemstack.isEmpty()) 
+  		  {
+  	  		this.rightArmPose = BipedModel.ArmPose.ITEM;
+  	  	  }
+  	      break;
+          }
+        }
+        if (entityIn.getPrimaryHand() == HandSide.LEFT) 
+        {
+         switch(useaction) 
+         {
+           case BLOCK:
+           this.leftArmPose = BipedModel.ArmPose.BLOCK;
+           break;
+           case CROSSBOW:
+           this.leftArmPose = BipedModel.ArmPose.CROSSBOW_HOLD;
+           if (entityIn.isHandActive()) 
+           {
+            this.leftArmPose = BipedModel.ArmPose.CROSSBOW_CHARGE;
+           }
+           break;
+           case BOW:
+           this.leftArmPose = BipedModel.ArmPose.BOW_AND_ARROW;
+           break;
+    		 default:
+    		 this.leftArmPose = BipedModel.ArmPose.EMPTY;
+    		 if (!itemstack.isEmpty()) 
+    		 {
+    		      this.leftArmPose = BipedModel.ArmPose.ITEM;
+    		 }
+    	     break;
+         }
+        }
     }
     
     public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) 
     {
         super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         AbstractIllagerEntity.ArmPose armpose = entityIn.getArmPose();
-        boolean armsCrossed = armpose == AbstractIllagerEntity.ArmPose.CROSSED;
-        this.arms.showModel = armsCrossed;
-        this.bipedLeftArm.showModel = !armsCrossed;
-        this.bipedRightArm.showModel = !armsCrossed;
+        this.arms.rotationPointY = 3.0F;
+        this.arms.rotationPointZ = -1.0F;
+        this.arms.rotateAngleX = -0.75F;
+        boolean flag = armpose == AbstractIllagerEntity.ArmPose.CROSSED;
+        this.arms.showModel = flag;
+        this.bipedLeftArm.showModel = !flag;
+        this.bipedRightArm.showModel = !flag;
+        switch (armpose) 
+        {
+		 case ATTACKING:
+		   if (!entityIn.getHeldItemMainhand().isEmpty())
+		    ModelHelper.func_239103_a_(this.bipedRightArm, this.bipedLeftArm, entityIn, this.swingProgress, ageInTicks);
+		    break;
+		 case CELEBRATING:
+	         this.bipedRightArm.rotationPointZ = 0.0F;
+	         this.bipedRightArm.rotationPointX = -5.0F;
+	         this.bipedRightArm.rotateAngleX = MathHelper.cos(ageInTicks * 0.6662F) * 0.05F;
+	         this.bipedRightArm.rotateAngleZ = 2.670354F;
+	         this.bipedRightArm.rotateAngleY = 0.0F;
+	         this.bipedLeftArm.rotationPointZ = 0.0F;
+	         this.bipedLeftArm.rotationPointX = 5.0F;
+	         this.bipedLeftArm.rotateAngleX = MathHelper.cos(ageInTicks * 0.6662F) * 0.05F;
+	         this.bipedLeftArm.rotateAngleZ = -2.3561945F;
+	         this.bipedLeftArm.rotateAngleY = 0.0F;
+			break;
+		 case SPELLCASTING:
+	         this.bipedRightArm.rotationPointZ = 0.0F;
+	         this.bipedRightArm.rotationPointX = -5.0F;
+	         this.bipedLeftArm.rotationPointZ = 0.0F;
+	         this.bipedLeftArm.rotationPointX = 5.0F;
+	         this.bipedRightArm.rotateAngleX = MathHelper.cos(ageInTicks * 0.6662F) * 0.25F;
+	         this.bipedLeftArm.rotateAngleX = MathHelper.cos(ageInTicks * 0.6662F) * 0.25F;
+	         this.bipedRightArm.rotateAngleZ = 2.3561945F;
+	         this.bipedLeftArm.rotateAngleZ = -2.3561945F;
+	         this.bipedRightArm.rotateAngleY = 0.0F;
+	         this.bipedLeftArm.rotateAngleY = 0.0F;
+			break;
+		 default:
+			break;
+        }
     }
 
 }
