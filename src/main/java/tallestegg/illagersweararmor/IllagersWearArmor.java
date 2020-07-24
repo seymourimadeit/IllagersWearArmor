@@ -1,11 +1,9 @@
 package tallestegg.illagersweararmor;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import net.minecraft.block.Blocks;
+import net.minecraft.entity.EntityType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -13,14 +11,11 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import tallestegg.illagersweararmor.renderers.NewPillagerRenderer;
 
-// The value here should match an entry in the META-INF/mods.toml file
-@Mod(IllagersWearArmor.MODID)
+@Mod("illagersweararmor")
 public class IllagersWearArmor
-{
-	public static final String MODID = "illagersweararmor";
-    private static final Logger LOGGER = LogManager.getLogger();
-
+{	
     public IllagersWearArmor() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
@@ -31,12 +26,12 @@ public class IllagersWearArmor
 
     private void setup(final FMLCommonSetupEvent event)
     {
-        LOGGER.info("HELLO FROM PREINIT");
-        LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+
     }
 
-    private void doClientStuff(final FMLClientSetupEvent event) {
-
+    private void doClientStuff(final FMLClientSetupEvent event) 
+    {
+    	RenderingRegistry.registerEntityRenderingHandler(EntityType.PILLAGER, NewPillagerRenderer::new);
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)
