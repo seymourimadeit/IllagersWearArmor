@@ -7,11 +7,11 @@ modId="illagersweararmor" #mandatory
 version="1.0.0" #mandatory
 displayName="Illagers Wear Armor" #mandatory
 #updateJSONURL="https://raw.githubusercontent.com/seymourimadeit/guardvillagers/master/update.json" #optional
-displayURL="https://www.curseforge.com/minecraft/mc-mods/guard-villagers" #optional
-credits="TallestEgg and HadeZ/SadNya69 for the models." #optional
-authors="TallestEgg, HadeZ/SadNya69 for the models." #optional
+#displayURL="https://www.curseforge.com/minecraft/mc-mods/guard-villagers" #optional
+credits="TallestEgg" #optional
+authors="TallestEgg." #optional
 description='''
-Need some help with pest control? The Guards are ready to help!
+Allows illagers to wear armor.
 '''
 [[dependencies.illagersweararmor]] #optional
     modId="forge" #mandatory

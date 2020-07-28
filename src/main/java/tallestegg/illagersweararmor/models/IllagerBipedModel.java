@@ -7,14 +7,18 @@ import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelHelper;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.monster.AbstractIllagerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ShootableItem;
 import net.minecraft.item.UseAction;
 import net.minecraft.util.HandSide;
 import net.minecraft.util.math.MathHelper;
 
 public class IllagerBipedModel<T extends AbstractIllagerEntity> extends BipedModel<T>
 {
-	private ModelRenderer arms;
+    public ModelRenderer arms;
+	public ModelRenderer jacket;
 	
 	public IllagerBipedModel(float modelSize, float p_i47227_2_, int textureWidthIn, int textureHeightIn) 
 	{
@@ -24,7 +28,6 @@ public class IllagerBipedModel<T extends AbstractIllagerEntity> extends BipedMod
 	    this.bipedHead.setTextureOffset(0, 0).addBox(-4.0F, -10.0F, -4.0F, 8.0F, 10.0F, 8.0F, modelSize);
 	    this.bipedHeadwear = (new ModelRenderer(this, 32, 0)).setTextureSize(textureWidthIn, textureHeightIn);
 	    this.bipedHeadwear.addBox(-4.0F, -10.0F, -4.0F, 8.0F, 12.0F, 8.0F, modelSize + 0.45F);
-	    this.bipedHead.addChild(this.bipedHeadwear);
 	    this.bipedHeadwear.showModel = false;
 	    ModelRenderer modelrenderer = (new ModelRenderer(this)).setTextureSize(textureWidthIn, textureHeightIn);
 	    modelrenderer.setRotationPoint(0.0F, p_i47227_2_ - 2.0F, 0.0F);
@@ -33,7 +36,9 @@ public class IllagerBipedModel<T extends AbstractIllagerEntity> extends BipedMod
 	    this.bipedBody = (new ModelRenderer(this)).setTextureSize(textureWidthIn, textureHeightIn);
 	    this.bipedBody.setRotationPoint(0.0F, 0.0F + p_i47227_2_, 0.0F);
 	    this.bipedBody.setTextureOffset(16, 20).addBox(-4.0F, 0.0F, -3.0F, 8.0F, 12.0F, 6.0F, modelSize);
-	    this.bipedBody.setTextureOffset(0, 38).addBox(-4.0F, 0.0F, -3.0F, 8.0F, 18.0F, 6.0F, modelSize + 0.5F);
+	    this.jacket = (new ModelRenderer(this)).setTextureSize(textureWidthIn, textureHeightIn);
+	    this.jacket.setRotationPoint(0.0F, 0.0F + p_i47227_2_, 0.0F);
+	    this.jacket.setTextureOffset(0, 38).addBox(-4.0F, 0.0F, -3.0F, 8.0F, 18.0F, 6.0F, modelSize + 0.5F);
 	    this.arms = (new ModelRenderer(this)).setTextureSize(textureWidthIn, textureHeightIn);
 	    this.arms.setRotationPoint(0.0F, 0.0F + p_i47227_2_ + 2.0F, 0.0F);
 	    this.arms.setTextureOffset(44, 22).addBox(-8.0F, -2.0F, -2.0F, 4.0F, 8.0F, 4.0F, modelSize);
@@ -60,7 +65,7 @@ public class IllagerBipedModel<T extends AbstractIllagerEntity> extends BipedMod
 	
     protected Iterable<ModelRenderer> getBodyParts() 
     {
-	    return Iterables.concat(super.getBodyParts(), ImmutableList.of(this.arms));
+	    return Iterables.concat(super.getBodyParts(), ImmutableList.of(this.arms, this.jacket));
 	}
     
     public void setLivingAnimations(T entityIn, float limbSwing, float limbSwingAmount, float partialTick) 
@@ -112,15 +117,16 @@ public class IllagerBipedModel<T extends AbstractIllagerEntity> extends BipedMod
            case BOW:
            this.leftArmPose = BipedModel.ArmPose.BOW_AND_ARROW;
            break;
-    		 default:
-    		 this.leftArmPose = BipedModel.ArmPose.EMPTY;
-    		 if (!itemstack.isEmpty()) 
-    		 {
-    		      this.leftArmPose = BipedModel.ArmPose.ITEM;
-    		 }
-    	     break;
+           default:
+    	   this.leftArmPose = BipedModel.ArmPose.EMPTY;
+    	   if (!itemstack.isEmpty()) 
+    	   {
+    		 this.leftArmPose = BipedModel.ArmPose.ITEM;
+           }
+    	   break;
          }
         }
+        super.setLivingAnimations(entityIn, limbSwing, limbSwingAmount, partialTick);
     }
     
     public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) 
@@ -130,6 +136,9 @@ public class IllagerBipedModel<T extends AbstractIllagerEntity> extends BipedMod
         this.arms.rotationPointY = 3.0F;
         this.arms.rotationPointZ = -1.0F;
         this.arms.rotateAngleX = -0.75F;
+        this.jacket.copyModelAngles(bipedBody);
+        boolean isWearingChestplate = entityIn.getItemStackFromSlot(EquipmentSlotType.CHEST).getItem() instanceof ArmorItem;
+        this.jacket.showModel = !isWearingChestplate;
         boolean flag = armpose == AbstractIllagerEntity.ArmPose.CROSSED;
         this.arms.showModel = flag;
         this.bipedLeftArm.showModel = !flag;
@@ -137,7 +146,7 @@ public class IllagerBipedModel<T extends AbstractIllagerEntity> extends BipedMod
         switch (armpose) 
         {
 		 case ATTACKING:
-		   if (!entityIn.getHeldItemMainhand().isEmpty())
+		   if (!entityIn.getHeldItemMainhand().isEmpty() && !(entityIn.getHeldItemMainhand().getItem() instanceof ShootableItem))
 		    ModelHelper.func_239103_a_(this.bipedRightArm, this.bipedLeftArm, entityIn, this.swingProgress, ageInTicks);
 		    break;
 		 case CELEBRATING:
@@ -168,5 +177,4 @@ public class IllagerBipedModel<T extends AbstractIllagerEntity> extends BipedMod
 			break;
         }
     }
-
 }
