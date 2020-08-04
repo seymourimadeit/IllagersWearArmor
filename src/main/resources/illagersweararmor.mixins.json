@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "tallestegg.illagersweararmor.mixin",
+  "package": "tallestegg.illagersweararmor.mixins",
   "compatibilityLevel": "JAVA_8",
   "refmap": "illagersweararmor.refmap.json",
   "mixins": [
