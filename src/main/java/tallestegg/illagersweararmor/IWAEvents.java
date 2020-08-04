@@ -2,7 +2,6 @@ package tallestegg.illagersweararmor;
 
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.RangedBowAttackGoal;
-import net.minecraft.entity.monster.AbstractIllagerEntity;
 import net.minecraft.entity.monster.IllusionerEntity;
 import net.minecraft.entity.monster.PillagerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -10,7 +9,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import tallestegg.illagersweararmor.goals.MeleeAttackIfNotHoldingShootableGoal;

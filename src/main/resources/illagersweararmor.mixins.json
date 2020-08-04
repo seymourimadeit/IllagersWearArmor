@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "tallestegg.illagersweararmor.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "illagersweararmor.refmap.json",
+  "mixins": [
+  ],
+  "client":[
+    "PillagerEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}
