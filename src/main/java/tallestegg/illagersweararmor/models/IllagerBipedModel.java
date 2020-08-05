@@ -74,7 +74,7 @@ public class IllagerBipedModel<T extends AbstractIllagerEntity> extends BipedMod
     	UseAction useaction = itemstack.getUseAction();
         this.rightArmPose = BipedModel.ArmPose.EMPTY;
         this.leftArmPose = BipedModel.ArmPose.EMPTY;
-        if (entityIn.getPrimaryHand() == HandSide.RIGHT) 
+        if (entityIn.getPrimaryHand() == HandSide.RIGHT && entityIn.getArmPose() != AbstractIllagerEntity.ArmPose.CROSSED) 
         {
           switch(useaction) 
           {
@@ -100,7 +100,7 @@ public class IllagerBipedModel<T extends AbstractIllagerEntity> extends BipedMod
   	      break;
           }
         }
-        if (entityIn.getPrimaryHand() == HandSide.LEFT) 
+        if (entityIn.getPrimaryHand() == HandSide.LEFT && entityIn.getArmPose() != AbstractIllagerEntity.ArmPose.CROSSED) 
         {
          switch(useaction) 
          {
@@ -129,6 +129,7 @@ public class IllagerBipedModel<T extends AbstractIllagerEntity> extends BipedMod
         super.setLivingAnimations(entityIn, limbSwing, limbSwingAmount, partialTick);
     }
     
+    @Override
     public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) 
     {
         super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
@@ -137,12 +138,20 @@ public class IllagerBipedModel<T extends AbstractIllagerEntity> extends BipedMod
         this.arms.rotationPointZ = -1.0F;
         this.arms.rotateAngleX = -0.75F;
         this.jacket.copyModelAngles(bipedBody);
-        boolean isWearingChestplate = entityIn.getItemStackFromSlot(EquipmentSlotType.CHEST).getItem() instanceof ArmorItem;
-        this.jacket.showModel = !isWearingChestplate;
+        boolean isWearingChestplateOrLeggings = entityIn.getItemStackFromSlot(EquipmentSlotType.CHEST).getItem() instanceof ArmorItem || entityIn.getItemStackFromSlot(EquipmentSlotType.LEGS).getItem() instanceof ArmorItem;
+        this.jacket.showModel = !isWearingChestplateOrLeggings;
         boolean flag = armpose == AbstractIllagerEntity.ArmPose.CROSSED;
         this.arms.showModel = flag;
         this.bipedLeftArm.showModel = !flag;
         this.bipedRightArm.showModel = !flag;
+        if (flag) {
+            this.bipedLeftArm.rotationPointY = 3.0F;
+            this.bipedLeftArm.rotationPointZ = -1.0F;
+            this.bipedLeftArm.rotateAngleX = -0.75F;
+            this.bipedRightArm.rotationPointY = 3.0F;
+            this.bipedRightArm.rotationPointZ = -1.0F;
+            this.bipedRightArm.rotateAngleX = -0.75F;
+        }
         switch (armpose) 
         {
 		 case ATTACKING:

@@ -4,9 +4,7 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "illagersweararmor.refmap.json",
   "mixins": [
-  ],
-  "client":[
-    "PillagerEntityMixin"
+    "AbstractIllagerEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
