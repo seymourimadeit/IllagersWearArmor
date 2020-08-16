@@ -7,21 +7,19 @@ public class IWAExtraStuff {
         switch(waves) 
         {
             case 0: 
-               return 0.02F;
+               return IWAConfig.Wave1Chances;
             case 1:
-               return 0.06F;
+               return IWAConfig.Wave2Chances;
             case 2:
-		       return 0.10F;
+		       return IWAConfig.Wave3Chances;
             case 3:
-               return 0.23F;
+               return IWAConfig.Wave4Chances;
             case 4: 
-               return 0.32F;
+               return IWAConfig.Wave5Chances;
             case 5:
-               return 0.45F;
+               return IWAConfig.Wave6Chances;
             case 6:
-               return 0.67F;
-            case 7:
-               return 0.69F;
+               return IWAConfig.Wave7Chances;
         }
 		return 0;
     }
