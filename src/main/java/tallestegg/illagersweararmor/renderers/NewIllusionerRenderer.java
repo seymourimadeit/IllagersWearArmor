@@ -15,49 +15,47 @@ import tallestegg.illagersweararmor.models.IllagerArmorModel;
 import tallestegg.illagersweararmor.models.IllagerBipedModel;
 
 public class NewIllusionerRenderer extends MobRenderer<IllusionerEntity, IllagerBipedModel<IllusionerEntity>> {
-   private static final ResourceLocation ILLUSIONIST = new ResourceLocation("textures/entity/illager/illusioner.png");
+    private static final ResourceLocation ILLUSIONIST = new ResourceLocation("textures/entity/illager/illusioner.png");
 
-   @SuppressWarnings({ "unchecked", "rawtypes" })
-   public NewIllusionerRenderer(EntityRendererManager renderManagerIn) 
-   {
-    super(renderManagerIn, new IllagerBipedModel<>(0.0F, 0.0F, 64, 64), 0.5F);
-    this.addLayer(new BipedArmorLayer(this, new IllagerArmorModel(0.5F), new IllagerArmorModel(1.0F)));
-    this.addLayer(new HeldItemLayer<IllusionerEntity, IllagerBipedModel<IllusionerEntity>>(this) 
-    {
-    	@Override
-        public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, IllusionerEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-            if (entitylivingbaseIn.isSpellcasting() || entitylivingbaseIn.isAggressive()) {
-               super.render(matrixStackIn, bufferIn, packedLightIn, entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public NewIllusionerRenderer(EntityRendererManager renderManagerIn) {
+        super(renderManagerIn, new IllagerBipedModel<>(0.0F, 0.0F, 64, 64), 0.5F);
+        this.addLayer(new BipedArmorLayer(this, new IllagerArmorModel(0.5F), new IllagerArmorModel(1.0F)));
+        this.addLayer(new HeldItemLayer<IllusionerEntity, IllagerBipedModel<IllusionerEntity>>(this) {
+            @Override
+            public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, IllusionerEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+                if (entitylivingbaseIn.isSpellcasting() || entitylivingbaseIn.isAggressive()) {
+                    super.render(matrixStackIn, bufferIn, packedLightIn, entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
+                }
             }
-         }
-      });
-      this.entityModel.bipedHeadwear.showModel = true; //this one line has cost me hours of my life
-   }
+        });
+        this.entityModel.bipedHeadwear.showModel = true; // this one line has cost me hours of my life
+    }
 
-   @Override
-   public ResourceLocation getEntityTexture(IllusionerEntity entity) {
-      return ILLUSIONIST;
-   }
+    @Override
+    public ResourceLocation getEntityTexture(IllusionerEntity entity) {
+        return ILLUSIONIST;
+    }
 
-   @Override
-   public void render(IllusionerEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
-	      if (entityIn.isInvisible() && entityIn.getRenderLocations(partialTicks) != null) {
-	          Vector3d[] avector3d = entityIn.getRenderLocations(partialTicks);
-	          float f = this.handleRotationFloat(entityIn, partialTicks);
+    @Override
+    public void render(IllusionerEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
+        if (entityIn.isInvisible() && entityIn.getRenderLocations(partialTicks) != null) {
+            Vector3d[] avector3d = entityIn.getRenderLocations(partialTicks);
+            float f = this.handleRotationFloat(entityIn, partialTicks);
 
-	          for(int i = 0; i < avector3d.length; ++i) {
-	             matrixStackIn.push();
-	             matrixStackIn.translate(avector3d[i].x + (double)MathHelper.cos((float)i + f * 0.5F) * 0.025D, avector3d[i].y + (double)MathHelper.cos((float)i + f * 0.75F) * 0.0125D, avector3d[i].z + (double)MathHelper.cos((float)i + f * 0.7F) * 0.025D);
-	             super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-	             matrixStackIn.pop();
-	          }
-	       } else {
-	          super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-	       }
-   }
+            for (int i = 0; i < avector3d.length; ++i) {
+                matrixStackIn.push();
+                matrixStackIn.translate(avector3d[i].x + (double) MathHelper.cos((float) i + f * 0.5F) * 0.025D, avector3d[i].y + (double) MathHelper.cos((float) i + f * 0.75F) * 0.0125D, avector3d[i].z + (double) MathHelper.cos((float) i + f * 0.7F) * 0.025D);
+                super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+                matrixStackIn.pop();
+            }
+        } else {
+            super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+        }
+    }
 
-   @Override
-   protected boolean isVisible(IllusionerEntity livingEntityIn) {
-      return true;
-   }
+    @Override
+    protected boolean isVisible(IllusionerEntity livingEntityIn) {
+        return true;
+    }
 }
