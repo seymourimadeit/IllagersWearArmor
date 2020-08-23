@@ -40,6 +40,7 @@ public class AbstractIllagerEntityMixin extends AbstractRaiderEntity {
     }
 
     public void giveArmorOnRaids() {
+        this.addTag("iwasspawnedwitharmorduetoamod");
         float f = this.world.getDifficulty() == Difficulty.HARD ? 0.1F : 0.25F;
         int illagerWaves = this.getRaid().getGroupsSpawned();
         int armorChance = illagerWaves > 4 ? 4 : illagerWaves;
