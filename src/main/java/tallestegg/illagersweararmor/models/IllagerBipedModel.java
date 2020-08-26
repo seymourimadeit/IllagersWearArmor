@@ -61,10 +61,12 @@ public class IllagerBipedModel<T extends AbstractIllagerEntity> extends BipedMod
         this.bipedLeftArm.setRotationPoint(5.0F, 2.0F + p_i47227_2_, 0.0F);
     }
 
+    @Override
     protected Iterable<ModelRenderer> getBodyParts() {
         return Iterables.concat(super.getBodyParts(), ImmutableList.of(this.arms, this.jacket));
     }
 
+    @Override
     public void setLivingAnimations(T entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
         ItemStack itemstack = entityIn.getHeldItemMainhand();
         UseAction useaction = itemstack.getUseAction();

@@ -12,7 +12,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import tallestegg.illagersweararmor.renderers.NewEvokerRenderer;
 import tallestegg.illagersweararmor.renderers.NewIllusionerRenderer;
@@ -23,6 +22,7 @@ import tallestegg.illagersweararmor.renderers.NewVindicatorRenderer;
 public class IllagersWearArmor {
     public static final String MODID = "illagersweararmor";
 
+    @SuppressWarnings("deprecation")
     public IllagersWearArmor() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);

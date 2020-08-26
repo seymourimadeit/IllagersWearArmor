@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.BipedArmorLayer;
+import net.minecraft.client.renderer.entity.layers.HeadLayer;
 import net.minecraft.client.renderer.entity.layers.HeldItemLayer;
 import net.minecraft.entity.monster.IllusionerEntity;
 import net.minecraft.util.ResourceLocation;
@@ -20,6 +21,7 @@ public class NewIllusionerRenderer extends MobRenderer<IllusionerEntity, Illager
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public NewIllusionerRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new IllagerBipedModel<>(0.0F, 0.0F, 64, 64), 0.5F);
+        this.addLayer(new HeadLayer<>(this));
         this.addLayer(new BipedArmorLayer(this, new IllagerArmorModel(0.5F), new IllagerArmorModel(1.0F)));
         this.addLayer(new HeldItemLayer<IllusionerEntity, IllagerBipedModel<IllusionerEntity>>(this) {
             @Override
