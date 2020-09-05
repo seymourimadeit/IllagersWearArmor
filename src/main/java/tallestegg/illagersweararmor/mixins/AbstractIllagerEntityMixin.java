@@ -50,7 +50,7 @@ public class AbstractIllagerEntityMixin extends AbstractRaiderEntity {
                 ++armorChance;
             }
 
-            if (this.rand.nextFloat() < 0.045F) {
+            if (this.rand.nextFloat() < 0.011F) {
                 --armorChance;
             }
 
@@ -68,6 +68,7 @@ public class AbstractIllagerEntityMixin extends AbstractRaiderEntity {
                         Item item = getArmorByChance(equipmentslottype, armorChance);
                         if (item != null) {
                             this.setItemStackToSlot(equipmentslottype, new ItemStack(item));
+                            System.out.println("haha");
                         }
                     }
                 }

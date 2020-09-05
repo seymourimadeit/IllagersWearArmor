@@ -12,6 +12,7 @@ import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ShootableItem;
 import net.minecraft.item.UseAction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.HandSide;
 import net.minecraft.util.math.MathHelper;
 
@@ -68,11 +69,22 @@ public class IllagerBipedModel<T extends AbstractIllagerEntity> extends BipedMod
 
     @Override
     public void setLivingAnimations(T entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
-        ItemStack itemstack = entityIn.getHeldItemMainhand();
-        UseAction useaction = itemstack.getUseAction();
         this.rightArmPose = BipedModel.ArmPose.EMPTY;
         this.leftArmPose = BipedModel.ArmPose.EMPTY;
-        if (entityIn.getPrimaryHand() == HandSide.RIGHT && entityIn.getArmPose() != AbstractIllagerEntity.ArmPose.CROSSED) {
+        if (entityIn.getPrimaryHand() == HandSide.RIGHT) {
+            this.giveModelRightArmPoses(Hand.MAIN_HAND, entityIn);
+            this.giveModelLeftArmPoses(Hand.OFF_HAND, entityIn);
+        } else {
+            this.giveModelRightArmPoses(Hand.OFF_HAND, entityIn);
+            this.giveModelLeftArmPoses(Hand.MAIN_HAND, entityIn);
+        }
+        super.setLivingAnimations(entityIn, limbSwing, limbSwingAmount, partialTick);
+    }
+    
+    private void giveModelRightArmPoses(Hand hand, T entityIn) {
+        ItemStack itemstack = entityIn.getHeldItem(hand);
+        UseAction useaction = itemstack.getUseAction();
+        if (entityIn.getArmPose() != AbstractIllagerEntity.ArmPose.CROSSED) {
             switch (useaction) {
             case BLOCK:
                 this.rightArmPose = BipedModel.ArmPose.BLOCK;
@@ -94,7 +106,12 @@ public class IllagerBipedModel<T extends AbstractIllagerEntity> extends BipedMod
                 break;
             }
         }
-        if (entityIn.getPrimaryHand() == HandSide.LEFT && entityIn.getArmPose() != AbstractIllagerEntity.ArmPose.CROSSED) {
+    }
+    
+    private void giveModelLeftArmPoses(Hand hand, T entityIn) {
+        ItemStack itemstack = entityIn.getHeldItem(hand);
+        UseAction useaction = itemstack.getUseAction();
+        if (entityIn.getArmPose() != AbstractIllagerEntity.ArmPose.CROSSED) {
             switch (useaction) {
             case BLOCK:
                 this.leftArmPose = BipedModel.ArmPose.BLOCK;
@@ -116,7 +133,6 @@ public class IllagerBipedModel<T extends AbstractIllagerEntity> extends BipedMod
                 break;
             }
         }
-        super.setLivingAnimations(entityIn, limbSwing, limbSwingAmount, partialTick);
     }
 
     @Override
