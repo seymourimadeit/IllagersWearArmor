@@ -24,7 +24,6 @@ import tallestegg.illagersweararmor.IWAExtraStuff;
 public class AbstractIllagerEntityMixin extends AbstractRaiderEntity {
     protected AbstractIllagerEntityMixin(EntityType<? extends AbstractRaiderEntity> type, World worldIn) {
         super(type, worldIn);
-        // TODO Auto-generated constructor stub
     }
 
     // this is a temp way to get illagers to spawn with armor until pr = merged
@@ -48,10 +47,6 @@ public class AbstractIllagerEntityMixin extends AbstractRaiderEntity {
         if (this.world.rand.nextFloat() < waveChances) {
             if (this.rand.nextFloat() < 0.095F) {
                 ++armorChance;
-            }
-
-            if (this.rand.nextFloat() < 0.011F) {
-                --armorChance;
             }
 
             boolean flag = true;
