@@ -85,13 +85,13 @@ public class IWAConfig {
         public final ForgeConfigSpec.ConfigValue<List<String>> ArmorBlackList;
 
         public CommonConfig(ForgeConfigSpec.Builder builder) {
-            Wave1 = builder.translation(IllagersWearArmor.MODID + ".config.wave1").defineInRange("Wave 1 Armor Chances", 0.02F, 0.0001F, 100F);
-            Wave2 = builder.translation(IllagersWearArmor.MODID + ".config.wave2").defineInRange("Wave 2 Armor Chances", 0.06F, 0.0001F, 100F);
-            Wave3 = builder.translation(IllagersWearArmor.MODID + ".config.wave3").defineInRange("Wave 3 Armor Chances", 0.12F, 0.0001F, 100F);
-            Wave4 = builder.translation(IllagersWearArmor.MODID + ".config.wave4").defineInRange("Wave 4 Armor Chances", 0.15F, 0.0001F, 100F);
-            Wave5 = builder.translation(IllagersWearArmor.MODID + ".config.wave5").defineInRange("Wave 5 Armor Chances", 0.18F, 0.0001F, 100F);
-            Wave6 = builder.translation(IllagersWearArmor.MODID + ".config.wave6").defineInRange("Wave 6 Armor Chances", 0.20F, 0.0001F, 100F);
-            Wave7 = builder.translation(IllagersWearArmor.MODID + ".config.wave7").defineInRange("Wave 7 Armor Chances", 0.24F, 0.0001F, 100F);
+            Wave1 = builder.translation(IllagersWearArmor.MODID + ".config.wave1").defineInRange("Wave 1 Armor Chances", 0.18F, 0.0001F, 100F);
+            Wave2 = builder.translation(IllagersWearArmor.MODID + ".config.wave2").defineInRange("Wave 2 Armor Chances", 0.26F, 0.0001F, 100F);
+            Wave3 = builder.translation(IllagersWearArmor.MODID + ".config.wave3").defineInRange("Wave 3 Armor Chances", 0.28F, 0.0001F, 100F);
+            Wave4 = builder.translation(IllagersWearArmor.MODID + ".config.wave4").defineInRange("Wave 4 Armor Chances", 0.30F, 0.0001F, 100F);
+            Wave5 = builder.translation(IllagersWearArmor.MODID + ".config.wave5").defineInRange("Wave 5 Armor Chances", 0.34F, 0.0001F, 100F);
+            Wave6 = builder.translation(IllagersWearArmor.MODID + ".config.wave6").defineInRange("Wave 6 Armor Chances", 0.36F, 0.0001F, 100F);
+            Wave7 = builder.translation(IllagersWearArmor.MODID + ".config.wave7").defineInRange("Wave 7 Armor Chances", 0.42F, 0.0001F, 100F);
             ArmorBlackList = builder.translation(IllagersWearArmor.MODID + ".config.blacklist").comment("This will make sure any entity id in this list wont spawn with armor in raids.").define("Illager Armor BlackList", new ArrayList<>());
 
         }
