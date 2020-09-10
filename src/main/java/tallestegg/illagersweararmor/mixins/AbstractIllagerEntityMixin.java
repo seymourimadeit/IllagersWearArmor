@@ -44,15 +44,11 @@ public class AbstractIllagerEntityMixin extends AbstractRaiderEntity {
         int illagerWaves = this.getRaid().getGroupsSpawned();
         int armorChance = illagerWaves > 4 ? 4 : illagerWaves;
         float waveChances = IWAExtraStuff.getWaveArmorChances(illagerWaves);
-        if (this.world.rand.nextFloat() < waveChances) {
+        if (this.rand.nextFloat() < waveChances) {
             if (this.rand.nextFloat() < 0.045F) {
                 ++armorChance;
             }
-
-            if (this.rand.nextFloat() < 0.035F) {
-                --armorChance;
-            }
-
+            
             boolean flag = true;
 
             for (EquipmentSlotType equipmentslottype : EquipmentSlotType.values()) {
