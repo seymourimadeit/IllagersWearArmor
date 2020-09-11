@@ -43,6 +43,7 @@ public class IWAConfig {
     public static Boolean EvokerRenderArmor;
     public static Boolean IllusionerRenderArmor;
     public static Boolean VindicatorRenderArmor;
+    public static Boolean IllagerArmor;
     public static List<String> ArmorBlackList;
 
     public static void bakeCommonConfig() {
@@ -54,6 +55,7 @@ public class IWAConfig {
         Wave6Chances = COMMON.Wave6.get().floatValue();
         Wave7Chances = COMMON.Wave7.get().floatValue();
         ArmorBlackList = COMMON.ArmorBlackList.get();
+        IllagerArmor = COMMON.IllagerArmor.get();
     }
 
     public static void bakeClientConfig() {
@@ -82,6 +84,7 @@ public class IWAConfig {
         public final ForgeConfigSpec.DoubleValue Wave5;
         public final ForgeConfigSpec.DoubleValue Wave6;
         public final ForgeConfigSpec.DoubleValue Wave7;
+        public final ForgeConfigSpec.BooleanValue IllagerArmor;
         public final ForgeConfigSpec.ConfigValue<List<String>> ArmorBlackList;
 
         public CommonConfig(ForgeConfigSpec.Builder builder) {
@@ -92,7 +95,8 @@ public class IWAConfig {
             Wave5 = builder.translation(IllagersWearArmor.MODID + ".config.wave5").defineInRange("Wave 5 Armor Chances", 0.38F, 0.0001F, 100F);
             Wave6 = builder.translation(IllagersWearArmor.MODID + ".config.wave6").defineInRange("Wave 6 Armor Chances", 0.40F, 0.0001F, 100F);
             Wave7 = builder.translation(IllagersWearArmor.MODID + ".config.wave7").defineInRange("Wave 7 Armor Chances", 0.42F, 0.0001F, 100F);
-            ArmorBlackList = builder.translation(IllagersWearArmor.MODID + ".config.blacklist").comment("This will make sure any entity id in this list wont spawn with armor in raids.").define("Illager Armor BlackList", new ArrayList<>());
+            ArmorBlackList = builder.translation(IllagersWearArmor.MODID + ".config.blacklist").comment("This will make sure any entity id in this list wont spawn with armor.").define("Illager Armor BlackList", new ArrayList<>());
+            IllagerArmor = builder.translation(IllagersWearArmor.MODID + ".config.illagerArmor").define("Have Illagers spawn with armor at all?", true);
 
         }
     }
