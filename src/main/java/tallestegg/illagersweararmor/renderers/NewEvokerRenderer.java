@@ -33,6 +33,11 @@ public class NewEvokerRenderer extends MobRenderer<EvokerEntity, IllagerBipedMod
     }
 
     @Override
+    protected void preRenderCallback(EvokerEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+        matrixStackIn.scale(0.9375F, 0.9375F, 0.9375F);
+    }
+
+    @Override
     public ResourceLocation getEntityTexture(EvokerEntity entity) {
         return EVOKER_ILLAGER;
     }

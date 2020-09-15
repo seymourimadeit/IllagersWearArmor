@@ -29,6 +29,11 @@ public class NewVindicatorRenderer extends MobRenderer<VindicatorEntity, Illager
             }
         });
     }
+    
+    @Override
+    protected void preRenderCallback(VindicatorEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+        matrixStackIn.scale(0.9375F, 0.9375F, 0.9375F);
+    }
 
     @Override
     public ResourceLocation getEntityTexture(VindicatorEntity entity) {

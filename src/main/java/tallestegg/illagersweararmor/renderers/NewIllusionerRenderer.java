@@ -55,6 +55,11 @@ public class NewIllusionerRenderer extends MobRenderer<IllusionerEntity, Illager
             super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         }
     }
+    
+    @Override
+    protected void preRenderCallback(IllusionerEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+        matrixStackIn.scale(0.9375F, 0.9375F, 0.9375F);
+    }
 
     @Override
     protected boolean isVisible(IllusionerEntity livingEntityIn) {

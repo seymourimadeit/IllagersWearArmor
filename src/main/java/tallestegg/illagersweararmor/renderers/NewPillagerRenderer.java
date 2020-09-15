@@ -1,5 +1,7 @@
 package tallestegg.illagersweararmor.renderers;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.BipedArmorLayer;
@@ -24,5 +26,10 @@ public class NewPillagerRenderer extends MobRenderer<PillagerEntity, IllagerBipe
     @Override
     public ResourceLocation getEntityTexture(PillagerEntity entity) {
         return PILLAGER_TEXTURE;
+    }
+    
+    @Override
+    protected void preRenderCallback(PillagerEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+        matrixStackIn.scale(0.9375F, 0.9375F, 0.9375F);
     }
 }
