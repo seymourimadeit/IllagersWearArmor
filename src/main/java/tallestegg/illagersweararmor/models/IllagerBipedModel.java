@@ -46,13 +46,13 @@ public class IllagerBipedModel<T extends AbstractIllagerEntity> extends BipedMod
         modelrenderer1.addBox(4.0F, -2.0F, -2.0F, 4.0F, 8.0F, 4.0F, modelSize);
         this.arms.addChild(modelrenderer1);
         this.arms.setTextureOffset(40, 38).addBox(-4.0F, 2.0F, -2.0F, 8.0F, 4.0F, 4.0F, modelSize);
-        this.bipedLeftLeg = (new ModelRenderer(this, 0, 22)).setTextureSize(textureWidthIn, textureHeightIn);
-        this.bipedLeftLeg.setRotationPoint(-2.0F, 12.0F + p_i47227_2_, 0.0F);
-        this.bipedLeftLeg.addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, modelSize);
         this.bipedRightLeg = (new ModelRenderer(this, 0, 22)).setTextureSize(textureWidthIn, textureHeightIn);
-        this.bipedRightLeg.mirror = true;
-        this.bipedRightLeg.setRotationPoint(2.0F, 12.0F + p_i47227_2_, 0.0F);
+        this.bipedRightLeg.setRotationPoint(-2.0F, 12.0F + p_i47227_2_, 0.0F);
         this.bipedRightLeg.addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, modelSize);
+        this.bipedLeftLeg = (new ModelRenderer(this, 0, 22)).setTextureSize(textureWidthIn, textureHeightIn);
+        this.bipedLeftLeg.mirror = true;
+        this.bipedLeftLeg.setRotationPoint(2.0F, 12.0F + p_i47227_2_, 0.0F);
+        this.bipedLeftLeg.addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, modelSize);
         this.bipedRightArm = (new ModelRenderer(this, 40, 46)).setTextureSize(textureWidthIn, textureHeightIn);
         this.bipedRightArm.addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, modelSize);
         this.bipedRightArm.setRotationPoint(-5.0F, 2.0F + p_i47227_2_, 0.0F);
