@@ -15,6 +15,7 @@ import net.minecraft.item.UseAction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.HandSide;
 import net.minecraft.util.math.MathHelper;
+import tallestegg.illagersweararmor.IWAConfig;
 
 public class IllagerBipedModel<T extends AbstractIllagerEntity> extends BipedModel<T> {
     public ModelRenderer arms;
@@ -111,7 +112,7 @@ public class IllagerBipedModel<T extends AbstractIllagerEntity> extends BipedMod
     private void giveModelLeftArmPoses(Hand hand, T entityIn) {
         ItemStack itemstack = entityIn.getHeldItem(hand);
         UseAction useaction = itemstack.getUseAction();
-        if (entityIn.getArmPose() != AbstractIllagerEntity.ArmPose.CROSSED) {
+        if (entityIn.getArmPose() != AbstractIllagerEntity.ArmPose.CROSSED && IWAConfig.IllagerCrossArms) {
             switch (useaction) {
             case BLOCK:
                 this.leftArmPose = BipedModel.ArmPose.BLOCK;
@@ -145,7 +146,7 @@ public class IllagerBipedModel<T extends AbstractIllagerEntity> extends BipedMod
         this.jacket.copyModelAngles(bipedBody);
         boolean isWearingChestplateOrLeggings = entityIn.getItemStackFromSlot(EquipmentSlotType.CHEST).getItem() instanceof ArmorItem || entityIn.getItemStackFromSlot(EquipmentSlotType.LEGS).getItem() instanceof ArmorItem;
         this.jacket.showModel = !isWearingChestplateOrLeggings;
-        boolean flag = armpose == AbstractIllagerEntity.ArmPose.CROSSED;
+        boolean flag = armpose == AbstractIllagerEntity.ArmPose.CROSSED && IWAConfig.IllagerCrossArms;
         this.arms.showModel = flag;
         this.bipedLeftArm.showModel = !flag;
         this.bipedRightArm.showModel = !flag;

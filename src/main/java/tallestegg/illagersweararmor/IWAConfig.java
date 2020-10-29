@@ -44,6 +44,7 @@ public class IWAConfig {
     public static Boolean IllusionerRenderArmor;
     public static Boolean VindicatorRenderArmor;
     public static Boolean IllagerArmor;
+    public static Boolean IllagerCrossArms;
     public static List<String> ArmorBlackList;
 
     public static void bakeCommonConfig() {
@@ -56,6 +57,7 @@ public class IWAConfig {
         Wave7Chances = COMMON.Wave7.get().floatValue();
         ArmorBlackList = COMMON.ArmorBlackList.get();
         IllagerArmor = COMMON.IllagerArmor.get();
+        IllagerCrossArms = COMMON.IllagerCrossArms.get();
     }
 
     public static void bakeClientConfig() {
@@ -86,6 +88,7 @@ public class IWAConfig {
         public final ForgeConfigSpec.DoubleValue Wave7;
         public final ForgeConfigSpec.BooleanValue IllagerArmor;
         public final ForgeConfigSpec.ConfigValue<List<String>> ArmorBlackList;
+        public final ForgeConfigSpec.BooleanValue IllagerCrossArms;
 
         public CommonConfig(ForgeConfigSpec.Builder builder) {
             Wave1 = builder.translation(IllagersWearArmor.MODID + ".config.wave1").defineInRange("Wave 1 Armor Chances", 0.30F, 0.0001F, 100F);
@@ -97,6 +100,7 @@ public class IWAConfig {
             Wave7 = builder.translation(IllagersWearArmor.MODID + ".config.wave7").defineInRange("Wave 7 Armor Chances", 0.42F, 0.0001F, 100F);
             ArmorBlackList = builder.translation(IllagersWearArmor.MODID + ".config.blacklist").comment("This will make sure any entity id in this list wont spawn with armor.").define("Illager Armor BlackList", new ArrayList<>());
             IllagerArmor = builder.translation(IllagersWearArmor.MODID + ".config.illagerArmor").define("Have Illagers spawn with armor at all?", true);
+            IllagerCrossArms = builder.translation(IllagersWearArmor.MODID + ".config.illagerCrossArms").define("Have Illagers cross their arms when neutral?", true);
 
         }
     }

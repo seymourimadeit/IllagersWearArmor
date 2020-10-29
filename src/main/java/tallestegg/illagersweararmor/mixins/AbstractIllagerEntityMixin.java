@@ -3,6 +3,9 @@ package tallestegg.illagersweararmor.mixins;
 import javax.annotation.Nullable;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
@@ -75,42 +78,42 @@ public class AbstractIllagerEntityMixin extends AbstractRaiderEntity {
 
     protected void giveArmorNaturally(DifficultyInstance difficulty) {
         if (this.rand.nextFloat() < 0.15F * difficulty.getClampedAdditionalDifficulty()) {
-           int i = this.rand.nextInt(2);
-           float f = this.world.getDifficulty() == Difficulty.HARD ? 0.1F : 0.25F;
-           if (this.rand.nextFloat() < 0.095F) {
-              ++i;
-           }
+            int i = this.rand.nextInt(2);
+            float f = this.world.getDifficulty() == Difficulty.HARD ? 0.1F : 0.25F;
+            if (this.rand.nextFloat() < 0.095F) {
+                ++i;
+            }
 
-           if (this.rand.nextFloat() < 0.095F) {
-              ++i;
-           }
+            if (this.rand.nextFloat() < 0.095F) {
+                ++i;
+            }
 
-           if (this.rand.nextFloat() < 0.095F) {
-              ++i;
-           }
+            if (this.rand.nextFloat() < 0.095F) {
+                ++i;
+            }
 
-           boolean flag = true;
+            boolean flag = true;
 
-           for(EquipmentSlotType equipmentslottype : EquipmentSlotType.values()) {
-              if (equipmentslottype.getSlotType() == EquipmentSlotType.Group.ARMOR) {
-                 ItemStack itemstack = this.getItemStackFromSlot(equipmentslottype);
-                 if (!flag && this.rand.nextFloat() < f) {
-                    break;
-                 }
-
-                 flag = false;
-                 if (itemstack.isEmpty()) {
-                    Item item = getArmorByChance(equipmentslottype, i);
-                    if (item != null) {
-                       this.setItemStackToSlot(equipmentslottype, new ItemStack(item));
-                       this.addTag("iwasspawnedwitharmorduetoamod");
+            for (EquipmentSlotType equipmentslottype : EquipmentSlotType.values()) {
+                if (equipmentslottype.getSlotType() == EquipmentSlotType.Group.ARMOR) {
+                    ItemStack itemstack = this.getItemStackFromSlot(equipmentslottype);
+                    if (!flag && this.rand.nextFloat() < f) {
+                        break;
                     }
-                 }
-              }
-           }
-        }
 
-     }
+                    flag = false;
+                    if (itemstack.isEmpty()) {
+                        Item item = getArmorByChance(equipmentslottype, i);
+                        if (item != null) {
+                            this.setItemStackToSlot(equipmentslottype, new ItemStack(item));
+                            this.addTag("iwasspawnedwitharmorduetoamod");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
     @Override
     public void func_213660_a(int p_213660_1_, boolean p_213660_2_) {

@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.entity.layers.HeadLayer;
 import net.minecraft.client.renderer.entity.layers.HeldItemLayer;
 import net.minecraft.entity.monster.VindicatorEntity;
 import net.minecraft.util.ResourceLocation;
+import tallestegg.illagersweararmor.IWAConfig;
 import tallestegg.illagersweararmor.models.IllagerArmorModel;
 import tallestegg.illagersweararmor.models.IllagerBipedModel;
 
@@ -23,7 +24,7 @@ public class NewVindicatorRenderer extends MobRenderer<VindicatorEntity, Illager
         this.addLayer(new BipedArmorLayer(this, new IllagerArmorModel(0.5F), new IllagerArmorModel(1.0F)));
         this.addLayer(new HeldItemLayer<VindicatorEntity, IllagerBipedModel<VindicatorEntity>>(this) {
             public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, VindicatorEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-                if (entitylivingbaseIn.isAggressive()) {
+                if (entitylivingbaseIn.isAggressive() && IWAConfig.IllagerCrossArms || !IWAConfig.IllagerCrossArms) {
                     super.render(matrixStackIn, bufferIn, packedLightIn, entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
                 }
             }
