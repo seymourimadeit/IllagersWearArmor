@@ -3,9 +3,6 @@ package tallestegg.illagersweararmor.mixins;
 import javax.annotation.Nullable;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
@@ -16,23 +13,22 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import tallestegg.illagersweararmor.IWAConfig;
 import tallestegg.illagersweararmor.IWAExtraStuff;
 
 @Mixin(AbstractIllagerEntity.class)
-public class AbstractIllagerEntityMixin extends AbstractRaiderEntity {
+public abstract class AbstractIllagerEntityMixin extends AbstractRaiderEntity {
     protected AbstractIllagerEntityMixin(EntityType<? extends AbstractRaiderEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
     // this is a temp way to get illagers to spawn with armor until pr = merged
     @Override
-    public ILivingEntityData onInitialSpawn(IWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
         if (IWAConfig.IllagerArmor) {
             if (reason == SpawnReason.EVENT) {
                 this.giveArmorOnRaids();
@@ -112,16 +108,5 @@ public class AbstractIllagerEntityMixin extends AbstractRaiderEntity {
                 }
             }
         }
-    }
-
-
-    @Override
-    public void func_213660_a(int p_213660_1_, boolean p_213660_2_) {
-
-    }
-
-    @Override
-    public SoundEvent getRaidLossSound() {
-        return null;
     }
 }
