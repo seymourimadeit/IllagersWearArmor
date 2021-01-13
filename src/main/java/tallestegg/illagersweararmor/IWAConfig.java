@@ -44,6 +44,7 @@ public class IWAConfig {
     public static Boolean EnchanterRenderArmor;
     public static Boolean IllagerArmor;
     public static Boolean IllagerCrossArms;
+    public static float EnchanterHelmetHeight;
     public static List<String> ArmorBlackList;
 
     public static void bakeCommonConfig() {
@@ -65,6 +66,7 @@ public class IWAConfig {
         VindicatorRenderArmor = CLIENT.VindicatorArmor.get();
         EnchanterRenderArmor = CLIENT.EnchanterArmor.get();
         IllagerCrossArms = CLIENT.IllagerCrossArms.get();
+        EnchanterHelmetHeight = CLIENT.EnchanterHelmetHeight.get().floatValue();
     }
 
     @SubscribeEvent
@@ -111,6 +113,7 @@ public class IWAConfig {
         public final ForgeConfigSpec.BooleanValue EnchanterArmor;
         public final ForgeConfigSpec.BooleanValue HunterArmor;
         public final ForgeConfigSpec.BooleanValue IllagerCrossArms;
+        public final ForgeConfigSpec.DoubleValue EnchanterHelmetHeight;
 
         public ClientConfig(ForgeConfigSpec.Builder builder) {
             PillagerArmor = builder.translation(IllagersWearArmor.MODID + ".config.pillagerarmor").define("Have Pillagers render armor?", true);
@@ -119,6 +122,7 @@ public class IWAConfig {
             VindicatorArmor = builder.translation(IllagersWearArmor.MODID + ".config.vindiarmor").define("Have Vindicators render armor?", true);
             EnchanterArmor = builder.translation(IllagersWearArmor.MODID + ".config.enchantarmor").define("Have Enchanters from Enchant with Mob render armor?", true);
             HunterArmor = builder.translation(IllagersWearArmor.MODID + ".config.hunterarmor").define("Have the Hunters from Hunter Illagers render armor?", true);
+            EnchanterHelmetHeight = builder.translation(IllagersWearArmor.MODID + ".config.height").defineInRange("Height of the Enchanters helmet", -15.0F, 0.0001F, 100F);
             IllagerCrossArms = builder.translation(IllagersWearArmor.MODID + ".config.illagerCrossArms").define("Have Illagers cross their arms when neutral?", true);
         }
     }
