@@ -50,7 +50,6 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
             arg "-mixin.config=illagersweararmor.mixins.json"
-            property "mixin.env.disableRefMap", "true"
 
             mods {
                 examplemod {
@@ -68,7 +67,6 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
             arg "-mixin.config=illagersweararmor.mixins.json"
-            property "mixin.env.disableRefMap", "true"
 
             mods {
                 examplemod {
@@ -101,7 +99,7 @@ dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.16.4-35.1.29'
+    minecraft 'net.minecraftforge:forge:1.16.4-35.1.7'
     implementation fg.deobf("curse.maven:enchant-with-mob-391187:3145958")
     implementation fg.deobf("curse.maven:hunterillager-318857:3141631")
 
