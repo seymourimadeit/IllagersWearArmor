@@ -17,8 +17,8 @@ import net.minecraft.client.renderer.tileentity.EnchantmentTableTileEntityRender
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3f;
+import tallestegg.illagersweararmor.models.EnchanterArmorModel;
 import tallestegg.illagersweararmor.models.EnchanterBipedModel;
-import tallestegg.illagersweararmor.models.IllagerArmorModel;
 
 public class NewEnchanterRenderer<T extends EnchanterEntity> extends MobRenderer<T, EnchanterBipedModel<T>> {
     private static final ResourceLocation ILLAGER = new ResourceLocation(EnchantWithMob.MODID, "textures/entity/enchanter.png");
@@ -29,7 +29,7 @@ public class NewEnchanterRenderer<T extends EnchanterEntity> extends MobRenderer
         super(p_i47477_1_, new EnchanterBipedModel<>(), 0.5F);
         this.addLayer(new HeadLayer<>(this));
         // this.addLayer(new CrossArmHeldItemLayer<>(this));
-        this.addLayer(new BipedArmorLayer<>(this, new IllagerArmorModel<>(0.5F), new IllagerArmorModel<>(1.0F)));
+        this.addLayer(new BipedArmorLayer<>(this, new EnchanterArmorModel<>(0.5F), new EnchanterArmorModel<>(1.0F)));
     }
 
     @Override
