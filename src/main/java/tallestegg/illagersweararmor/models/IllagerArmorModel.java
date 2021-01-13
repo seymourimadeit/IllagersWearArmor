@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.monster.AbstractIllagerEntity;
 
-public class IllagerArmorModel extends BipedModel<AbstractIllagerEntity> {
+public class IllagerArmorModel<T extends AbstractIllagerEntity> extends BipedModel<T> {
     public IllagerArmorModel(float modelSizeIn) {
         super(modelSizeIn);
         this.bipedHead = new ModelRenderer(this, 0, 0);

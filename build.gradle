@@ -20,7 +20,7 @@ mixin {
     add sourceSets.main, "illagersweararmor.refmap.json"
 }
 
-version = '1.0.3'
+version = '1.0.4'
 group = 'tallestegg.illagersweararmor' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'illagersweararmor'
 
@@ -50,6 +50,7 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
             arg "-mixin.config=illagersweararmor.mixins.json"
+            property "mixin.env.disableRefMap", "true"
 
             mods {
                 examplemod {
@@ -67,6 +68,7 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
             arg "-mixin.config=illagersweararmor.mixins.json"
+            property "mixin.env.disableRefMap", "true"
 
             mods {
                 examplemod {
@@ -99,7 +101,9 @@ dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.16.3-34.1.42'
+    minecraft 'net.minecraftforge:forge:1.16.4-35.1.29'
+    implementation fg.deobf("curse.maven:enchant-with-mob-391187:3145958")
+    implementation fg.deobf("curse.maven:hunterillager-318857:3141631")
 
     // You may put jars on which you depend on in ./libs or you may define them like so..
     // compile "some.group:artifact:version:classifier"
@@ -119,6 +123,12 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
+}
+
+repositories {
+    maven {
+        url "https://www.cursemaven.com"
+    }
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

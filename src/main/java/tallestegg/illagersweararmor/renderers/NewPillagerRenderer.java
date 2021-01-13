@@ -15,10 +15,9 @@ import tallestegg.illagersweararmor.models.IllagerBipedModel;
 public class NewPillagerRenderer extends MobRenderer<PillagerEntity, IllagerBipedModel<PillagerEntity>> {
     private static final ResourceLocation PILLAGER_TEXTURE = new ResourceLocation("textures/entity/illager/pillager.png");
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
     public NewPillagerRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new IllagerBipedModel<>(0.0F, 0.0F, 64, 64), 0.5f);
-        this.addLayer(new BipedArmorLayer(this, new IllagerArmorModel(0.5F), new IllagerArmorModel(1.0F)));
+        this.addLayer(new BipedArmorLayer<>(this, new IllagerArmorModel<>(0.5F), new IllagerArmorModel<>(1.0F)));
         this.addLayer(new HeldItemLayer<>(this));
         this.addLayer(new HeadLayer<PillagerEntity, IllagerBipedModel<PillagerEntity>>(this));
     }

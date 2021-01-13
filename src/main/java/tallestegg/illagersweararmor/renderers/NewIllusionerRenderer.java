@@ -18,11 +18,10 @@ import tallestegg.illagersweararmor.models.IllagerBipedModel;
 public class NewIllusionerRenderer extends MobRenderer<IllusionerEntity, IllagerBipedModel<IllusionerEntity>> {
     private static final ResourceLocation ILLUSIONIST = new ResourceLocation("textures/entity/illager/illusioner.png");
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
     public NewIllusionerRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new IllagerBipedModel<>(0.0F, 0.0F, 64, 64), 0.5F);
         this.addLayer(new HeadLayer<>(this));
-        this.addLayer(new BipedArmorLayer(this, new IllagerArmorModel(0.5F), new IllagerArmorModel(1.0F)));
+        this.addLayer(new BipedArmorLayer<>(this, new IllagerArmorModel<>(0.5F), new IllagerArmorModel<>(1.0F)));
         this.addLayer(new HeldItemLayer<IllusionerEntity, IllagerBipedModel<IllusionerEntity>>(this) {
             @Override
             public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, IllusionerEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {

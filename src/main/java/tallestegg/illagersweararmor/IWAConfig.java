@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -43,6 +41,7 @@ public class IWAConfig {
     public static Boolean EvokerRenderArmor;
     public static Boolean IllusionerRenderArmor;
     public static Boolean VindicatorRenderArmor;
+    public static Boolean EnchanterRenderArmor;
     public static Boolean IllagerArmor;
     public static Boolean IllagerCrossArms;
     public static List<String> ArmorBlackList;
@@ -65,6 +64,7 @@ public class IWAConfig {
         EvokerRenderArmor = CLIENT.EvokerArmor.get();
         IllusionerRenderArmor = CLIENT.IllusionerArmor.get();
         VindicatorRenderArmor = CLIENT.VindicatorArmor.get();
+        EnchanterRenderArmor = CLIENT.EnchanterArmor.get();
     }
 
     @SubscribeEvent
@@ -110,12 +110,14 @@ public class IWAConfig {
         public final ForgeConfigSpec.BooleanValue EvokerArmor;
         public final ForgeConfigSpec.BooleanValue IllusionerArmor;
         public final ForgeConfigSpec.BooleanValue VindicatorArmor;
+        public final ForgeConfigSpec.BooleanValue EnchanterArmor;
 
         public ClientConfig(ForgeConfigSpec.Builder builder) {
             PillagerArmor = builder.translation(IllagersWearArmor.MODID + ".config.pillagerarmor").define("Have Pillagers render armor?", true);
             EvokerArmor = builder.translation(IllagersWearArmor.MODID + ".config.evokerarmor").define("Have Evokers render armor?", true);
             IllusionerArmor = builder.translation(IllagersWearArmor.MODID + ".config.illusionarmor").define("Have Illusioners render armor?", true);
             VindicatorArmor = builder.translation(IllagersWearArmor.MODID + ".config.vindiarmor").define("Have Vindicators render armor?", true);
+            EnchanterArmor = builder.translation(IllagersWearArmor.MODID + ".config.enchantarmor").define("Have Enchanters from Enchant with Mob render armor?", true);
         }
     }
 }

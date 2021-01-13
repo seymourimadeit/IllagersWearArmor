@@ -3,6 +3,7 @@ package tallestegg.illagersweararmor.models;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 
+import baguchan.hunterillager.entity.HunterIllagerEntity;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelHelper;
 import net.minecraft.client.renderer.model.ModelRenderer;
@@ -17,55 +18,81 @@ import net.minecraft.util.HandSide;
 import net.minecraft.util.math.MathHelper;
 import tallestegg.illagersweararmor.IWAConfig;
 
-public class IllagerBipedModel<T extends AbstractIllagerEntity> extends BipedModel<T> {
-    public ModelRenderer arms;
-    public ModelRenderer jacket;
+public class HunterBipedModel<T extends HunterIllagerEntity> extends BipedModel<T> {
+    private final ModelRenderer quiver;
+    private final ModelRenderer cape;
+    private final ModelRenderer capeLower;
+    private final ModelRenderer jacket;
+    private final ModelRenderer arms;
 
-    public IllagerBipedModel(float modelSize, float p_i47227_2_, int textureWidthIn, int textureHeightIn) {
-        super(modelSize);
+    public HunterBipedModel(float scaleFactor, float p_i47227_2_, int textureWidthIn, int textureHeightIn) {
+        super(scaleFactor, p_i47227_2_, textureWidthIn, textureHeightIn);
         this.bipedHead = (new ModelRenderer(this)).setTextureSize(textureWidthIn, textureHeightIn);
         this.bipedHead.setRotationPoint(0.0F, 0.0F + p_i47227_2_, 0.0F);
-        this.bipedHead.setTextureOffset(0, 0).addBox(-4.0F, -10.0F, -4.0F, 8.0F, 10.0F, 8.0F, modelSize);
+        this.bipedHead.setTextureOffset(0, 0).addBox(-4.0F, -10.0F, -4.0F, 8.0F, 10.0F, 8.0F, scaleFactor);
         this.bipedHeadwear = (new ModelRenderer(this, 32, 0)).setTextureSize(textureWidthIn, textureHeightIn);
-        this.bipedHeadwear.addBox(-4.0F, -10.0F, -4.0F, 8.0F, 12.0F, 8.0F, modelSize + 0.45F);
+        this.bipedHeadwear.addBox(-4.0F, -10.0F, -4.0F, 8.0F, 12.0F, 8.0F, scaleFactor + 0.45F);
         this.bipedHeadwear.showModel = false;
         ModelRenderer modelrenderer = (new ModelRenderer(this)).setTextureSize(textureWidthIn, textureHeightIn);
         modelrenderer.setRotationPoint(0.0F, p_i47227_2_ - 2.0F, 0.0F);
-        modelrenderer.setTextureOffset(24, 0).addBox(-1.0F, -1.0F, -6.0F, 2.0F, 4.0F, 2.0F, modelSize);
+        modelrenderer.setTextureOffset(24, 0).addBox(-1.0F, -1.0F, -6.0F, 2.0F, 4.0F, 2.0F, scaleFactor);
         this.bipedHead.addChild(modelrenderer);
         this.bipedBody = (new ModelRenderer(this)).setTextureSize(textureWidthIn, textureHeightIn);
         this.bipedBody.setRotationPoint(0.0F, 0.0F + p_i47227_2_, 0.0F);
-        this.bipedBody.setTextureOffset(16, 20).addBox(-4.0F, 0.0F, -3.0F, 8.0F, 12.0F, 6.0F, modelSize);
+        this.bipedBody.setTextureOffset(16, 20).addBox(-4.0F, 0.0F, -3.0F, 8.0F, 12.0F, 6.0F, scaleFactor);
         this.jacket = (new ModelRenderer(this)).setTextureSize(textureWidthIn, textureHeightIn);
         this.jacket.setRotationPoint(0.0F, 0.0F + p_i47227_2_, 0.0F);
-        this.jacket.setTextureOffset(0, 38).addBox(-4.0F, 0.0F, -3.0F, 8.0F, 18.0F, 6.0F, modelSize + 0.5F);
+        this.jacket.setTextureOffset(0, 38).addBox(-4.0F, 0.0F, -3.0F, 8.0F, 18.0F, 6.0F, scaleFactor + 0.5F);
         this.arms = (new ModelRenderer(this)).setTextureSize(textureWidthIn, textureHeightIn);
         this.arms.setRotationPoint(0.0F, 0.0F + p_i47227_2_ + 2.0F, 0.0F);
-        this.arms.setTextureOffset(44, 22).addBox(-8.0F, -2.0F, -2.0F, 4.0F, 8.0F, 4.0F, modelSize);
+        this.arms.setTextureOffset(44, 22).addBox(-8.0F, -2.0F, -2.0F, 4.0F, 8.0F, 4.0F, scaleFactor);
         ModelRenderer modelrenderer1 = (new ModelRenderer(this, 44, 22)).setTextureSize(textureWidthIn, textureHeightIn);
         modelrenderer1.mirror = true;
-        modelrenderer1.addBox(4.0F, -2.0F, -2.0F, 4.0F, 8.0F, 4.0F, modelSize);
+        modelrenderer1.addBox(4.0F, -2.0F, -2.0F, 4.0F, 8.0F, 4.0F, scaleFactor);
         this.arms.addChild(modelrenderer1);
-        this.arms.setTextureOffset(40, 38).addBox(-4.0F, 2.0F, -2.0F, 8.0F, 4.0F, 4.0F, modelSize);
+        this.arms.setTextureOffset(40, 38).addBox(-4.0F, 2.0F, -2.0F, 8.0F, 4.0F, 4.0F, scaleFactor);
         this.bipedRightLeg = (new ModelRenderer(this, 0, 22)).setTextureSize(textureWidthIn, textureHeightIn);
         this.bipedRightLeg.setRotationPoint(-2.0F, 12.0F + p_i47227_2_, 0.0F);
-        this.bipedRightLeg.addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, modelSize);
+        this.bipedRightLeg.addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, scaleFactor);
         this.bipedLeftLeg = (new ModelRenderer(this, 0, 22)).setTextureSize(textureWidthIn, textureHeightIn);
         this.bipedLeftLeg.mirror = true;
         this.bipedLeftLeg.setRotationPoint(2.0F, 12.0F + p_i47227_2_, 0.0F);
-        this.bipedLeftLeg.addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, modelSize);
+        this.bipedLeftLeg.addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, scaleFactor);
         this.bipedRightArm = (new ModelRenderer(this, 40, 46)).setTextureSize(textureWidthIn, textureHeightIn);
-        this.bipedRightArm.addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, modelSize);
+        this.bipedRightArm.addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, scaleFactor);
         this.bipedRightArm.setRotationPoint(-5.0F, 2.0F + p_i47227_2_, 0.0F);
         this.bipedLeftArm = (new ModelRenderer(this, 40, 46)).setTextureSize(textureWidthIn, textureHeightIn);
         this.bipedLeftArm.mirror = true;
-        this.bipedLeftArm.addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, modelSize);
+        this.bipedLeftArm.addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, scaleFactor);
         this.bipedLeftArm.setRotationPoint(5.0F, 2.0F + p_i47227_2_, 0.0F);
+
+        // Mojang made the original hood 12 pixels for some reason, so this had to be
+        // done
+        this.getModelHead().addBox("hood_fixed", -4F, -10F, -4F, 8, 10, 8, scaleFactor + 0.45F, 32, 0);
+
+        this.cape = new ModelRenderer(this, 0, 0);
+        this.cape.setTextureSize(textureWidthIn, textureHeightIn);
+        this.cape.setRotationPoint(0F, 0.5F, 3F);
+        this.cape.setTextureOffset(0, 64).addBox(-4.5F, 0F, -0.5F, 9, 11, 1, 0.1F + scaleFactor);
+        this.bipedBody.addChild(this.cape);
+
+        this.quiver = new ModelRenderer(this);
+        this.quiver.setTextureSize(textureWidthIn, textureHeightIn);
+        this.quiver.setRotationPoint(3F, 0F, 2.5F);
+        this.quiver.setTextureOffset(20, 64).addBox(-2.5F, 0F, -2.5F, 5, 13, 3, -0.5F + scaleFactor);
+        this.quiver.setTextureOffset(36, 64).addBox(-2.5F, 0F, -2.5F, 5, 13, 3, scaleFactor);
+        this.cape.addChild(this.quiver);
+
+        this.capeLower = new ModelRenderer(this, 0, 0);
+        this.capeLower.setTextureSize(textureWidthIn, textureHeightIn);
+        this.capeLower.setRotationPoint(0F, 11F, 0F);
+        this.capeLower.setTextureOffset(0, 76).addBox(-4.5F, 0F, -0.5F, 9, 8, 1, 0.1F + scaleFactor);
+        this.cape.addChild(this.capeLower);
     }
 
     @Override
     protected Iterable<ModelRenderer> getBodyParts() {
-        return Iterables.concat(super.getBodyParts(), ImmutableList.of(this.arms, this.jacket));
+        return Iterables.concat(super.getBodyParts(), ImmutableList.of(this.arms, this.jacket, this.cape, this.capeLower));
     }
 
     @Override
@@ -81,7 +108,7 @@ public class IllagerBipedModel<T extends AbstractIllagerEntity> extends BipedMod
         }
         super.setLivingAnimations(entityIn, limbSwing, limbSwingAmount, partialTick);
     }
-    
+
     private void giveModelRightArmPoses(Hand hand, T entityIn) {
         ItemStack itemstack = entityIn.getHeldItem(hand);
         UseAction useaction = itemstack.getUseAction();
@@ -108,7 +135,7 @@ public class IllagerBipedModel<T extends AbstractIllagerEntity> extends BipedMod
             }
         }
     }
-    
+
     private void giveModelLeftArmPoses(Hand hand, T entityIn) {
         ItemStack itemstack = entityIn.getHeldItem(hand);
         UseAction useaction = itemstack.getUseAction();
@@ -139,6 +166,9 @@ public class IllagerBipedModel<T extends AbstractIllagerEntity> extends BipedMod
     @Override
     public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        this.quiver.rotateAngleZ = 0.5235987755982988F;
+        this.cape.rotateAngleX = ((float) (Math.PI) / 18) * (limbSwingAmount * 1.75F);
+        this.capeLower.rotateAngleX = ((float) (Math.PI) / 32) * (limbSwingAmount * 1.75F);
         AbstractIllagerEntity.ArmPose armpose = entityIn.getArmPose();
         this.arms.rotationPointY = 3.0F;
         this.arms.rotationPointZ = -1.0F;

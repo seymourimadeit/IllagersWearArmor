@@ -29,7 +29,7 @@ public abstract class AbstractIllagerEntityMixin extends AbstractRaiderEntity {
     // this is a temp way to get illagers to spawn with armor until pr = merged
     @Override
     public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
-        if (IWAConfig.IllagerArmor) {
+        if (IWAConfig.IllagerArmor && !IWAConfig.ArmorBlackList.contains(this.getEntityString())) {
             if (reason == SpawnReason.EVENT) {
                 this.giveArmorOnRaids();
             } else {
@@ -64,7 +64,6 @@ public abstract class AbstractIllagerEntityMixin extends AbstractRaiderEntity {
                         Item item = getArmorByChance(equipmentslottype, armorChance);
                         if (item != null) {
                             this.setItemStackToSlot(equipmentslottype, new ItemStack(item));
-                            this.addTag("iwasspawnedwitharmorduetoamod");
                         }
                     }
                 }
@@ -102,7 +101,6 @@ public abstract class AbstractIllagerEntityMixin extends AbstractRaiderEntity {
                         Item item = getArmorByChance(equipmentslottype, i);
                         if (item != null) {
                             this.setItemStackToSlot(equipmentslottype, new ItemStack(item));
-                            this.addTag("iwasspawnedwitharmorduetoamod");
                         }
                     }
                 }
