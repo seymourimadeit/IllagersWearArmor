@@ -27,3 +27,15 @@ Allows illagers to wear armor.
     versionRange="[1.16.3,]"
     ordering="NONE"
     side="BOTH"
+[[dependencies.illagersweararmor]]
+    modId="enchantwithmob"
+    mandatory=false
+    versionRange="[1.16.3,]"
+    ordering="AFTER"
+    side="BOTH"
+[[dependencies.illagersweararmor]]
+    modId="hunterillager"
+    mandatory=false
+    versionRange="[1.16.3,]"
+    ordering="AFTER"
+    side="BOTH"

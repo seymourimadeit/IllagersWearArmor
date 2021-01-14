@@ -42,6 +42,7 @@ public class IWAConfig {
     public static Boolean IllusionerRenderArmor;
     public static Boolean VindicatorRenderArmor;
     public static Boolean EnchanterRenderArmor;
+    public static Boolean HunterRenderArmor;
     public static Boolean IllagerArmor;
     public static Boolean IllagerCrossArms;
     public static float EnchanterHelmetHeight;
@@ -66,6 +67,7 @@ public class IWAConfig {
         VindicatorRenderArmor = CLIENT.VindicatorArmor.get();
         EnchanterRenderArmor = CLIENT.EnchanterArmor.get();
         IllagerCrossArms = CLIENT.IllagerCrossArms.get();
+        HunterRenderArmor = CLIENT.HunterArmor.get();
         EnchanterHelmetHeight = CLIENT.EnchanterHelmetHeight.get().floatValue();
     }
 

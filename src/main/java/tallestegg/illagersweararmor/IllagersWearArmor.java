@@ -6,6 +6,8 @@ import baguchan.hunterillager.init.HunterEntityRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -28,20 +30,16 @@ import tallestegg.illagersweararmor.renderers.NewVindicatorRenderer;
 @Mod(IllagersWearArmor.MODID)
 public class IllagersWearArmor {
     public static final String MODID = "illagersweararmor";
-
-    @SuppressWarnings("deprecation")
+    
     public IllagersWearArmor() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(IWAEvents.class);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, IWAConfig.COMMON_SPEC);
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, IWAConfig.CLIENT_SPEC);
-        DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
-            FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
-            FMLJavaModLoadingContext.get().getModEventBus().addListener(this::loadComplete);
-        });
     }
 
     private void setup(final FMLCommonSetupEvent event) {
@@ -57,14 +55,10 @@ public class IllagersWearArmor {
             RenderingRegistry.registerEntityRenderingHandler(EntityType.ILLUSIONER, NewIllusionerRenderer::new);
         if (IWAConfig.EvokerRenderArmor)
             RenderingRegistry.registerEntityRenderingHandler(EntityType.EVOKER, NewEvokerRenderer::new);
-        if (ModList.get().isLoaded("enchantwithmob") && IWAConfig.EnchanterRenderArmor)
+        if (ModList.get().isLoaded("enchantwithmob"))
             RenderingRegistry.registerEntityRenderingHandler(ModEntities.ENCHANTER, NewEnchanterRenderer::new);
         if (ModList.get().isLoaded("hunterillager"))
             RenderingRegistry.registerEntityRenderingHandler(HunterEntityRegistry.HUNTERILLAGER, NewHunterRenderer::new);
-    }
-
-    private void loadComplete(final FMLLoadCompleteEvent event) {
-
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
