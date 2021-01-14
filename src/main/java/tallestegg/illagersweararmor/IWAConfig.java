@@ -124,7 +124,7 @@ public class IWAConfig {
             VindicatorArmor = builder.translation(IllagersWearArmor.MODID + ".config.vindiarmor").define("Have Vindicators render armor?", true);
             EnchanterArmor = builder.translation(IllagersWearArmor.MODID + ".config.enchantarmor").define("Have Enchanters from Enchant with Mob render armor?", true);
             HunterArmor = builder.translation(IllagersWearArmor.MODID + ".config.hunterarmor").define("Have the Hunters from Hunter Illagers render armor?", true);
-            EnchanterHelmetHeight = builder.translation(IllagersWearArmor.MODID + ".config.height").defineInRange("Height of the Enchanters helmet", -15.0F, 0.0001F, 100F);
+            EnchanterHelmetHeight = builder.translation(IllagersWearArmor.MODID + ".config.height").defineInRange("Height of the Enchanters helmet", -15.0F, -500.0F, 100F);
             IllagerCrossArms = builder.translation(IllagersWearArmor.MODID + ".config.illagerCrossArms").define("Have Illagers cross their arms when neutral?", true);
         }
     }
