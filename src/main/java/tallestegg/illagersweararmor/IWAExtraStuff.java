@@ -18,6 +18,8 @@ public class IWAExtraStuff {
             return IWAConfig.Wave6Chances;
         case 6:
             return IWAConfig.Wave7Chances;
+        case 8:
+            return IWAConfig.Wave8Chances;
         }
         return 0;
     }

@@ -55,7 +55,8 @@ public class IWAConfig {
         Wave4Chances = COMMON.Wave4.get().floatValue();
         Wave5Chances = COMMON.Wave5.get().floatValue();
         Wave6Chances = COMMON.Wave6.get().floatValue();
-        Wave7Chances = COMMON.Wave7.get().floatValue();
+        Wave7Chances = COMMON.Wave7.get().floatValue();        
+        Wave8Chances = COMMON.Wave8.get().floatValue();
         ArmorBlackList = COMMON.ArmorBlackList.get();
         IllagerArmor = COMMON.IllagerArmor.get();
     }
@@ -90,6 +91,7 @@ public class IWAConfig {
         public final ForgeConfigSpec.DoubleValue Wave5;
         public final ForgeConfigSpec.DoubleValue Wave6;
         public final ForgeConfigSpec.DoubleValue Wave7;
+        public final ForgeConfigSpec.DoubleValue Wave8;
         public final ForgeConfigSpec.BooleanValue IllagerArmor;
         public final ForgeConfigSpec.ConfigValue<List<String>> ArmorBlackList;
 
@@ -101,6 +103,7 @@ public class IWAConfig {
             Wave5 = builder.translation(IllagersWearArmor.MODID + ".config.wave5").defineInRange("Wave 5 Armor Chances", 0.38F, 0.0001F, 100F);
             Wave6 = builder.translation(IllagersWearArmor.MODID + ".config.wave6").defineInRange("Wave 6 Armor Chances", 0.40F, 0.0001F, 100F);
             Wave7 = builder.translation(IllagersWearArmor.MODID + ".config.wave7").defineInRange("Wave 7 Armor Chances", 0.42F, 0.0001F, 100F);
+            Wave8 = builder.translation(IllagersWearArmor.MODID + ".config.wave7").defineInRange("Wave 8 Armor Chances", 0.48F, 0.0001F, 100F);
             ArmorBlackList = builder.translation(IllagersWearArmor.MODID + ".config.blacklist").comment("This will make sure any entity id in this list wont spawn with armor.").define("Illager Armor BlackList", new ArrayList<>());
             IllagerArmor = builder.translation(IllagersWearArmor.MODID + ".config.illagerArmor").define("Have Illagers spawn with armor at all?", true);
 

@@ -30,7 +30,7 @@ public abstract class AbstractIllagerEntityMixin extends AbstractRaiderEntity {
     @Override
     public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
         if (IWAConfig.IllagerArmor && !IWAConfig.ArmorBlackList.contains(this.getEntityString())) {
-            if (reason == SpawnReason.EVENT) {
+            if (reason == SpawnReason.EVENT && this.getRaid() != null) {
                 this.giveArmorOnRaids();
             } else {
                 this.giveArmorNaturally(difficultyIn);
