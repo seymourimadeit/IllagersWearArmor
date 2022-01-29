@@ -16,6 +16,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.item.ArmorItem;
+import tallestegg.illagersweararmor.IWAConfig;
 
 public class IllagerBipedModel<T extends AbstractIllager> extends HumanoidModel<T> {
     public ModelPart nose = this.head.getChild("nose");
@@ -76,7 +77,7 @@ public class IllagerBipedModel<T extends AbstractIllager> extends HumanoidModel<
             float p_102933_) {
         super.setupAnim(p_102928_, p_102929_, p_102930_, p_102931_, p_102932_, p_102933_);
         AbstractIllager.IllagerArmPose armpose = p_102928_.getArmPose();
-        boolean flag = armpose == AbstractIllager.IllagerArmPose.CROSSED;
+        boolean flag = armpose == AbstractIllager.IllagerArmPose.CROSSED && IWAConfig.crossArms;
         this.arms.visible = flag;
         this.leftArm.visible = !flag;
         this.rightArm.visible = !flag;
