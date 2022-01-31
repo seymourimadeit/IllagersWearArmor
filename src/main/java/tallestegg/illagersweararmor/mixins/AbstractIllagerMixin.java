@@ -30,9 +30,10 @@ public abstract class AbstractIllagerMixin extends Raider {
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_34297_, DifficultyInstance p_34298_,
             MobSpawnType p_34299_, @Nullable SpawnGroupData p_34300_, @Nullable CompoundTag p_34301_) {
-        if (!IWAConfig.ArmorBlackList.contains(this.getStringUUID())) {
+        if (!IWAConfig.ArmorBlackList.contains(this.getStringUUID()) && IWAConfig.IllagerArmor) {
             this.giveArmorNaturally(p_34298_);
-            this.giveArmorOnRaids();
+            if (this.getCurrentRaid() != null && p_34299_ == MobSpawnType.EVENT)
+                this.giveArmorOnRaids();
         }
         return super.finalizeSpawn(p_34297_, p_34298_, p_34299_, p_34300_, p_34301_);
     }

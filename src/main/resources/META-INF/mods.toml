@@ -1,7 +1,7 @@
 modLoader="javafml" #mandatory
-loaderVersion="[38,)" #mandatory (28 is current forge version)
+loaderVersion="[39,)" #mandatory (28 is current forge version)
 issueTrackerURL="https://github.com/seymourimadeit/illagersweararmor/issues" #optional
-license="MIT"
+license="GPLv3"
 # A list of mods - how many allowed here is determined by the individual mod loader
 [[mods]] #mandatory
 modId="illagersweararmor" #mandatory
@@ -12,18 +12,29 @@ displayURL="https://www.curseforge.com/minecraft/mc-mods/illagers-wear-armor" #o
 credits="TallestEgg" #optional
 authors="TallestEgg" #optional
 description='''
-Need some help with pest control? The Guards are ready to help!
+Illagers with armor.
 '''
-[[dependencies.illagersweararmor]] #optional
+[[dependencies.illagersweararmor]] 
     modId="forge" #mandatory
     mandatory=true #mandatory
     versionRange="[38.0.0,)" #mandatory
     ordering="NONE"
     side="BOTH"
-# Here's another dependency
 [[dependencies.illagersweararmor]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.18,]"
-    ordering="NONE"
+    versionRange="[1.18.1,)"
+    ordering="BEFORE"
+    side="BOTH"
+[[dependencies.illagersweararmor]] 
+    modId="enchantwithmob" #mandatory
+    mandatory=false #mandatory
+    versionRange="[1.18.1-3.0.0,)" #mandatory
+    ordering="AFTER"
+    side="BOTH"
+[[dependencies.illagersweararmor]] 
+    modId="hunterillager"
+    mandatory=false #mandatory
+    versionRange="[1.18.1-3.0.0,)"
+    ordering="AFTER"
     side="BOTH"
