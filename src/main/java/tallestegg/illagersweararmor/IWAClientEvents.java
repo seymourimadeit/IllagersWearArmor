@@ -35,7 +35,7 @@ public class IWAClientEvents {
             new ResourceLocation(IllagersWearArmor.MODID + "illagerbiped_innerarmor"), "illagerbiped_innerarmor");
 
     @SubscribeEvent
-    public static void entityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+    public static void render(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(EntityType.PILLAGER, PillagerBipedRenderer::new);
         event.registerEntityRenderer(EntityType.EVOKER, EvokerBipedRenderer::new);
         event.registerEntityRenderer(EntityType.VINDICATOR, VindicatorBipedRenderer::new);

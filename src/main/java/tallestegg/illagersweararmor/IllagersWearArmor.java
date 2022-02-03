@@ -10,7 +10,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(IllagersWearArmor.MODID)
 public class IllagersWearArmor {
-    public static final String MODID = "illagersweararmor";
+    public static final String MODID = "zillagersweararmor";
 
     public IllagersWearArmor() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);

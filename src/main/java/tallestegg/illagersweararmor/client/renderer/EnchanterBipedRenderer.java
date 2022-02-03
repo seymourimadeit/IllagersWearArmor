@@ -8,6 +8,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 
 import net.minecraft.client.model.BookModel;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -20,9 +21,15 @@ import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.item.CrossbowItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
 import tallestegg.illagersweararmor.IWAClientEvents;
 import tallestegg.illagersweararmor.client.model.EnchanterBipedModel;
 import tallestegg.illagersweararmor.client.model.IllagerArmorModel;
+import tallestegg.illagersweararmor.client.model.IllagerBipedModel;
 
 public class EnchanterBipedRenderer extends MobRenderer<EnchanterEntity, EnchanterBipedModel<EnchanterEntity>> {
     private static final ResourceLocation ILLAGER = new ResourceLocation(EnchantWithMob.MODID, "textures/entity/enchanter.png");
@@ -40,6 +47,7 @@ public class EnchanterBipedRenderer extends MobRenderer<EnchanterEntity, Enchant
 
     @Override
     public void render(EnchanterEntity entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn) {
+        this.setModelVisibilities(entityIn);
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
 
         float bookAnimation = entityIn.getBookAnimationScale(partialTicks);
@@ -65,6 +73,68 @@ public class EnchanterBipedRenderer extends MobRenderer<EnchanterEntity, Enchant
             this.bookModel.render(matrixStackIn, ivertexbuilder, packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
             matrixStackIn.popPose();
         }
+    }
+    
+    @Override
+    protected void scale(EnchanterEntity p_114919_, PoseStack p_114920_, float p_114921_) {
+        p_114920_.scale(0.9375F, 0.9375F, 0.9375F);
+    }
+
+    private void setModelVisibilities(EnchanterEntity entityIn) {
+        IllagerBipedModel<EnchanterEntity> illagerModel = this.getModel();
+        ItemStack itemstack = entityIn.getMainHandItem();
+        ItemStack itemstack1 = entityIn.getOffhandItem();
+        HumanoidModel.ArmPose bipedmodel$armpose = this.getArmPose(entityIn, itemstack, itemstack1,
+                InteractionHand.MAIN_HAND);
+        HumanoidModel.ArmPose bipedmodel$armpose1 = this.getArmPose(entityIn, itemstack, itemstack1,
+                InteractionHand.OFF_HAND);
+        if (entityIn.getMainArm() == HumanoidArm.RIGHT) {
+            illagerModel.rightArmPose = bipedmodel$armpose;
+            illagerModel.leftArmPose = bipedmodel$armpose1;
+        } else {
+            illagerModel.rightArmPose = bipedmodel$armpose1;
+            illagerModel.leftArmPose = bipedmodel$armpose;
+        }
+    }
+
+    private HumanoidModel.ArmPose getArmPose(EnchanterEntity entityIn, ItemStack itemStackMain, ItemStack itemStackOff,
+            InteractionHand handIn) {
+        HumanoidModel.ArmPose bipedmodel$armpose = HumanoidModel.ArmPose.EMPTY;
+        ItemStack itemstack = handIn == InteractionHand.MAIN_HAND ? itemStackMain : itemStackOff;
+        if (!itemstack.isEmpty()) {
+            bipedmodel$armpose = HumanoidModel.ArmPose.ITEM;
+            UseAnim useaction = itemstack.getUseAnimation();
+            switch (useaction) {
+            case BLOCK:
+                bipedmodel$armpose = HumanoidModel.ArmPose.BLOCK;
+                break;
+            case BOW:
+                bipedmodel$armpose = HumanoidModel.ArmPose.BOW_AND_ARROW;
+                break;
+            case SPEAR:
+                bipedmodel$armpose = HumanoidModel.ArmPose.THROW_SPEAR;
+                break;
+            case CROSSBOW:
+                if (handIn == entityIn.getUsedItemHand()) {
+                    bipedmodel$armpose = HumanoidModel.ArmPose.CROSSBOW_CHARGE;
+                }
+                break;
+            default:
+                bipedmodel$armpose = HumanoidModel.ArmPose.EMPTY;
+                break;
+            }
+        } else {
+            boolean flag1 = itemStackMain.getItem() instanceof CrossbowItem;
+            boolean flag2 = itemStackOff.getItem() instanceof CrossbowItem;
+            if (flag1) {
+                bipedmodel$armpose = HumanoidModel.ArmPose.CROSSBOW_HOLD;
+            }
+
+            if (flag2 && itemStackMain.getItem().getUseAnimation(itemStackMain) == UseAnim.NONE) {
+                bipedmodel$armpose = HumanoidModel.ArmPose.CROSSBOW_HOLD;
+            }
+        }
+        return bipedmodel$armpose;
     }
 
     @Override
