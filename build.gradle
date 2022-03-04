@@ -21,7 +21,7 @@ mixin {
     add sourceSets.main, "illagersweararmor.refmap.json"
 }
 
-version = '1.1.0'
+version = '1.1.1'
 group = 'tallestegg.illagersweararmor' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'illagersweararmor'
 
@@ -95,7 +95,7 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.1-39.0.63'
+    minecraft 'net.minecraftforge:forge:1.18.1-39.1.2'
     annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
     implementation fg.deobf("curse.maven:enchant-with-mob-391187:3620377")
     implementation fg.deobf("curse.maven:hunterillager-318857:3626625")
