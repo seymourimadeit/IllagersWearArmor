@@ -7,6 +7,7 @@ import baguchan.hunterillager.init.HunterEntityRegistry;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
@@ -22,7 +23,7 @@ import tallestegg.illagersweararmor.client.renderer.IllusionerBipedRenderer;
 import tallestegg.illagersweararmor.client.renderer.PillagerBipedRenderer;
 import tallestegg.illagersweararmor.client.renderer.VindicatorBipedRenderer;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class IWAClientEvents {
     public static ModelLayerLocation BIPEDILLAGER = new ModelLayerLocation(
             new ResourceLocation(IllagersWearArmor.MODID + "illagerbiped"), "illagerbiped");

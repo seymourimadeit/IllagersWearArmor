@@ -5,7 +5,7 @@ license="GPLv3"
 # A list of mods - how many allowed here is determined by the individual mod loader
 [[mods]] #mandatory
 modId="zillagersweararmor" #mandatory
-version="1.1.3" #mandatory
+version="1.1.4" #mandatory
 displayName="Illagers Wear Armor" #mandatory
 updateJSONURL="https://raw.githubusercontent.com/seymourimadeit/illagersweararmor/master/update.json" #optional
 displayURL="https://www.curseforge.com/minecraft/mc-mods/illagers-wear-armor" #optional
@@ -14,7 +14,7 @@ authors="TallestEgg" #optional
 description='''
 Illagers with armor.
 '''
-[[dependencies.illagersweararmor]] 
+[[dependencies.zillagersweararmor]] 
     modId="forge" #mandatory
     mandatory=true #mandatory
     versionRange="[38.0.0,)" #mandatory
