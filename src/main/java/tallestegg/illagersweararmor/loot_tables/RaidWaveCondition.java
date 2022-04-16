@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
@@ -26,8 +26,8 @@ public class RaidWaveCondition implements LootItemCondition {
 
     @Override
     public boolean test(LootContext context) {
-        Entity entity = context.getParamOrNull(LootContextParams.THIS_ENTITY);
-        return context.getLevel().getRaidAt(entity.blockPosition()).getGroupsSpawned() == wave;
+        Raider raider = (Raider) context.getParamOrNull(LootContextParams.THIS_ENTITY);
+        return raider.getCurrentRaid().getGroupsSpawned() == wave;
     }
 
     public static class Serializer implements net.minecraft.world.level.storage.loot.Serializer<RaidWaveCondition> {
