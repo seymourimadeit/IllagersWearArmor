@@ -17,13 +17,13 @@ Illagers with armor.
 [[dependencies.zillagersweararmor]] 
     modId="forge" #mandatory
     mandatory=true #mandatory
-    versionRange="[38.0.0,)" #mandatory
+    versionRange="[41.0.0,)" #mandatory
     ordering="NONE"
     side="BOTH"
 [[dependencies.zillagersweararmor]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.18.2,)"
+    versionRange="[1.19,)"
     ordering="BEFORE"
     side="BOTH"
 [[dependencies.zillagersweararmor]] 
