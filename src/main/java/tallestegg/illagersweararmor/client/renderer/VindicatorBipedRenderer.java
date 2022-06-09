@@ -14,7 +14,7 @@ public class VindicatorBipedRenderer extends IllagerBipedRenderer<Vindicator> {
 
     public VindicatorBipedRenderer(Context builder) {
         super(builder);
-        this.addLayer(new ItemInHandLayer<Vindicator, IllagerBipedModel<Vindicator>>(this) {
+        this.addLayer(new ItemInHandLayer<Vindicator, IllagerBipedModel<Vindicator>>(this, builder.getItemInHandRenderer()) {
             @Override
             public void render(PoseStack p_116352_, MultiBufferSource p_116353_, int p_116354_, Vindicator p_116355_,
                     float p_116356_, float p_116357_, float p_116358_, float p_116359_, float p_116360_,

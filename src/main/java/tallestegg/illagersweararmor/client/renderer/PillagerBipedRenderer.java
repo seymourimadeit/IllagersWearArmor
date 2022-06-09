@@ -10,7 +10,7 @@ public class PillagerBipedRenderer extends IllagerBipedRenderer<Pillager> {
 
     public PillagerBipedRenderer(Context builder) {
         super(builder);
-        this.addLayer(new ItemInHandLayer<>(this));
+        this.addLayer(new ItemInHandLayer<>(this), builder.getItemInHandRenderer());
     }
 
     @Override

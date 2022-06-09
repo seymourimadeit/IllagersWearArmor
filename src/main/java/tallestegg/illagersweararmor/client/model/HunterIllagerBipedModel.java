@@ -1,6 +1,6 @@
 package tallestegg.illagersweararmor.client.model;
 
-import baguchan.hunterillager.entity.HunterIllagerEntity;
+/*import baguchan.hunterillager.entity.HunterIllagerEntity;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -83,4 +83,4 @@ public class HunterIllagerBipedModel<T extends HunterIllagerEntity> extends Illa
         this.capeLower.xRot = 0.09817477F * limbSwingAmount * 1.75F;
     }
 
-}
+}*/

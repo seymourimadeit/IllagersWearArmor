@@ -16,7 +16,7 @@ public class IllusionerBipedRenderer extends IllagerBipedRenderer<Illusioner> {
 
     public IllusionerBipedRenderer(Context builder) {
         super(builder);
-        this.addLayer(new ItemInHandLayer<Illusioner, IllagerBipedModel<Illusioner>>(this) {
+        this.addLayer(new ItemInHandLayer<Illusioner, IllagerBipedModel<Illusioner>>(this, builder.getItemInHandRenderer()) {
             @Override
             public void render(PoseStack p_116352_, MultiBufferSource p_116353_, int p_116354_, Illusioner p_116355_,
                     float p_116356_, float p_116357_, float p_116358_, float p_116359_, float p_116360_,

@@ -22,7 +22,7 @@ import tallestegg.illagersweararmor.client.model.IllagerBipedModel;
 public abstract class IllagerBipedRenderer<T extends AbstractIllager> extends MobRenderer<T, IllagerBipedModel<T>> {
     public IllagerBipedRenderer(EntityRendererProvider.Context builder) {
         super(builder, new IllagerBipedModel<>(builder.bakeLayer(IWAClientEvents.BIPEDILLAGER)), 0.5F);
-        this.addLayer(new CustomHeadLayer<>(this, builder.getModelSet()));
+        this.addLayer(new CustomHeadLayer<>(this, builder.getModelSet(), builder.getItemInHandRenderer()));
         this.addLayer(new ElytraLayer<>(this, builder.getModelSet()));
         this.addLayer(new HumanoidArmorLayer<>(this,
                 new IllagerArmorModel<>(builder.bakeLayer(IWAClientEvents.BIPEDILLAGER_ARMOR_INNER_LAYER)),

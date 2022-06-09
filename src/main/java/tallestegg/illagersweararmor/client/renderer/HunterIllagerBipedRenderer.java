@@ -1,6 +1,6 @@
 package tallestegg.illagersweararmor.client.renderer;
 
-import com.mojang.blaze3d.vertex.PoseStack;
+/*import com.mojang.blaze3d.vertex.PoseStack;
 
 import baguchan.hunterillager.HunterIllager;
 import baguchan.hunterillager.client.render.layer.CrossArmHeldItemLayer;
@@ -124,4 +124,4 @@ public class HunterIllagerBipedRenderer
     public ResourceLocation getTextureLocation(HunterIllagerEntity p_110775_1_) {
         return ILLAGER;
     }
-}
+}*/
