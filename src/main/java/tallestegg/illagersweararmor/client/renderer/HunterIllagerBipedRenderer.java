@@ -1,6 +1,6 @@
 package tallestegg.illagersweararmor.client.renderer;
 
-/*import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import baguchan.hunterillager.HunterIllager;
 import baguchan.hunterillager.client.render.layer.CrossArmHeldItemLayer;
@@ -33,13 +33,13 @@ public class HunterIllagerBipedRenderer
     public HunterIllagerBipedRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new HunterIllagerBipedModel<>(renderManagerIn.bakeLayer(ModModelLayers.HUNTERILLAGER)),
                 0.5F);
-        this.addLayer(new CustomHeadLayer<>(this, renderManagerIn.getModelSet()));
+        this.addLayer(new CustomHeadLayer<>(this, renderManagerIn.getModelSet(), renderManagerIn.getItemInHandRenderer()));
         this.addLayer(new ElytraLayer<>(this, renderManagerIn.getModelSet()));
         this.addLayer(new HumanoidArmorLayer<>(this,
                 new IllagerArmorModel<>(renderManagerIn.bakeLayer(IWAClientEvents.BIPEDILLAGER_ARMOR_INNER_LAYER)),
                 new IllagerArmorModel<>(renderManagerIn.bakeLayer(IWAClientEvents.BIPEDILLAGER_ARMOR_OUTER_LAYER))));
         this.addLayer(new CrossArmHeldItemLayer<>(this));
-        this.addLayer(new ItemInHandLayer<>(this) {
+        this.addLayer(new ItemInHandLayer<>(this, renderManagerIn.getItemInHandRenderer()) {
             @Override
             public void render(PoseStack p_114989_, MultiBufferSource p_114990_, int p_114991_,
                     HunterIllagerEntity p_114992_, float p_114993_, float p_114994_, float p_114995_, float p_114996_,
@@ -124,4 +124,4 @@ public class HunterIllagerBipedRenderer
     public ResourceLocation getTextureLocation(HunterIllagerEntity p_110775_1_) {
         return ILLAGER;
     }
-}*/
+}

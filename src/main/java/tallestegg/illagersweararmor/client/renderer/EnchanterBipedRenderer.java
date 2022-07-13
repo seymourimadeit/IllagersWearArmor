@@ -1,12 +1,11 @@
 package tallestegg.illagersweararmor.client.renderer;
 
-/*import com.baguchan.enchantwithmob.EnchantWithMob;
+import com.baguchan.enchantwithmob.EnchantWithMob;
 import com.baguchan.enchantwithmob.client.ModModelLayers;
 import com.baguchan.enchantwithmob.entity.EnchanterEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
-
 import net.minecraft.client.model.BookModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayers;
@@ -38,7 +37,7 @@ public class EnchanterBipedRenderer extends MobRenderer<EnchanterEntity, Enchant
     public EnchanterBipedRenderer(EntityRendererProvider.Context builder) {
         super(builder, new EnchanterBipedModel<>(builder.bakeLayer(ModModelLayers.ENCHANTER)), 0.5F);
         bookModel = new BookModel(builder.bakeLayer(ModelLayers.BOOK));
-        this.addLayer(new CustomHeadLayer<>(this, builder.getModelSet()));
+        this.addLayer(new CustomHeadLayer<>(this, builder.getModelSet(), builder.getItemInHandRenderer()));
         this.addLayer(new ElytraLayer<>(this, builder.getModelSet()));
         this.addLayer(new HumanoidArmorLayer<>(this,
                 new IllagerArmorModel<>(builder.bakeLayer(IWAClientEvents.BIPEDILLAGER_ARMOR_INNER_LAYER)),
@@ -74,7 +73,7 @@ public class EnchanterBipedRenderer extends MobRenderer<EnchanterEntity, Enchant
             matrixStackIn.popPose();
         }
     }
-    
+
     @Override
     protected void scale(EnchanterEntity p_114919_, PoseStack p_114920_, float p_114921_) {
         p_114920_.scale(0.9375F, 0.9375F, 0.9375F);
@@ -98,30 +97,30 @@ public class EnchanterBipedRenderer extends MobRenderer<EnchanterEntity, Enchant
     }
 
     private HumanoidModel.ArmPose getArmPose(EnchanterEntity entityIn, ItemStack itemStackMain, ItemStack itemStackOff,
-            InteractionHand handIn) {
+                                             InteractionHand handIn) {
         HumanoidModel.ArmPose bipedmodel$armpose = HumanoidModel.ArmPose.EMPTY;
         ItemStack itemstack = handIn == InteractionHand.MAIN_HAND ? itemStackMain : itemStackOff;
         if (!itemstack.isEmpty()) {
             bipedmodel$armpose = HumanoidModel.ArmPose.ITEM;
             UseAnim useaction = itemstack.getUseAnimation();
             switch (useaction) {
-            case BLOCK:
-                bipedmodel$armpose = HumanoidModel.ArmPose.BLOCK;
-                break;
-            case BOW:
-                bipedmodel$armpose = HumanoidModel.ArmPose.BOW_AND_ARROW;
-                break;
-            case SPEAR:
-                bipedmodel$armpose = HumanoidModel.ArmPose.THROW_SPEAR;
-                break;
-            case CROSSBOW:
-                if (handIn == entityIn.getUsedItemHand()) {
-                    bipedmodel$armpose = HumanoidModel.ArmPose.CROSSBOW_CHARGE;
-                }
-                break;
-            default:
-                bipedmodel$armpose = HumanoidModel.ArmPose.EMPTY;
-                break;
+                case BLOCK:
+                    bipedmodel$armpose = HumanoidModel.ArmPose.BLOCK;
+                    break;
+                case BOW:
+                    bipedmodel$armpose = HumanoidModel.ArmPose.BOW_AND_ARROW;
+                    break;
+                case SPEAR:
+                    bipedmodel$armpose = HumanoidModel.ArmPose.THROW_SPEAR;
+                    break;
+                case CROSSBOW:
+                    if (handIn == entityIn.getUsedItemHand()) {
+                        bipedmodel$armpose = HumanoidModel.ArmPose.CROSSBOW_CHARGE;
+                    }
+                    break;
+                default:
+                    bipedmodel$armpose = HumanoidModel.ArmPose.EMPTY;
+                    break;
             }
         } else {
             boolean flag1 = itemStackMain.getItem() instanceof CrossbowItem;
@@ -141,4 +140,4 @@ public class EnchanterBipedRenderer extends MobRenderer<EnchanterEntity, Enchant
     public ResourceLocation getTextureLocation(EnchanterEntity p_110775_1_) {
         return ILLAGER;
     }
-}*/
+}
