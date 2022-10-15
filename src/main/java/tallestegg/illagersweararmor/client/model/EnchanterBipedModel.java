@@ -1,6 +1,6 @@
 package tallestegg.illagersweararmor.client.model;
 
-import com.baguchan.enchantwithmob.entity.EnchanterEntity;
+import baguchan.enchantwithmob.entity.EnchanterEntity;
 
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;

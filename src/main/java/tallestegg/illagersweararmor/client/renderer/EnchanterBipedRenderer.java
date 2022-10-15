@@ -1,8 +1,8 @@
 package tallestegg.illagersweararmor.client.renderer;
 
-import com.baguchan.enchantwithmob.EnchantWithMob;
-import com.baguchan.enchantwithmob.client.ModModelLayers;
-import com.baguchan.enchantwithmob.entity.EnchanterEntity;
+import baguchan.enchantwithmob.EnchantWithMob;
+import baguchan.enchantwithmob.client.ModModelLayers;
+import baguchan.enchantwithmob.entity.EnchanterEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;

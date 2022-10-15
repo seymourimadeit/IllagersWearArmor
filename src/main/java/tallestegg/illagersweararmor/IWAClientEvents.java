@@ -1,8 +1,8 @@
 package tallestegg.illagersweararmor;
 
 import baguchan.hunterillager.init.HunterEntityRegistry;
-import com.baguchan.enchantwithmob.client.ModModelLayers;
-import com.baguchan.enchantwithmob.registry.ModEntities;
+import baguchan.enchantwithmob.client.ModModelLayers;
+import baguchan.enchantwithmob.registry.ModEntities;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
