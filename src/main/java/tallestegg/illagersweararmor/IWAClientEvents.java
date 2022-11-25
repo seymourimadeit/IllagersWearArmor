@@ -30,10 +30,12 @@ public class IWAClientEvents {
 
     @SubscribeEvent
     public static void render(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(EntityType.PILLAGER, PillagerBipedRenderer::new);
-        event.registerEntityRenderer(EntityType.EVOKER, EvokerBipedRenderer::new);
-        event.registerEntityRenderer(EntityType.VINDICATOR, VindicatorBipedRenderer::new);
         event.registerEntityRenderer(EntityType.ILLUSIONER, IllusionerBipedRenderer::new);
+        if (!ModList.get().isLoaded("vanilla_animations")) {
+            event.registerEntityRenderer(EntityType.PILLAGER, PillagerBipedRenderer::new);
+            event.registerEntityRenderer(EntityType.EVOKER, EvokerBipedRenderer::new);
+            event.registerEntityRenderer(EntityType.VINDICATOR, VindicatorBipedRenderer::new);
+        }
         if (ModList.get().isLoaded("enchantwithmob"))
             event.registerEntityRenderer(ModEntities.ENCHANTER.get(), EnchanterBipedRenderer::new);
         if (ModList.get().isLoaded("hunterillager")) 
