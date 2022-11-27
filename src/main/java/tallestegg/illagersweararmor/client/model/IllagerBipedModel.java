@@ -12,10 +12,12 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraftforge.registries.ForgeRegistries;
 import tallestegg.illagersweararmor.IWAConfig;
 
 public class IllagerBipedModel<T extends AbstractIllager> extends HumanoidModel<T> {
@@ -77,7 +79,7 @@ public class IllagerBipedModel<T extends AbstractIllager> extends HumanoidModel<
             float p_102933_) {
         super.setupAnim(p_102928_, p_102929_, p_102930_, p_102931_, p_102932_, p_102933_);
         AbstractIllager.IllagerArmPose armpose = p_102928_.getArmPose();
-        boolean flag = armpose == AbstractIllager.IllagerArmPose.CROSSED && IWAConfig.crossArms;
+        boolean flag = armpose == AbstractIllager.IllagerArmPose.CROSSED && IWAConfig.crossArms && !p_102928_.getType().equals(ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation("hunterillager:hunterillager")));
         this.arms.visible = flag;
         this.leftArm.visible = !flag;
         this.rightArm.visible = !flag;
