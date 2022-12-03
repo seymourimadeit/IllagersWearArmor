@@ -1,4 +1,4 @@
-package tallestegg.illagersweararmor.client.renderer;
+package tallestegg.illagersweararmor.client.renderer.mod_compat;
 
 import baguchan.hunterillager.HunterIllager;
 import baguchan.hunterillager.entity.Hunter;
@@ -19,7 +19,7 @@ import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import tallestegg.illagersweararmor.IWAClientEvents;
-import tallestegg.illagersweararmor.client.model.HunterIllagerBipedModel;
+import tallestegg.illagersweararmor.client.model.mod_compat.HunterIllagerBipedModel;
 import tallestegg.illagersweararmor.client.model.IllagerArmorModel;
 import tallestegg.illagersweararmor.client.model.IllagerBipedModel;
 

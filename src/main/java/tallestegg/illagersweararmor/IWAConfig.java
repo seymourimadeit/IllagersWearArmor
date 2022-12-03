@@ -125,11 +125,13 @@ public class IWAConfig {
     public static class ClientConfig {
         public final ForgeConfigSpec.BooleanValue IllagerCrossArms;
         public final ForgeConfigSpec.DoubleValue EnchanterHelmetHeight;
+        public final ForgeConfigSpec.BooleanValue pillagerRenderer;
 
         public ClientConfig(ForgeConfigSpec.Builder builder) {
             IllagerCrossArms = builder.translation(IllagersWearArmor.MODID + ".config.illagerCrossArms")
                     .define("Have Illagers cross their arms when neutral?", true);
             EnchanterHelmetHeight = builder.translation(IllagersWearArmor.MODID + ".config.height").defineInRange("Height of the Enchanters helmet", -15.0F, -500.0F, 100F);
+            pillagerRenderer = builder.define("Allow new pillager renderer", true);
         }
     }
 }

@@ -1,4 +1,4 @@
-package tallestegg.illagersweararmor.client.model;
+package tallestegg.illagersweararmor.client.model.mod_compat;
 
 import baguchan.enchantwithmob.entity.EnchanterEntity;
 
@@ -10,6 +10,7 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import tallestegg.illagersweararmor.client.model.IllagerBipedModel;
 
 public class EnchanterBipedModel<T extends EnchanterEntity> extends IllagerBipedModel<T> {
     private final ModelPart root;

@@ -100,6 +100,7 @@ dependencies {
     annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
     implementation fg.deobf("curse.maven:enchant-with-mob-391187:4026539")
     implementation fg.deobf("curse.maven:hunterillager-318857:4109777")
+    implementation fg.deobf("curse.maven:it-takes-a-pillage-635843:4034764")
 }
 
 repositories {

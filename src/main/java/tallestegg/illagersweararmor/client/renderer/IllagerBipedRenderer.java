@@ -41,7 +41,7 @@ public abstract class IllagerBipedRenderer<T extends AbstractIllager> extends Mo
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 
-    private void setModelVisibilities(T entityIn) {
+    protected void setModelVisibilities(T entityIn) {
         IllagerBipedModel<T> illagerModel = this.getModel();
         ItemStack itemstack = entityIn.getMainHandItem();
         ItemStack itemstack1 = entityIn.getOffhandItem();
@@ -58,7 +58,7 @@ public abstract class IllagerBipedRenderer<T extends AbstractIllager> extends Mo
         }
     }
 
-    private HumanoidModel.ArmPose getArmPose(T entityIn, ItemStack itemStackMain, ItemStack itemStackOff,
+    protected HumanoidModel.ArmPose getArmPose(T entityIn, ItemStack itemStackMain, ItemStack itemStackOff,
             InteractionHand handIn) {
         HumanoidModel.ArmPose bipedmodel$armpose = HumanoidModel.ArmPose.EMPTY;
         ItemStack itemstack = handIn == InteractionHand.MAIN_HAND ? itemStackMain : itemStackOff;

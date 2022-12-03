@@ -1,4 +1,4 @@
-package tallestegg.illagersweararmor.client.renderer;
+package tallestegg.illagersweararmor.client.renderer.mod_compat;
 
 import baguchan.enchantwithmob.EnchantWithMob;
 import baguchan.enchantwithmob.client.ModModelLayers;
@@ -26,7 +26,7 @@ import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import tallestegg.illagersweararmor.IWAClientEvents;
-import tallestegg.illagersweararmor.client.model.EnchanterBipedModel;
+import tallestegg.illagersweararmor.client.model.mod_compat.EnchanterBipedModel;
 import tallestegg.illagersweararmor.client.model.IllagerArmorModel;
 import tallestegg.illagersweararmor.client.model.IllagerBipedModel;
 
