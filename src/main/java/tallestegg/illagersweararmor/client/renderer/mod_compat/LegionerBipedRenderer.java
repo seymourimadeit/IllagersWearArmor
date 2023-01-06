@@ -17,7 +17,6 @@ public class LegionerBipedRenderer extends IllagerBipedRenderer<Legioner> {
 
     public LegionerBipedRenderer(EntityRendererProvider.Context builder) {
         super(builder);
-        this.model.hat.visible = true;
         this.addLayer(new ItemInHandLayer<>(this, builder.getItemInHandRenderer()));
     }
 

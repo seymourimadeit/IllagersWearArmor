@@ -1,7 +1,6 @@
 package tallestegg.illagersweararmor.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -36,7 +35,7 @@ public abstract class IllagerBipedRenderer<T extends AbstractIllager> extends Mo
 
     @Override
     public void render(T entityIn, float entityYaw, float partialTicks, PoseStack matrixStackIn,
-            MultiBufferSource bufferIn, int packedLightIn) {
+                       MultiBufferSource bufferIn, int packedLightIn) {
         this.setModelVisibilities(entityIn);
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
@@ -58,31 +57,34 @@ public abstract class IllagerBipedRenderer<T extends AbstractIllager> extends Mo
         }
     }
 
-    protected HumanoidModel.ArmPose getArmPose(T entityIn, ItemStack itemStackMain, ItemStack itemStackOff,
-            InteractionHand handIn) {
+    protected HumanoidModel.ArmPose getArmPose(T entityIn, ItemStack itemStackMain, ItemStack itemStackOff, InteractionHand handIn) {
         HumanoidModel.ArmPose bipedmodel$armpose = HumanoidModel.ArmPose.EMPTY;
         ItemStack itemstack = handIn == InteractionHand.MAIN_HAND ? itemStackMain : itemStackOff;
         if (!itemstack.isEmpty()) {
             bipedmodel$armpose = HumanoidModel.ArmPose.ITEM;
             UseAnim useaction = itemstack.getUseAnimation();
             switch (useaction) {
-            case BLOCK:
-                bipedmodel$armpose = HumanoidModel.ArmPose.BLOCK;
-                break;
-            case BOW:
-                bipedmodel$armpose = HumanoidModel.ArmPose.BOW_AND_ARROW;
-                break;
-            case SPEAR:
-                bipedmodel$armpose = HumanoidModel.ArmPose.THROW_SPEAR;
-                break;
-            case CROSSBOW:
-                if (handIn == entityIn.getUsedItemHand()) {
-                    bipedmodel$armpose = HumanoidModel.ArmPose.CROSSBOW_CHARGE;
-                }
-                break;
-            default:
-                bipedmodel$armpose = HumanoidModel.ArmPose.EMPTY;
-                break;
+                case BLOCK:
+                    bipedmodel$armpose = HumanoidModel.ArmPose.BLOCK;
+                    break;
+                case BOW:
+                    bipedmodel$armpose = HumanoidModel.ArmPose.BOW_AND_ARROW;
+                    break;
+                case SPEAR:
+                    bipedmodel$armpose = HumanoidModel.ArmPose.THROW_SPEAR;
+                    break;
+                case CROSSBOW:
+                    if (handIn == entityIn.getUsedItemHand()) {
+                        bipedmodel$armpose = HumanoidModel.ArmPose.CROSSBOW_CHARGE;
+                    }
+                    break;
+                case SPYGLASS:
+                    if (handIn == entityIn.getUsedItemHand())
+                        bipedmodel$armpose = HumanoidModel.ArmPose.SPYGLASS;
+                    break;
+                default:
+                    bipedmodel$armpose = HumanoidModel.ArmPose.EMPTY;
+                    break;
             }
         } else {
             boolean flag1 = itemStackMain.getItem() instanceof CrossbowItem;
