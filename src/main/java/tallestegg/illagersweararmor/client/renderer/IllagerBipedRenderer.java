@@ -48,12 +48,14 @@ public abstract class IllagerBipedRenderer<T extends AbstractIllager> extends Mo
                 InteractionHand.MAIN_HAND);
         HumanoidModel.ArmPose bipedmodel$armpose1 = this.getArmPose(entityIn, itemstack, itemstack1,
                 InteractionHand.OFF_HAND);
-        if (entityIn.getMainArm() == HumanoidArm.RIGHT) {
-            illagerModel.rightArmPose = bipedmodel$armpose;
-            illagerModel.leftArmPose = bipedmodel$armpose1;
-        } else {
-            illagerModel.rightArmPose = bipedmodel$armpose1;
-            illagerModel.leftArmPose = bipedmodel$armpose;
+        if (entityIn.getArmPose() != AbstractIllager.IllagerArmPose.CROSSED) {
+            if (entityIn.getMainArm() == HumanoidArm.RIGHT) {
+                illagerModel.rightArmPose = bipedmodel$armpose;
+                illagerModel.leftArmPose = bipedmodel$armpose1;
+            } else {
+                illagerModel.rightArmPose = bipedmodel$armpose1;
+                illagerModel.leftArmPose = bipedmodel$armpose;
+            }
         }
     }
 
@@ -74,28 +76,20 @@ public abstract class IllagerBipedRenderer<T extends AbstractIllager> extends Mo
                     bipedmodel$armpose = HumanoidModel.ArmPose.THROW_SPEAR;
                     break;
                 case CROSSBOW:
-                    if (handIn == entityIn.getUsedItemHand()) {
+                    if (handIn == entityIn.getUsedItemHand() && entityIn.getUseItemRemainingTicks() > 0)
                         bipedmodel$armpose = HumanoidModel.ArmPose.CROSSBOW_CHARGE;
-                    }
                     break;
                 case SPYGLASS:
-                    if (handIn == entityIn.getUsedItemHand())
+                    if (entityIn.getUseItemRemainingTicks() > 0)
                         bipedmodel$armpose = HumanoidModel.ArmPose.SPYGLASS;
                     break;
                 default:
                     bipedmodel$armpose = HumanoidModel.ArmPose.EMPTY;
                     break;
             }
-        } else {
-            boolean flag1 = itemStackMain.getItem() instanceof CrossbowItem;
-            boolean flag2 = itemStackOff.getItem() instanceof CrossbowItem;
-            if (flag1) {
-                bipedmodel$armpose = HumanoidModel.ArmPose.CROSSBOW_HOLD;
-            }
-
-            if (flag2 && itemStackMain.getItem().getUseAnimation(itemStackMain) == UseAnim.NONE) {
-                bipedmodel$armpose = HumanoidModel.ArmPose.CROSSBOW_HOLD;
-            }
+        }
+        if (!entityIn.swinging && itemstack.getItem() instanceof CrossbowItem && !entityIn.isUsingItem()) {
+            bipedmodel$armpose = HumanoidModel.ArmPose.CROSSBOW_HOLD;
         }
         return bipedmodel$armpose;
     }

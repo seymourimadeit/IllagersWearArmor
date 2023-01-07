@@ -110,19 +110,8 @@ public class IllagerBipedModel<T extends AbstractIllager> extends HumanoidModel<
     @Override
     public void setupAnim(T p_102928_, float p_102929_, float p_102930_, float p_102931_, float p_102932_,
                           float p_102933_) {
+        super.setupAnim(p_102928_, p_102929_, p_102930_, p_102931_, p_102932_, p_102933_);
         AbstractIllager.IllagerArmPose armpose = p_102928_.getArmPose();
-        boolean flag = armpose == AbstractIllager.IllagerArmPose.CROSSED && IWAConfig.crossArms && !p_102928_.getType().equals(ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation("hunterillager:hunterillager")));
-        this.arms.visible = flag;
-        this.leftArm.visible = !flag;
-        this.rightArm.visible = !flag;
-        if (flag) {
-            this.leftArm.y = 3.0F;
-            this.leftArm.z = -1.0F;
-            this.leftArm.xRot = -0.75F;
-            this.rightArm.y = 3.0F;
-            this.rightArm.z = -1.0F;
-            this.rightArm.xRot = -0.75F;
-        }
         this.jacket.copyFrom(this.body);
         boolean isWearingChestplateOrLeggings = p_102928_.getItemBySlot(EquipmentSlot.CHEST)
                 .getItem() instanceof ArmorItem
@@ -131,7 +120,18 @@ public class IllagerBipedModel<T extends AbstractIllager> extends HumanoidModel<
         this.arms.y = 3.0F;
         this.arms.z = -1.0F;
         this.arms.xRot = -0.75F;
-        super.setupAnim(p_102928_, p_102929_, p_102930_, p_102931_, p_102932_, p_102933_);
+        boolean flag = armpose == AbstractIllager.IllagerArmPose.CROSSED && IWAConfig.crossArms && !p_102928_.getType().equals(ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation("hunterillager:hunterillager")));
+        this.arms.visible = flag;
+        if (flag) {
+            this.leftArm.y = 3.0F;
+            this.leftArm.z = -1.0F;
+            this.leftArm.xRot = -0.75F;
+            this.rightArm.y = 3.0F;
+            this.rightArm.z = -1.0F;
+            this.rightArm.xRot = -0.75F;
+        }
+        this.leftArm.visible = !flag;
+        this.rightArm.visible = !flag;
         if (armpose != null) {
             switch (armpose) {
                 case ATTACKING:
