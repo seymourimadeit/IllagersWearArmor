@@ -30,7 +30,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
-    mappings channel: 'parchment', version: '2022.08.14-1.19.2'
+    mappings channel: 'parchment', version: '2022.12.18-1.19.3'
     
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
@@ -96,11 +96,11 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.19.2-43.1.52'
+    minecraft 'net.minecraftforge:forge:1.19.3-44.1.0'
     annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
-    implementation fg.deobf("curse.maven:enchant-with-mob-391187:4026539")
-    implementation fg.deobf("curse.maven:hunterillager-318857:4109777")
-    implementation fg.deobf("curse.maven:it-takes-a-pillage-635843:4034764")
+    implementation fg.deobf("curse.maven:enchant-with-mob-391187:4307892")
+    implementation fg.deobf("curse.maven:hunterillager-318857:4162330")
+   // implementation fg.deobf("curse.maven:it-takes-a-pillage-635843:4034764")
 }
 
 repositories {

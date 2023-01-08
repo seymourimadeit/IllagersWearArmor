@@ -1,4 +1,4 @@
-package tallestegg.illagersweararmor.client.model.mod_compat;
+/*package tallestegg.illagersweararmor.client.model.mod_compat;
 
 import com.izofar.takesapillage.entity.Skirmisher;
 import net.minecraft.client.model.HumanoidModel;
@@ -30,4 +30,4 @@ public class SkirmisherBipedModel<T extends Skirmisher> extends IllagerBipedMode
         this.leftArm.visible = true;
         this.rightArm.visible = true;
     }
-}
+}*/

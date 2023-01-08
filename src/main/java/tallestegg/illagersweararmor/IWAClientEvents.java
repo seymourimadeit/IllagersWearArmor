@@ -3,8 +3,9 @@ package tallestegg.illagersweararmor;
 import baguchan.enchantwithmob.client.ModModelLayers;
 import baguchan.enchantwithmob.registry.ModEntities;
 import baguchan.hunterillager.init.HunterEntityRegistry;
-import com.izofar.takesapillage.init.ModEntityTypes;
+// import com.izofar.takesapillage.init.ModEntityTypes;
 import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -16,11 +17,8 @@ import tallestegg.illagersweararmor.client.model.IllagerArmorModel;
 import tallestegg.illagersweararmor.client.model.IllagerBipedModel;
 import tallestegg.illagersweararmor.client.model.mod_compat.EnchanterBipedModel;
 import tallestegg.illagersweararmor.client.model.mod_compat.HunterIllagerBipedModel;
-import tallestegg.illagersweararmor.client.model.mod_compat.SkirmisherBipedModel;
-import tallestegg.illagersweararmor.client.renderer.EvokerBipedRenderer;
-import tallestegg.illagersweararmor.client.renderer.IllusionerBipedRenderer;
-import tallestegg.illagersweararmor.client.renderer.PillagerBipedRenderer;
-import tallestegg.illagersweararmor.client.renderer.VindicatorBipedRenderer;
+// import tallestegg.illagersweararmor.client.model.mod_compat.SkirmisherBipedModel;
+import tallestegg.illagersweararmor.client.renderer.*;
 import tallestegg.illagersweararmor.client.renderer.mod_compat.*;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -35,6 +33,12 @@ public class IWAClientEvents {
             new ResourceLocation(IllagersWearArmor.MODID + "illagerbiped_innerarmor"), "illagerbiped_innerarmor");
     public static ModelLayerLocation SKRIMISHER = new ModelLayerLocation(
             new ResourceLocation(IllagersWearArmor.MODID + "skrimisherbiped"), "skrimisherbiped");
+    public static ModelLayerLocation VEX_BIPED = new ModelLayerLocation(
+            new ResourceLocation(IllagersWearArmor.MODID + "vex_biped"), "vex_biped");
+    public static ModelLayerLocation VEX_ARMOR_OUTER_LAYER = new ModelLayerLocation(
+            new ResourceLocation(IllagersWearArmor.MODID + "vex_outerarmor"), "vex_outerarmor");
+    public static ModelLayerLocation VEX_ARMOR_INNER_LAYER = new ModelLayerLocation(
+            new ResourceLocation(IllagersWearArmor.MODID + "vex_innerarmor"), "vex_innerarmor");
 
     @SubscribeEvent
     public static void render(EntityRenderersEvent.RegisterRenderers event) {
@@ -48,11 +52,11 @@ public class IWAClientEvents {
             event.registerEntityRenderer(ModEntities.ENCHANTER.get(), EnchanterBipedRenderer::new);
         if (ModList.get().isLoaded("hunterillager"))
             event.registerEntityRenderer(HunterEntityRegistry.HUNTERILLAGER.get(), HunterIllagerBipedRenderer::new);
-        if (ModList.get().isLoaded("takesapillage")) {
+   /*     if (ModList.get().isLoaded("takesapillage")) {
             event.registerEntityRenderer(ModEntityTypes.ARCHER.get(), ArcherBipedRenderer::new);
             event.registerEntityRenderer(ModEntityTypes.LEGIONER.get(), LegionerBipedRenderer::new);
             event.registerEntityRenderer(ModEntityTypes.SKIRMISHER.get(), SkirmisherBipedRenderer::new);
-        }
+        }*/
     }
 
     @SubscribeEvent
@@ -62,8 +66,8 @@ public class IWAClientEvents {
         if (ModList.get().isLoaded("hunterillager"))
             event.registerLayerDefinition(baguchan.hunterillager.init.ModModelLayers.HUNTERILLAGER,
                     HunterIllagerBipedModel::createBodyLayer);
-        if (ModList.get().isLoaded("takesapillage"))
-            event.registerLayerDefinition(SKRIMISHER, SkirmisherBipedModel::createBodyLayer);
+        //if (ModList.get().isLoaded("takesapillage"))
+          //  event.registerLayerDefinition(SKRIMISHER, SkirmisherBipedModel::createBodyLayer);
         event.registerLayerDefinition(BIPEDILLAGER, IllagerBipedModel::createBodyLayer);
         event.registerLayerDefinition(BIPEDILLAGER_ARMOR_OUTER_LAYER, IllagerArmorModel::createOuterArmorLayer);
         event.registerLayerDefinition(ENCHANTER_ARMOR_OUTER_LAYER, IllagerArmorModel::createOuterEnchanterArmorLayer);
