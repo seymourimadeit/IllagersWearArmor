@@ -3,11 +3,18 @@ package tallestegg.illagersweararmor;
 import baguchan.enchantwithmob.client.ModModelLayers;
 import baguchan.enchantwithmob.registry.ModEntities;
 import baguchan.hunterillager.init.HunterEntityRegistry;
-// import com.izofar.takesapillage.init.ModEntityTypes;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.ModelLayers;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.VexRenderer;
+import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.monster.Vex;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -17,9 +24,14 @@ import tallestegg.illagersweararmor.client.model.IllagerArmorModel;
 import tallestegg.illagersweararmor.client.model.IllagerBipedModel;
 import tallestegg.illagersweararmor.client.model.mod_compat.EnchanterBipedModel;
 import tallestegg.illagersweararmor.client.model.mod_compat.HunterIllagerBipedModel;
-// import tallestegg.illagersweararmor.client.model.mod_compat.SkirmisherBipedModel;
-import tallestegg.illagersweararmor.client.renderer.*;
-import tallestegg.illagersweararmor.client.renderer.mod_compat.*;
+import tallestegg.illagersweararmor.client.renderer.EvokerBipedRenderer;
+import tallestegg.illagersweararmor.client.renderer.IllusionerBipedRenderer;
+import tallestegg.illagersweararmor.client.renderer.PillagerBipedRenderer;
+import tallestegg.illagersweararmor.client.renderer.VindicatorBipedRenderer;
+import tallestegg.illagersweararmor.client.renderer.mod_compat.EnchanterBipedRenderer;
+import tallestegg.illagersweararmor.client.renderer.mod_compat.HunterIllagerBipedRenderer;
+
+import java.util.function.Function;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class IWAClientEvents {
@@ -67,7 +79,7 @@ public class IWAClientEvents {
             event.registerLayerDefinition(baguchan.hunterillager.init.ModModelLayers.HUNTERILLAGER,
                     HunterIllagerBipedModel::createBodyLayer);
         //if (ModList.get().isLoaded("takesapillage"))
-          //  event.registerLayerDefinition(SKRIMISHER, SkirmisherBipedModel::createBodyLayer);
+        //  event.registerLayerDefinition(SKRIMISHER, SkirmisherBipedModel::createBodyLayer);
         event.registerLayerDefinition(BIPEDILLAGER, IllagerBipedModel::createBodyLayer);
         event.registerLayerDefinition(BIPEDILLAGER_ARMOR_OUTER_LAYER, IllagerArmorModel::createOuterArmorLayer);
         event.registerLayerDefinition(ENCHANTER_ARMOR_OUTER_LAYER, IllagerArmorModel::createOuterEnchanterArmorLayer);

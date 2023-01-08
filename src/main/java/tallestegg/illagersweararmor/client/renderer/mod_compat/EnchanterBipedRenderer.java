@@ -5,7 +5,7 @@ import baguchan.enchantwithmob.client.ModModelLayers;
 import baguchan.enchantwithmob.entity.EnchanterEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.model.BookModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayers;
@@ -26,9 +26,9 @@ import net.minecraft.world.item.CrossbowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import tallestegg.illagersweararmor.IWAClientEvents;
-import tallestegg.illagersweararmor.client.model.mod_compat.EnchanterBipedModel;
 import tallestegg.illagersweararmor.client.model.IllagerArmorModel;
 import tallestegg.illagersweararmor.client.model.IllagerBipedModel;
+import tallestegg.illagersweararmor.client.model.mod_compat.EnchanterBipedModel;
 
 public class EnchanterBipedRenderer extends MobRenderer<EnchanterEntity, EnchanterBipedModel<EnchanterEntity>> {
     private static final ResourceLocation ILLAGER = new ResourceLocation(EnchantWithMob.MODID, "textures/entity/enchanter.png");
@@ -57,14 +57,14 @@ public class EnchanterBipedRenderer extends MobRenderer<EnchanterEntity, Enchant
         if (entityIn.isAlive()) {
             matrixStackIn.pushPose();
             matrixStackIn.translate(0.0D, 1.1625D, 0.0F);
-            matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(-f + 90F));
+            matrixStackIn.mulPose(Axis.YP.rotationDegrees(-f + 90F));
             matrixStackIn.translate(-0.575D, 0.0D, 0.0D);
-            matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(60.0F * bookAnimation));
+            matrixStackIn.mulPose(Axis.ZP.rotationDegrees(60.0F * bookAnimation));
 
             //When spell casting, stop animation
             if (swingProgress > 0 && !entityIn.isCastingSpell()) {
                 matrixStackIn.translate(-0.05F * (1.0F - swingProgress), -0.1F * (1.0F - swingProgress), 0.0D);
-                matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(45.0F * (1.0F - swingProgress)));
+                matrixStackIn.mulPose(Axis.ZP.rotationDegrees(45.0F * (1.0F - swingProgress)));
             }
 
             this.bookModel.setupAnim(0.0F, Mth.clamp(bookAnimation, 0.0F, 0.1F), Mth.clamp(bookAnimation, 0.0F, 0.9F), bookAnimation);
