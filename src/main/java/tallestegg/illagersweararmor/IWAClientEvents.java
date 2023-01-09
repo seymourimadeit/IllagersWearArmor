@@ -22,12 +22,10 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import tallestegg.illagersweararmor.client.model.IllagerArmorModel;
 import tallestegg.illagersweararmor.client.model.IllagerBipedModel;
+import tallestegg.illagersweararmor.client.model.WitchBipedModel;
 import tallestegg.illagersweararmor.client.model.mod_compat.EnchanterBipedModel;
 import tallestegg.illagersweararmor.client.model.mod_compat.HunterIllagerBipedModel;
-import tallestegg.illagersweararmor.client.renderer.EvokerBipedRenderer;
-import tallestegg.illagersweararmor.client.renderer.IllusionerBipedRenderer;
-import tallestegg.illagersweararmor.client.renderer.PillagerBipedRenderer;
-import tallestegg.illagersweararmor.client.renderer.VindicatorBipedRenderer;
+import tallestegg.illagersweararmor.client.renderer.*;
 import tallestegg.illagersweararmor.client.renderer.mod_compat.EnchanterBipedRenderer;
 import tallestegg.illagersweararmor.client.renderer.mod_compat.HunterIllagerBipedRenderer;
 
@@ -45,6 +43,8 @@ public class IWAClientEvents {
             new ResourceLocation(IllagersWearArmor.MODID + "illagerbiped_innerarmor"), "illagerbiped_innerarmor");
     public static ModelLayerLocation SKRIMISHER = new ModelLayerLocation(
             new ResourceLocation(IllagersWearArmor.MODID + "skrimisherbiped"), "skrimisherbiped");
+    public static ModelLayerLocation WITCH = new ModelLayerLocation(
+            new ResourceLocation(IllagersWearArmor.MODID + "witch_biped"), "witch_biped");
     public static ModelLayerLocation VEX_BIPED = new ModelLayerLocation(
             new ResourceLocation(IllagersWearArmor.MODID + "vex_biped"), "vex_biped");
     public static ModelLayerLocation VEX_ARMOR_OUTER_LAYER = new ModelLayerLocation(
@@ -59,6 +59,7 @@ public class IWAClientEvents {
             event.registerEntityRenderer(EntityType.EVOKER, EvokerBipedRenderer::new);
             event.registerEntityRenderer(EntityType.VINDICATOR, VindicatorBipedRenderer::new);
             event.registerEntityRenderer(EntityType.ILLUSIONER, IllusionerBipedRenderer::new);
+            event.registerEntityRenderer(EntityType.WITCH, WitchBipedRenderer::new);
         }
         if (ModList.get().isLoaded("enchantwithmob"))
             event.registerEntityRenderer(ModEntities.ENCHANTER.get(), EnchanterBipedRenderer::new);
@@ -80,6 +81,7 @@ public class IWAClientEvents {
                     HunterIllagerBipedModel::createBodyLayer);
         //if (ModList.get().isLoaded("takesapillage"))
         //  event.registerLayerDefinition(SKRIMISHER, SkirmisherBipedModel::createBodyLayer);
+        event.registerLayerDefinition(WITCH, WitchBipedModel::createBodyModel);
         event.registerLayerDefinition(BIPEDILLAGER, IllagerBipedModel::createBodyLayer);
         event.registerLayerDefinition(BIPEDILLAGER_ARMOR_OUTER_LAYER, IllagerArmorModel::createOuterArmorLayer);
         event.registerLayerDefinition(ENCHANTER_ARMOR_OUTER_LAYER, IllagerArmorModel::createOuterEnchanterArmorLayer);
