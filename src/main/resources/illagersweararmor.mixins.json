@@ -4,7 +4,9 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "illagersweararmor.refmap.json",
   "mixins": [
-     "AbstractIllagerMixin"
+    "AbstractIllagerMixin",
+    "WitchMixin",
+    "VexMixin"
   ],
   "injectors": {
     "defaultRequire": 1

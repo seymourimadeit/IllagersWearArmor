@@ -114,11 +114,10 @@ public class IWAConfig {
             Wave8 = builder.translation(IllagersWearArmor.MODID + ".config.wave7").defineInRange("Wave 8 Armor Chances",
                     0.48F, 0.0001F, 100F);
             ArmorBlackList = builder.translation(IllagersWearArmor.MODID + ".config.blacklist")
-                    .comment("This will make sure any entity id in this list wont spawn with armor.")
+                    .comment("This will make sure any entity id in this list wont spawn with armor. Example outputs would be \"minecraft:vex\" and \"minecraft:vex,\"\"minecraft:witch\"")
                     .define("Illager Armor BlackList", new ArrayList<>());
             IllagerArmor = builder.translation(IllagersWearArmor.MODID + ".config.illagerArmor")
                     .define("Have Illagers spawn with armor at all?", true);
-
         }
     }
 
