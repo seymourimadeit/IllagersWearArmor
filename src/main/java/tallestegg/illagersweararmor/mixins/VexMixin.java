@@ -42,7 +42,7 @@ public abstract class VexMixin extends Monster {
 
     @Inject(at = @At("HEAD"), method = "populateDefaultEquipmentSlots")
     public void populateDefaultEquipmentSlots(RandomSource pRandom, DifficultyInstance pDifficulty, CallbackInfo ci) {
-        if (!IWAConfig.ArmorBlackList.contains(this.getStringUUID()))
+        if (!IWAConfig.ArmorBlackList.contains(this.getEncodeId()))
             this.giveArmorNaturally(pRandom, pDifficulty);
     }
 

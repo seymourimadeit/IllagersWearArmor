@@ -1,5 +1,6 @@
 package tallestegg.illagersweararmor;
 
+import com.google.common.collect.Lists;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -7,6 +8,7 @@ import net.minecraftforge.fml.event.config.ModConfigEvent;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -114,7 +116,7 @@ public class IWAConfig {
                     0.48F, 0.0001F, 100F);
             ArmorBlackList = builder.translation(IllagersWearArmor.MODID + ".config.blacklist")
                     .comment("This will make sure any entity id in this list wont spawn with armor. Example outputs would be \"minecraft:vex\" and \"minecraft:vex\",\"minecraft:witch\"")
-                    .define("Illager Armor BlackList", new ArrayList<>());
+                    .define("Illager Armor BlackList", Lists.newArrayList("minecraft:vex"));
             IllagerArmor = builder.translation(IllagersWearArmor.MODID + ".config.illagerArmor")
                     .define("Have Illagers spawn with armor at all?", true);
         }

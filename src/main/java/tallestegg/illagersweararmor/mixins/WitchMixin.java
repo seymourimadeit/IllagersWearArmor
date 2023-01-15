@@ -45,6 +45,7 @@ public abstract class WitchMixin extends Raider {
                 slotItems.put(EquipmentSlot.LEGS, IWALootTables.NATURAL_SPAWN_ILLAGER_LEGGINGS);
                 slotItems.put(EquipmentSlot.FEET, IWALootTables.NATURAL_SPAWN_ILLAGER_FEET);
             });
+
     protected WitchMixin(EntityType<? extends Raider> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
@@ -52,7 +53,7 @@ public abstract class WitchMixin extends Raider {
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_34297_, DifficultyInstance p_34298_, MobSpawnType p_34299_, @Nullable SpawnGroupData p_34300_, @Nullable CompoundTag p_34301_) {
         RandomSource randomSource = p_34297_.getRandom();
-        if (!IWAConfig.ArmorBlackList.contains(this.getStringUUID()) && IWAConfig.IllagerArmor) {
+        if (!IWAConfig.ArmorBlackList.contains(this.getEncodeId()) && IWAConfig.IllagerArmor) {
             if (this.getCurrentRaid() != null && p_34299_ == MobSpawnType.EVENT) {
                 this.giveArmorOnRaids(randomSource);
             } else {
