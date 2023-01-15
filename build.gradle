@@ -22,7 +22,7 @@ mixin {
     add sourceSets.main, "illagersweararmor.refmap.json"
 }
 
-version = '1.2.4'
+version = '1.2.5'
 group = 'tallestegg.illagersweararmor' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'illagersweararmor'
 
