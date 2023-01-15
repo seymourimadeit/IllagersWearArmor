@@ -27,6 +27,22 @@ public class IWALootTables {
             "entities/illager_legs");
     public static final ResourceLocation ILLAGER_FEET = new ResourceLocation(IllagersWearArmor.MODID,
             "entities/illager_feet");
+    public static final ResourceLocation NATURAL_SPAWN_ILLAGER_HELMET = new ResourceLocation(IllagersWearArmor.MODID,
+            "entities/natural_spawn/illager_helmet");
+    public static final ResourceLocation NATURAL_SPAWN_ILLAGER_CHEST = new ResourceLocation(IllagersWearArmor.MODID,
+            "entities/natural_spawn/illager_chestplate");
+    public static final ResourceLocation NATURAL_SPAWN_ILLAGER_LEGGINGS = new ResourceLocation(IllagersWearArmor.MODID,
+            "entities/natural_spawn/illager_legs");
+    public static final ResourceLocation NATURAL_SPAWN_ILLAGER_FEET = new ResourceLocation(IllagersWearArmor.MODID,
+            "entities/natural_spawn/vex_feet");
+    public static final ResourceLocation VEX_HELMET = new ResourceLocation(IllagersWearArmor.MODID,
+            "entities/natural_spawn/vex_helmet");
+    public static final ResourceLocation VEX_CHEST = new ResourceLocation(IllagersWearArmor.MODID,
+            "entities/natural_spawn/vex_chestplate");
+    public static final ResourceLocation VEX_LEGGINGS = new ResourceLocation(IllagersWearArmor.MODID,
+            "entities/natural_spawn/vex_legs");
+    public static final ResourceLocation VEX_FEET = new ResourceLocation(IllagersWearArmor.MODID,
+            "entities/natural_spawn/vex_feet");
     
     public static LootContextParamSet register(String p_81429_, Consumer<LootContextParamSet.Builder> p_81430_) {
         LootContextParamSet.Builder lootcontextparamset$builder = new LootContextParamSet.Builder();

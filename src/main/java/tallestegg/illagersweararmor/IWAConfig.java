@@ -1,14 +1,14 @@
 package tallestegg.illagersweararmor;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.lang3.tuple.Pair;
-
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
+import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @EventBusSubscriber(modid = IllagersWearArmor.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class IWAConfig {
@@ -16,6 +16,19 @@ public class IWAConfig {
     public static final CommonConfig COMMON;
     public static final ForgeConfigSpec CLIENT_SPEC;
     public static final ClientConfig CLIENT;
+    public static float Wave1Chances;
+    public static float Wave2Chances;
+    public static float Wave3Chances;
+    public static float Wave4Chances;
+    public static float Wave5Chances;
+    public static float Wave6Chances;
+    public static float Wave7Chances;
+    public static float Wave8Chances;
+    public static float EnchanterHelmetHeight;
+    public static List<String> ArmorBlackList;
+    public static boolean IllagerArmor;
+    public static boolean crossArms;
+
     static {
         {
             final Pair<CommonConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder()
@@ -30,20 +43,6 @@ public class IWAConfig {
             CLIENT_SPEC = specPair.getRight();
         }
     }
-
-    public static float Wave1Chances;
-    public static float Wave2Chances;
-    public static float Wave3Chances;
-    public static float Wave4Chances;
-    public static float Wave5Chances;
-    public static float Wave6Chances;
-    public static float Wave7Chances;
-    public static float Wave8Chances;
-    public static float EnchanterHelmetHeight;
-    public static List<String> ArmorBlackList;
-    public static boolean IllagerArmor;
-    public static boolean crossArms;
-
 
     public static void bakeCommonConfig() {
         Wave1Chances = COMMON.Wave1.get().floatValue();
@@ -114,7 +113,7 @@ public class IWAConfig {
             Wave8 = builder.translation(IllagersWearArmor.MODID + ".config.wave7").defineInRange("Wave 8 Armor Chances",
                     0.48F, 0.0001F, 100F);
             ArmorBlackList = builder.translation(IllagersWearArmor.MODID + ".config.blacklist")
-                    .comment("This will make sure any entity id in this list wont spawn with armor. Example outputs would be \"minecraft:vex\" and \"minecraft:vex,\"\"minecraft:witch\"")
+                    .comment("This will make sure any entity id in this list wont spawn with armor. Example outputs would be \"minecraft:vex\" and \"minecraft:vex\",\"minecraft:witch\"")
                     .define("Illager Armor BlackList", new ArrayList<>());
             IllagerArmor = builder.translation(IllagersWearArmor.MODID + ".config.illagerArmor")
                     .define("Have Illagers spawn with armor at all?", true);

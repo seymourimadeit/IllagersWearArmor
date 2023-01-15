@@ -5,6 +5,7 @@ import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
@@ -13,7 +14,6 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.monster.Witch;
 import net.minecraft.world.entity.raid.Raider;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -38,38 +38,43 @@ public abstract class WitchMixin extends Raider {
                 slotItems.put(EquipmentSlot.LEGS, IWALootTables.ILLAGER_LEGGINGS);
                 slotItems.put(EquipmentSlot.FEET, IWALootTables.ILLAGER_FEET);
             });
-
+    private static final Map<EquipmentSlot, ResourceLocation> NATURAL_SPAWN_EQUIPMENT_SLOT_ITEMS = Util.make(Maps.newHashMap(),
+            (slotItems) -> {
+                slotItems.put(EquipmentSlot.HEAD, IWALootTables.NATURAL_SPAWN_ILLAGER_HELMET);
+                slotItems.put(EquipmentSlot.CHEST, IWALootTables.NATURAL_SPAWN_ILLAGER_CHEST);
+                slotItems.put(EquipmentSlot.LEGS, IWALootTables.NATURAL_SPAWN_ILLAGER_LEGGINGS);
+                slotItems.put(EquipmentSlot.FEET, IWALootTables.NATURAL_SPAWN_ILLAGER_FEET);
+            });
     protected WitchMixin(EntityType<? extends Raider> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_34297_, DifficultyInstance p_34298_, MobSpawnType p_34299_, @Nullable SpawnGroupData p_34300_, @Nullable CompoundTag p_34301_) {
+        RandomSource randomSource = p_34297_.getRandom();
         if (!IWAConfig.ArmorBlackList.contains(this.getStringUUID()) && IWAConfig.IllagerArmor) {
             if (this.getCurrentRaid() != null && p_34299_ == MobSpawnType.EVENT) {
-                this.giveArmorOnRaids();
+                this.giveArmorOnRaids(randomSource);
             } else {
-                this.giveArmorNaturally(p_34298_);
+                this.giveArmorNaturally(randomSource, p_34298_);
             }
         }
         return super.finalizeSpawn(p_34297_, p_34298_, p_34299_, p_34300_, p_34301_);
     }
 
-    public void giveArmorOnRaids() {
+    public void giveArmorOnRaids(RandomSource pRandom) {
         float difficultyChance = this.level.getDifficulty() == Difficulty.HARD ? 0.1F : 0.25F;
         int illagerWaves = this.getCurrentRaid().getGroupsSpawned();
         float waveChances = IWAHelper.getWaveArmorChances(illagerWaves);
-        if (this.getRandom().nextFloat() < waveChances) {
+        if (pRandom.nextFloat() < waveChances) {
             boolean flag = true;
             for (EquipmentSlot equipmentslottype : EquipmentSlot.values()) {
-                if (equipmentslottype.getType() == EquipmentSlot.Type.ARMOR) {
-                    if (!flag && this.random.nextFloat() < difficultyChance) {
-                        break;
-                    }
-                    flag = false;
-                    for (ItemStack stack : this.getItemsFromLootTable(equipmentslottype)) {
-                        this.setItemSlot(equipmentslottype, stack);
-                    }
+                if (!flag && pRandom.nextFloat() < difficultyChance) {
+                    break;
+                }
+                flag = false;
+                for (ItemStack stack : this.getItemsFromLootTable(equipmentslottype)) {
+                    this.setItemSlot(equipmentslottype, stack);
                 }
             }
         }
@@ -85,41 +90,31 @@ public abstract class WitchMixin extends Raider {
         return null;
     }
 
-    protected void giveArmorNaturally(DifficultyInstance p_21383_) {
-        if (this.random.nextFloat() < 0.15F * p_21383_.getSpecialMultiplier()) {
-            int i = this.random.nextInt(2);
-            float f = this.level.getDifficulty() == Difficulty.HARD ? 0.1F : 0.25F;
-            if (this.random.nextFloat() < 0.095F) {
-                ++i;
-            }
+    public List<ItemStack> getNaturalSpawnItemsFromLootTable(EquipmentSlot slot) {
+        if (NATURAL_SPAWN_EQUIPMENT_SLOT_ITEMS.containsKey(slot)) {
+            LootTable loot = this.level.getServer().getLootTables().get(NATURAL_SPAWN_EQUIPMENT_SLOT_ITEMS.get(slot));
+            LootContext.Builder lootcontext$builder = (new LootContext.Builder((ServerLevel) this.level))
+                    .withParameter(LootContextParams.THIS_ENTITY, this).withRandom(this.getRandom());
+            return loot.getRandomItems(lootcontext$builder.create(IWALootTables.SLOT));
+        }
+        return null;
+    }
 
-            if (this.random.nextFloat() < 0.095F) {
-                ++i;
-            }
-
-            if (this.random.nextFloat() < 0.095F) {
-                ++i;
-            }
-
+    protected void giveArmorNaturally(RandomSource random, DifficultyInstance instance) {
+        if (random.nextFloat() < 0.15F * instance.getSpecialMultiplier()) {
+            float difficultyChance = this.level.getDifficulty() == Difficulty.HARD ? 0.1F : 0.25F;
             boolean flag = true;
-
-            for (EquipmentSlot equipmentslot : EquipmentSlot.values()) {
-                if (equipmentslot.getType() == EquipmentSlot.Type.ARMOR) {
-                    ItemStack itemstack = this.getItemBySlot(equipmentslot);
-                    if (!flag && this.random.nextFloat() < f) {
+            for (EquipmentSlot equipmentslottype : EquipmentSlot.values()) {
+                if (equipmentslottype.getType() == EquipmentSlot.Type.ARMOR) {
+                    if (!flag && random.nextFloat() < difficultyChance) {
                         break;
                     }
-
                     flag = false;
-                    if (itemstack.isEmpty()) {
-                        Item item = getEquipmentForSlot(equipmentslot, i);
-                        if (item != null) {
-                            this.setItemSlot(equipmentslot, new ItemStack(item));
-                        }
+                    for (ItemStack stack : this.getNaturalSpawnItemsFromLootTable(equipmentslottype)) {
+                        this.setItemSlot(equipmentslottype, stack);
                     }
                 }
             }
         }
-
     }
 }
