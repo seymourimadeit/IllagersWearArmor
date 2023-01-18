@@ -96,7 +96,7 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.19.3-44.1.0'
+    minecraft 'net.minecraftforge:forge:1.19.3-44.1.5'
     annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
     implementation fg.deobf("curse.maven:enchant-with-mob-391187:4307892")
     implementation fg.deobf("curse.maven:hunterillager-318857:4162330")
