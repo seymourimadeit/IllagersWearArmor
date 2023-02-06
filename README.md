@@ -1,0 +1,1 @@
+Illagers wear armor.
