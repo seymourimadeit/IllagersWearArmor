@@ -1,6 +1,6 @@
 package tallestegg.illagersweararmor;
 
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -29,9 +29,9 @@ public class IllagersWearArmor {
     }
 
     private void registerLootData(RegisterEvent event) {
-        if (!event.getRegistryKey().equals(Registries.LOOT_CONDITION_TYPE))
+        if (!event.getRegistryKey().equals(Registry.LOOT_ITEM_REGISTRY))
             return;
-        event.register(Registries.LOOT_CONDITION_TYPE, new ResourceLocation(MODID, "wave"), () -> RaidWaveCondition.WAVE);
+        event.register(Registry.LOOT_ITEM_REGISTRY, new ResourceLocation(MODID, "wave"), () -> RaidWaveCondition.WAVE);
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
