@@ -76,8 +76,10 @@ public abstract class AbstractIllagerMixin extends Raider {
                     break;
                 }
                 flag = false;
-                for (ItemStack stack : this.getItemsFromLootTable(equipmentslottype)) {
-                    this.setItemSlot(equipmentslottype, stack);
+                if (this.getItemsFromLootTable(equipmentslottype) != null) {
+                    for (ItemStack stack : this.getItemsFromLootTable(equipmentslottype)) {
+                        this.setItemSlot(equipmentslottype, stack);
+                    }
                 }
             }
         }
