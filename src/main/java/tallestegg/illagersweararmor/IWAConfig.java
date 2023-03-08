@@ -57,21 +57,11 @@ public class IWAConfig {
         Wave8Chances = COMMON.Wave8.get().floatValue();
         ArmorBlackList = COMMON.ArmorBlackList.get();
         IllagerArmor = COMMON.IllagerArmor.get();
-        crossArms = CLIENT.IllagerCrossArms.get();
     }
 
     public static void bakeClientConfig() {
         EnchanterHelmetHeight = CLIENT.EnchanterHelmetHeight.get().floatValue();
-    }
-
-    @SubscribeEvent
-    public static void onModConfigEvent(final ModConfigEvent.Reloading configEvent) {
-        if (configEvent.getConfig().getSpec() == IWAConfig.COMMON_SPEC) {
-            bakeCommonConfig();
-        }
-        if (configEvent.getConfig().getSpec() == IWAConfig.CLIENT_SPEC) {
-            bakeClientConfig();
-        }
+        crossArms = CLIENT.IllagerCrossArms.get();
     }
 
     @SubscribeEvent
@@ -112,7 +102,7 @@ public class IWAConfig {
                     0.40F, 0.0001F, 100F);
             Wave7 = builder.translation(IllagersWearArmor.MODID + ".config.wave7").defineInRange("Wave 7 Armor Chances",
                     0.42F, 0.0001F, 100F);
-            Wave8 = builder.translation(IllagersWearArmor.MODID + ".config.wave7").defineInRange("Wave 8 Armor Chances",
+            Wave8 = builder.translation(IllagersWearArmor.MODID + ".config.wave8").defineInRange("Wave 8 Armor Chances",
                     0.48F, 0.0001F, 100F);
             ArmorBlackList = builder.translation(IllagersWearArmor.MODID + ".config.blacklist")
                     .comment("This will make sure any entity id in this list wont spawn with armor. Example outputs would be \"minecraft:vex\" and \"minecraft:vex\",\"minecraft:witch\"")
