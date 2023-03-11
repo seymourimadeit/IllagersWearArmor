@@ -31,7 +31,7 @@ public class SkirmisherBipedModel<T extends Skirmisher> extends IllagerBipedMode
         this.leftArm.visible = true;
         this.rightArm.visible = true;
     }
-a
+
     @Override
     public void doArmPoses(AbstractIllager.IllagerArmPose armpose, T entity, float ageInTicks) {
         if (armpose != null) {
