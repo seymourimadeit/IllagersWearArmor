@@ -108,19 +108,38 @@ public class IllagerBipedModel<T extends AbstractIllager> extends HumanoidModel<
     }
 
     @Override
-    public void setupAnim(T p_102928_, float p_102929_, float p_102930_, float p_102931_, float p_102932_,
+    public void setupAnim(T entity, float p_102929_, float p_102930_, float ageInTicks, float p_102932_,
                           float p_102933_) {
-        super.setupAnim(p_102928_, p_102929_, p_102930_, p_102931_, p_102932_, p_102933_);
-        AbstractIllager.IllagerArmPose armpose = p_102928_.getArmPose();
+        super.setupAnim(entity, p_102929_, p_102930_, ageInTicks, p_102932_, p_102933_);
+        AbstractIllager.IllagerArmPose armpose = entity.getArmPose();
         this.jacket.copyFrom(this.body);
-        boolean isWearingChestplateOrLeggings = p_102928_.getItemBySlot(EquipmentSlot.CHEST)
+        boolean isWearingChestplateOrLeggings = entity.getItemBySlot(EquipmentSlot.CHEST)
                 .getItem() instanceof ArmorItem
-                || p_102928_.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof ArmorItem;
+                || entity.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof ArmorItem;
         this.jacket.visible = !isWearingChestplateOrLeggings;
         this.arms.y = 3.0F;
         this.arms.z = -1.0F;
-        this.arms.xRot = -0.75F;
-        boolean flag = armpose == AbstractIllager.IllagerArmPose.CROSSED && IWAConfig.crossArms && !p_102928_.getType().equals(ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation("hunterillager:hunterillager")));
+        this.doArmPoses(armpose, entity, ageInTicks);
+    }
+
+    protected void holdWeaponHigh(T pMob) {
+        if (pMob.isLeftHanded()) {
+            this.leftArm.xRot = -1.8F;
+        } else {
+            this.rightArm.xRot = -1.8F;
+        }
+    }
+
+    protected void setupAttackAnimation(T pLivingEntity, float pAgeInTicks) {
+        if (this.attackTime > 0.0F && pLivingEntity.getArmPose() == AbstractIllager.IllagerArmPose.ATTACKING) {
+            AnimationUtils.swingWeaponDown(this.rightArm, this.leftArm, pLivingEntity, this.attackTime, pAgeInTicks);
+        } else {
+            super.setupAttackAnimation(pLivingEntity, pAgeInTicks);
+        }
+    }
+    
+    public void doArmPoses(AbstractIllager.IllagerArmPose armpose, T entity, float ageInTicks) {
+        boolean flag = armpose == AbstractIllager.IllagerArmPose.CROSSED && IWAConfig.crossArms && !entity.getType().equals(ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation("hunterillager:hunterillager")));
         this.arms.visible = flag;
         if (flag) {
             this.leftArm.y = 3.0F;
@@ -135,10 +154,10 @@ public class IllagerBipedModel<T extends AbstractIllager> extends HumanoidModel<
         if (armpose != null) {
             switch (armpose) {
                 case ATTACKING:
-                    if (p_102928_.getMainHandItem().isEmpty()) {
-                        AnimationUtils.animateZombieArms(this.leftArm, this.rightArm, true, this.attackTime, p_102931_);
+                    if (entity.getMainHandItem().isEmpty()) {
+                        AnimationUtils.animateZombieArms(this.leftArm, this.rightArm, true, this.attackTime, ageInTicks);
                     } else {
-                        this.holdWeaponHigh(p_102928_);
+                        this.holdWeaponHigh(entity);
                     }
                     break;
                 case SPELLCASTING:
@@ -146,8 +165,8 @@ public class IllagerBipedModel<T extends AbstractIllager> extends HumanoidModel<
                     this.rightArm.x = -5.0F;
                     this.leftArm.z = 0.0F;
                     this.leftArm.x = 5.0F;
-                    this.rightArm.xRot = Mth.cos(p_102931_ * 0.6662F) * 0.25F;
-                    this.leftArm.xRot = Mth.cos(p_102931_ * 0.6662F) * 0.25F;
+                    this.rightArm.xRot = Mth.cos(ageInTicks * 0.6662F) * 0.25F;
+                    this.leftArm.xRot = Mth.cos(ageInTicks * 0.6662F) * 0.25F;
                     this.rightArm.zRot = 2.3561945F;
                     this.leftArm.zRot = -2.3561945F;
                     this.rightArm.yRot = 0.0F;
@@ -156,34 +175,18 @@ public class IllagerBipedModel<T extends AbstractIllager> extends HumanoidModel<
                 case CELEBRATING:
                     this.rightArm.z = 0.0F;
                     this.rightArm.x = -5.0F;
-                    this.rightArm.xRot = Mth.cos(p_102931_ * 0.6662F) * 0.05F;
+                    this.rightArm.xRot = Mth.cos(ageInTicks * 0.6662F) * 0.05F;
                     this.rightArm.zRot = 2.670354F;
                     this.rightArm.yRot = 0.0F;
                     this.leftArm.z = 0.0F;
                     this.leftArm.x = 5.0F;
-                    this.leftArm.xRot = Mth.cos(p_102931_ * 0.6662F) * 0.05F;
+                    this.leftArm.xRot = Mth.cos(ageInTicks * 0.6662F) * 0.05F;
                     this.leftArm.zRot = -2.3561945F;
                     this.leftArm.yRot = 0.0F;
                     break;
                 default:
                     break;
             }
-        }
-    }
-
-    private void holdWeaponHigh(T pMob) {
-        if (pMob.isLeftHanded()) {
-            this.leftArm.xRot = -1.8F;
-        } else {
-            this.rightArm.xRot = -1.8F;
-        }
-    }
-
-    protected void setupAttackAnimation(T pLivingEntity, float pAgeInTicks) {
-        if (this.attackTime > 0.0F && pLivingEntity.getArmPose() == AbstractIllager.IllagerArmPose.ATTACKING) {
-            AnimationUtils.swingWeaponDown(this.rightArm, this.leftArm, pLivingEntity, this.attackTime, pAgeInTicks);
-        } else {
-            super.setupAttackAnimation(pLivingEntity, pAgeInTicks);
         }
     }
 }
