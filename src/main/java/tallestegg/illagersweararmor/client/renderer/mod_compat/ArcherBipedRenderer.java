@@ -1,4 +1,4 @@
-/*package tallestegg.illagersweararmor.client.renderer.mod_compat;
+package tallestegg.illagersweararmor.client.renderer.mod_compat;
 
 import com.izofar.takesapillage.TakesAPillageMod;
 import com.izofar.takesapillage.entity.Archer;
@@ -20,4 +20,4 @@ public class ArcherBipedRenderer extends IllagerBipedRenderer<Archer> {
     public ResourceLocation getTextureLocation(Archer archer) {
         return ARCHER;
     }
-}*/
+}

@@ -3,8 +3,14 @@ package tallestegg.illagersweararmor;
 import baguchan.enchantwithmob.client.ModModelLayers;
 import baguchan.enchantwithmob.registry.ModEntities;
 import baguchan.hunterillager.init.HunterEntityRegistry;
+import com.izofar.takesapillage.init.ModEntityTypes;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.VexModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.entity.VexRenderer;
+import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -17,10 +23,9 @@ import tallestegg.illagersweararmor.client.model.IllagerBipedModel;
 import tallestegg.illagersweararmor.client.model.WitchBipedModel;
 import tallestegg.illagersweararmor.client.model.mod_compat.EnchanterBipedModel;
 import tallestegg.illagersweararmor.client.model.mod_compat.HunterIllagerBipedModel;
+import tallestegg.illagersweararmor.client.model.mod_compat.SkirmisherBipedModel;
 import tallestegg.illagersweararmor.client.renderer.*;
-import tallestegg.illagersweararmor.client.renderer.layers.VexArmorLayer;
-import tallestegg.illagersweararmor.client.renderer.mod_compat.EnchanterBipedRenderer;
-import tallestegg.illagersweararmor.client.renderer.mod_compat.HunterIllagerBipedRenderer;
+import tallestegg.illagersweararmor.client.renderer.mod_compat.*;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class IWAClientEvents {
@@ -56,17 +61,19 @@ public class IWAClientEvents {
             event.registerEntityRenderer(ModEntities.ENCHANTER.get(), EnchanterBipedRenderer::new);
         if (ModList.get().isLoaded("hunterillager"))
             event.registerEntityRenderer(HunterEntityRegistry.HUNTERILLAGER.get(), HunterIllagerBipedRenderer::new);
-   /*     if (ModList.get().isLoaded("takesapillage")) {
+        if (ModList.get().isLoaded("takesapillage")) {
             event.registerEntityRenderer(ModEntityTypes.ARCHER.get(), ArcherBipedRenderer::new);
             event.registerEntityRenderer(ModEntityTypes.LEGIONER.get(), LegionerBipedRenderer::new);
             event.registerEntityRenderer(ModEntityTypes.SKIRMISHER.get(), SkirmisherBipedRenderer::new);
-        }*/
+        }
     }
 
     @SubscribeEvent
     public static void addLayer(EntityRenderersEvent.AddLayers event) {
         VexRenderer renderer = event.getRenderer(EntityType.VEX);
-        renderer.addLayer(new VexArmorLayer(renderer, event.getEntityModels()));
+        renderer.addLayer(new HumanoidArmorLayer<>(renderer,
+                new HumanoidModel(event.getEntityModels().bakeLayer(IWAClientEvents.VEX_ARMOR_INNER_LAYER)),
+                new HumanoidModel(event.getEntityModels().bakeLayer(IWAClientEvents.VEX_ARMOR_OUTER_LAYER))));
     }
 
     @SubscribeEvent
@@ -76,10 +83,14 @@ public class IWAClientEvents {
         if (ModList.get().isLoaded("hunterillager"))
             event.registerLayerDefinition(baguchan.hunterillager.init.ModModelLayers.HUNTERILLAGER,
                     HunterIllagerBipedModel::createBodyLayer);
+        if (ModList.get().isLoaded("takesapillage"))
+            event.registerLayerDefinition(SKRIMISHER, SkirmisherBipedModel::createBodyLayer);
         event.registerLayerDefinition(WITCH, WitchBipedModel::createBodyModel);
         event.registerLayerDefinition(BIPEDILLAGER, IllagerBipedModel::createBodyLayer);
         event.registerLayerDefinition(BIPEDILLAGER_ARMOR_OUTER_LAYER, IllagerArmorModel::createOuterArmorLayer);
         event.registerLayerDefinition(ENCHANTER_ARMOR_OUTER_LAYER, IllagerArmorModel::createOuterEnchanterArmorLayer);
         event.registerLayerDefinition(BIPEDILLAGER_ARMOR_INNER_LAYER, IllagerArmorModel::createInnerArmorLayer);
+        event.registerLayerDefinition(VEX_ARMOR_INNER_LAYER, () -> LayerDefinition.create(HumanoidModel.createMesh(new CubeDeformation(0.5F), 0.0F), 64, 32));
+        event.registerLayerDefinition(VEX_ARMOR_OUTER_LAYER, () -> LayerDefinition.create(HumanoidModel.createMesh(new CubeDeformation(1.0F), 0.0F), 64, 32));
     }
 }

@@ -1,4 +1,4 @@
-/*package tallestegg.illagersweararmor.client.renderer.mod_compat;
+package tallestegg.illagersweararmor.client.renderer.mod_compat;
 
 import baguchan.enchantwithmob.client.ModModelLayers;
 import baguchan.enchantwithmob.entity.EnchanterEntity;
@@ -31,4 +31,4 @@ public class SkirmisherBipedRenderer extends MobRenderer<Skirmisher, SkirmisherB
     public ResourceLocation getTextureLocation(Skirmisher legioner) {
         return LEGIONER;
     }
-}*/
+}
