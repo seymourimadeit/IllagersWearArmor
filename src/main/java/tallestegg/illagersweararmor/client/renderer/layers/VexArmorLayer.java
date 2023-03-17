@@ -57,7 +57,7 @@ public class VexArmorLayer extends RenderLayer<Vex, VexModel> {
         ItemStack itemstack = pLivingEntity.getItemBySlot(pSlot);
         if (itemstack.getItem() instanceof ArmorItem) {
             ArmorItem armoritem = (ArmorItem) itemstack.getItem();
-            if (armoritem.getSlot() == pSlot) {
+            if (armoritem.getEquipmentSlot() == pSlot) {
                 this.setPartVisibility(pModel, pSlot);
                 net.minecraft.client.model.Model model = getArmorModelHook(pLivingEntity, itemstack, pSlot, pModel);
                 boolean flag = this.usesInnerModel(pSlot);
@@ -73,9 +73,8 @@ public class VexArmorLayer extends RenderLayer<Vex, VexModel> {
                     this.renderModel(pPoseStack, pBuffer, p_117123_, flag1, model, 1.0F, 1.0F, 1.0F, this.getArmorResource(pLivingEntity, itemstack, pSlot, null));
                 }
             }
-            if (armoritem.getSlot() == EquipmentSlot.CHEST) {
+            if (armoritem.getEquipmentSlot() == EquipmentSlot.CHEST) {
                 pPoseStack.pushPose();
-                // pPoseStack.scale(0.7F, 0.7F, 0.7F);
                 pPoseStack.popPose();
             }
         }

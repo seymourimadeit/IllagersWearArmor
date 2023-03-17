@@ -35,7 +35,7 @@ public class HunterIllagerBipedRenderer
         this.addLayer(new ElytraLayer<>(this, renderManagerIn.getModelSet()));
         this.addLayer(new HumanoidArmorLayer<>(this,
                 new IllagerArmorModel<>(renderManagerIn.bakeLayer(IWAClientEvents.BIPEDILLAGER_ARMOR_INNER_LAYER)),
-                new IllagerArmorModel<>(renderManagerIn.bakeLayer(IWAClientEvents.BIPEDILLAGER_ARMOR_OUTER_LAYER))));
+                new IllagerArmorModel<>(renderManagerIn.bakeLayer(IWAClientEvents.BIPEDILLAGER_ARMOR_OUTER_LAYER)), renderManagerIn.getModelManager()));
         //  this.addLayer(new CrossArmHeldItemLayer<>(this));
         this.addLayer(new ItemInHandLayer<>(this, renderManagerIn.getItemInHandRenderer()));
     }

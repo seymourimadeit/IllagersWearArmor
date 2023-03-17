@@ -27,7 +27,7 @@ public class WitchBipedRenderer<T extends Witch> extends MobRenderer<T, WitchBip
         this.addLayer(new ElytraLayer<>(this, builder.getModelSet()));
         this.addLayer(new HumanoidArmorLayer(this,
                 new IllagerArmorModel<>(builder.bakeLayer(IWAClientEvents.BIPEDILLAGER_ARMOR_INNER_LAYER)),
-                new IllagerArmorModel<>(builder.bakeLayer(IWAClientEvents.BIPEDILLAGER_ARMOR_OUTER_LAYER))));
+                new IllagerArmorModel<>(builder.bakeLayer(IWAClientEvents.BIPEDILLAGER_ARMOR_OUTER_LAYER)), builder.getModelManager()));
     }
 
     @Override
