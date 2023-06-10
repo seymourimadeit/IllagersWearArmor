@@ -1,6 +1,6 @@
 package tallestegg.illagersweararmor.client.model.mod_compat;
 
-import baguchan.hunterillager.entity.Hunter;
+/*import baguchan.hunterillager.entity.Hunter;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -73,4 +73,4 @@ public class HunterIllagerBipedModel<T extends Hunter> extends IllagerBipedModel
         this.shoulderplate_r1.visible = entityIn.getItemBySlot(EquipmentSlot.CHEST).isEmpty();
     }
 
-}
+}*/

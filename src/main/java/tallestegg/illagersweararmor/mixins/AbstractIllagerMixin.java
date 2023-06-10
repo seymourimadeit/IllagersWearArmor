@@ -17,7 +17,7 @@ import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import org.spongepowered.asm.mixin.Mixin;
@@ -66,7 +66,7 @@ public abstract class AbstractIllagerMixin extends Raider {
     }
 
     public void giveArmorOnRaids(RandomSource pRandom) {
-        float difficultyChance = this.level.getDifficulty() == Difficulty.HARD ? 0.1F : 0.25F;
+        float difficultyChance = this.level().getDifficulty() == Difficulty.HARD ? 0.1F : 0.25F;
         int illagerWaves = this.getCurrentRaid().getGroupsSpawned();
         float waveChances = IWAHelper.getWaveArmorChances(illagerWaves);
         if (pRandom.nextFloat() < waveChances) {
@@ -87,9 +87,8 @@ public abstract class AbstractIllagerMixin extends Raider {
 
     public List<ItemStack> getItemsFromLootTable(EquipmentSlot slot) {
         if (EQUIPMENT_SLOT_ITEMS.containsKey(slot)) {
-            LootTable loot = this.level.getServer().getLootTables().get(EQUIPMENT_SLOT_ITEMS.get(slot));
-            LootContext.Builder lootcontext$builder = (new LootContext.Builder((ServerLevel) this.level))
-                    .withParameter(LootContextParams.THIS_ENTITY, this).withRandom(this.getRandom());
+            LootTable loot = this.level().getServer().getLootData().getLootTable(EQUIPMENT_SLOT_ITEMS.get(slot));
+            LootParams.Builder lootcontext$builder = (new LootParams.Builder((ServerLevel) level()).withParameter(LootContextParams.THIS_ENTITY, this));
             return loot.getRandomItems(lootcontext$builder.create(IWALootTables.SLOT));
         }
         return null;
@@ -97,9 +96,8 @@ public abstract class AbstractIllagerMixin extends Raider {
 
     public List<ItemStack> getNaturalSpawnItemsFromLootTable(EquipmentSlot slot) {
         if (NATURAL_SPAWN_EQUIPMENT_SLOT_ITEMS.containsKey(slot)) {
-            LootTable loot = this.level.getServer().getLootTables().get(NATURAL_SPAWN_EQUIPMENT_SLOT_ITEMS.get(slot));
-            LootContext.Builder lootcontext$builder = (new LootContext.Builder((ServerLevel) this.level))
-                    .withParameter(LootContextParams.THIS_ENTITY, this).withRandom(this.getRandom());
+            LootTable loot = this.level().getServer().getLootData().getLootTable(NATURAL_SPAWN_EQUIPMENT_SLOT_ITEMS.get(slot));
+            LootParams.Builder lootcontext$builder = (new LootParams.Builder((ServerLevel) level()).withParameter(LootContextParams.THIS_ENTITY, this));
             return loot.getRandomItems(lootcontext$builder.create(IWALootTables.SLOT));
         }
         return null;
@@ -107,7 +105,7 @@ public abstract class AbstractIllagerMixin extends Raider {
 
     protected void giveArmorNaturally(RandomSource random, DifficultyInstance instance) {
         if (random.nextFloat() < 0.15F * instance.getSpecialMultiplier()) {
-            float difficultyChance = this.level.getDifficulty() == Difficulty.HARD ? 0.1F : 0.25F;
+            float difficultyChance = this.level().getDifficulty() == Difficulty.HARD ? 0.1F : 0.25F;
             boolean flag = true;
             for (EquipmentSlot equipmentslottype : EquipmentSlot.values()) {
                 if (equipmentslottype.getType() == EquipmentSlot.Type.ARMOR) {

@@ -1,8 +1,5 @@
 package tallestegg.illagersweararmor;
 
-import baguchan.enchantwithmob.client.ModModelLayers;
-import baguchan.enchantwithmob.registry.ModEntities;
-import baguchan.hunterillager.init.HunterEntityRegistry;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.VexRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -19,8 +16,6 @@ import tallestegg.illagersweararmor.client.model.mod_compat.EnchanterBipedModel;
 import tallestegg.illagersweararmor.client.model.mod_compat.HunterIllagerBipedModel;
 import tallestegg.illagersweararmor.client.renderer.*;
 import tallestegg.illagersweararmor.client.renderer.layers.VexArmorLayer;
-import tallestegg.illagersweararmor.client.renderer.mod_compat.EnchanterBipedRenderer;
-import tallestegg.illagersweararmor.client.renderer.mod_compat.HunterIllagerBipedRenderer;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class IWAClientEvents {
@@ -52,10 +47,6 @@ public class IWAClientEvents {
             event.registerEntityRenderer(EntityType.ILLUSIONER, IllusionerBipedRenderer::new);
             event.registerEntityRenderer(EntityType.WITCH, WitchBipedRenderer::new);
         }
-        if (ModList.get().isLoaded("enchantwithmob"))
-            event.registerEntityRenderer(ModEntities.ENCHANTER.get(), EnchanterBipedRenderer::new);
-        if (ModList.get().isLoaded("hunterillager"))
-            event.registerEntityRenderer(HunterEntityRegistry.HUNTERILLAGER.get(), HunterIllagerBipedRenderer::new);
    /*     if (ModList.get().isLoaded("takesapillage")) {
             event.registerEntityRenderer(ModEntityTypes.ARCHER.get(), ArcherBipedRenderer::new);
             event.registerEntityRenderer(ModEntityTypes.LEGIONER.get(), LegionerBipedRenderer::new);
@@ -71,11 +62,6 @@ public class IWAClientEvents {
 
     @SubscribeEvent
     public static void layerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        if (ModList.get().isLoaded("enchantwithmob"))
-            event.registerLayerDefinition(ModModelLayers.ENCHANTER, EnchanterBipedModel::createBodyLayer);
-        if (ModList.get().isLoaded("hunterillager"))
-            event.registerLayerDefinition(baguchan.hunterillager.init.ModModelLayers.HUNTERILLAGER,
-                    HunterIllagerBipedModel::createBodyLayer);
         event.registerLayerDefinition(WITCH, WitchBipedModel::createBodyModel);
         event.registerLayerDefinition(BIPEDILLAGER, IllagerBipedModel::createBodyLayer);
         event.registerLayerDefinition(BIPEDILLAGER_ARMOR_OUTER_LAYER, IllagerArmorModel::createOuterArmorLayer);

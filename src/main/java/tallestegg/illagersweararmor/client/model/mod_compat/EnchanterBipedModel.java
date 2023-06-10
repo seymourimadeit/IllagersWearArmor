@@ -1,6 +1,6 @@
 package tallestegg.illagersweararmor.client.model.mod_compat;
 
-import baguchan.enchantwithmob.entity.EnchanterEntity;
+/*import baguchan.enchantwithmob.entity.EnchanterEntity;
 
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -80,4 +80,4 @@ public class EnchanterBipedModel<T extends EnchanterEntity> extends IllagerBiped
         super.setupAnim(p_102928_, p_102929_, p_102930_, p_102931_, p_102932_, p_102933_);
         this.cape.xRot = 0.1F + p_102930_ * 0.6F;
     }
-}
+}*/

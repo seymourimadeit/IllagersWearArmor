@@ -1,6 +1,6 @@
 package tallestegg.illagersweararmor.client.renderer.mod_compat;
 
-import baguchan.hunterillager.HunterIllager;
+/*import baguchan.hunterillager.HunterIllager;
 import baguchan.hunterillager.entity.Hunter;
 import baguchan.hunterillager.init.ModModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -114,4 +114,4 @@ public class HunterIllagerBipedRenderer
     public ResourceLocation getTextureLocation(Hunter p_110775_1_) {
         return ILLAGER;
     }
-}
+}*/

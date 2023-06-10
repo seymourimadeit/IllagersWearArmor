@@ -22,7 +22,7 @@ mixin {
     add sourceSets.main, "illagersweararmor.refmap.json"
 }
 
-version = '1.19.4-1.2.7'
+version = '1.20-1.3.0'
 group = 'tallestegg.illagersweararmor' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'illagersweararmor'
 
@@ -30,7 +30,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
-    mappings channel: 'parchment', version: "1.19.3-2023.03.12-1.19.4"
+    mappings channel: 'parchment', version: "1.19.3-2023.03.12-1.20"
     
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
@@ -96,11 +96,8 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.19.4-45.0.9'
+    minecraft 'net.minecraftforge:forge:1.20-46.0.2'
     annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
-    implementation fg.deobf("curse.maven:enchant-with-mob-391187:4438410")
-    implementation fg.deobf("curse.maven:hunterillager-318857:4439856")
-   // implementation fg.deobf("curse.maven:it-takes-a-pillage-635843:4034764")
 }
 
 repositories {

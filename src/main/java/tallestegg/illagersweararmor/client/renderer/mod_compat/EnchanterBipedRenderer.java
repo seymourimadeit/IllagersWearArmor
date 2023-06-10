@@ -1,6 +1,6 @@
 package tallestegg.illagersweararmor.client.renderer.mod_compat;
 
-import baguchan.enchantwithmob.EnchantWithMob;
+/*import baguchan.enchantwithmob.EnchantWithMob;
 import baguchan.enchantwithmob.client.ModModelLayers;
 import baguchan.enchantwithmob.entity.EnchanterEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -140,4 +140,4 @@ public class EnchanterBipedRenderer extends MobRenderer<EnchanterEntity, Enchant
     public ResourceLocation getTextureLocation(EnchanterEntity p_110775_1_) {
         return ILLAGER;
     }
-}
+}*/
