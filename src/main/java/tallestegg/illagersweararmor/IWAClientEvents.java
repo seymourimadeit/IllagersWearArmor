@@ -12,8 +12,6 @@ import net.minecraftforge.fml.common.Mod;
 import tallestegg.illagersweararmor.client.model.IllagerArmorModel;
 import tallestegg.illagersweararmor.client.model.IllagerBipedModel;
 import tallestegg.illagersweararmor.client.model.WitchBipedModel;
-import tallestegg.illagersweararmor.client.model.mod_compat.EnchanterBipedModel;
-import tallestegg.illagersweararmor.client.model.mod_compat.HunterIllagerBipedModel;
 import tallestegg.illagersweararmor.client.renderer.*;
 import tallestegg.illagersweararmor.client.renderer.layers.VexArmorLayer;
 
