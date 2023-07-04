@@ -22,7 +22,7 @@ mixin {
     add sourceSets.main, "illagersweararmor.refmap.json"
 }
 
-version = '1.19.4-1.2.7'
+version = '1.19.4-1.2.8'
 group = 'tallestegg.illagersweararmor' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'illagersweararmor'
 
@@ -96,10 +96,11 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.19.4-45.0.9'
+    minecraft 'net.minecraftforge:forge:1.19.4-45.1.2'
     annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
-    implementation fg.deobf("curse.maven:enchant-with-mob-391187:4438410")
-    implementation fg.deobf("curse.maven:hunterillager-318857:4439856")
+    implementation fg.deobf("curse.maven:enchant-with-mob-391187:4564779")
+    implementation fg.deobf("curse.maven:hunterillager-318857:4570929")
+    implementation fg.deobf("curse.maven:bagus-lib-866533:4570229")
    // implementation fg.deobf("curse.maven:it-takes-a-pillage-635843:4034764")
 }
 
