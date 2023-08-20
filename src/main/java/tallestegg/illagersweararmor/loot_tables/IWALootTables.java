@@ -34,7 +34,7 @@ public class IWALootTables {
     public static final ResourceLocation NATURAL_SPAWN_ILLAGER_LEGGINGS = new ResourceLocation(IllagersWearArmor.MODID,
             "entities/natural_spawn/illager_legs");
     public static final ResourceLocation NATURAL_SPAWN_ILLAGER_FEET = new ResourceLocation(IllagersWearArmor.MODID,
-            "entities/natural_spawn/vex_feet");
+            "entities/natural_spawn/illager_feet");
     public static final ResourceLocation VEX_HELMET = new ResourceLocation(IllagersWearArmor.MODID,
             "entities/natural_spawn/vex_helmet");
     public static final ResourceLocation VEX_CHEST = new ResourceLocation(IllagersWearArmor.MODID,
