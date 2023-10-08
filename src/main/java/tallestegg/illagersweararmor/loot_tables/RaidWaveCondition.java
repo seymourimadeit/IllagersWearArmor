@@ -4,24 +4,27 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 
-public class RaidWaveCondition implements LootItemCondition {
-    final int wave;
-    public static final LootItemConditionType WAVE = new LootItemConditionType(new RaidWaveCondition.Serializer());
+public record RaidWaveCondition(int wave) implements LootItemCondition {
+    public static final Codec<RaidWaveCondition> CODEC = RecordCodecBuilder.create((p_297204_) -> {
+        return p_297204_.group(Codec.INT.fieldOf("wave").forGetter(RaidWaveCondition::wave)).apply(p_297204_, RaidWaveCondition::new);
+    });
 
-    RaidWaveCondition(int wave) {
-        this.wave = wave;
-    }
+    public static final LootItemConditionType TYPE = new LootItemConditionType(CODEC);
 
     @Override
     public LootItemConditionType getType() {
-        return WAVE;
+        return TYPE;
     }
 
     @Override
@@ -30,15 +33,9 @@ public class RaidWaveCondition implements LootItemCondition {
         return raider.getCurrentRaid().getGroupsSpawned() == wave;
     }
 
-    public static class Serializer implements net.minecraft.world.level.storage.loot.Serializer<RaidWaveCondition> {
-        @Override
-        public void serialize(JsonObject json, RaidWaveCondition condition, JsonSerializationContext serializer) {
-            json.addProperty("wave", condition.wave);
-        }
-
-        @Override
-        public RaidWaveCondition deserialize(JsonObject p_81991_, JsonDeserializationContext p_81992_) {
-            return new RaidWaveCondition(GsonHelper.getAsInt(p_81991_, "wave"));
-        }
+    public static LootItemCondition.Builder wave(int wave) {
+        return () -> {
+            return new RaidWaveCondition(wave);
+        };
     }
 }

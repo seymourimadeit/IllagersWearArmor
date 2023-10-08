@@ -63,7 +63,7 @@ public class IWASpawnEvents {
                         if (raider.getCurrentRaid() != null && spawnType == MobSpawnType.EVENT) {
                             giveArmorOnRaids(raider, rSource);
                         } else {
-                            giveArmorNaturally(raider, rSource, event.getDifficulty());
+                            giveArmorNaturally(raider, rSource);
                         }
                     }
                 }
@@ -121,19 +121,17 @@ public class IWASpawnEvents {
         return null;
     }
 
-    public static void giveArmorNaturally(Raider raider, RandomSource random, DifficultyInstance instance) {
-        if (random.nextFloat() < 0.15F * instance.getSpecialMultiplier()) {
-            float difficultyChance = raider.level().getDifficulty() == Difficulty.HARD ? 0.1F : 0.25F;
-            boolean flag = true;
-            for (EquipmentSlot equipmentslottype : EquipmentSlot.values()) {
-                if (equipmentslottype.getType() == EquipmentSlot.Type.ARMOR) {
-                    if (!flag && random.nextFloat() < difficultyChance) {
-                        break;
-                    }
-                    flag = false;
-                    for (ItemStack stack : getNaturalSpawnItemsFromLootTable(raider, equipmentslottype)) {
-                        raider.setItemSlot(equipmentslottype, stack);
-                    }
+    public static void giveArmorNaturally(Raider raider, RandomSource random) {
+        float difficultyChance = raider.level().getDifficulty() == Difficulty.HARD ? 0.1F : 0.25F;
+        boolean flag = true;
+        for (EquipmentSlot equipmentslottype : EquipmentSlot.values()) {
+            if (equipmentslottype.getType() == EquipmentSlot.Type.ARMOR) {
+                if (!flag && random.nextFloat() < difficultyChance) {
+                    break;
+                }
+                flag = false;
+                for (ItemStack stack : getNaturalSpawnItemsFromLootTable(raider, equipmentslottype)) {
+                    raider.setItemSlot(equipmentslottype, stack);
                 }
             }
         }
