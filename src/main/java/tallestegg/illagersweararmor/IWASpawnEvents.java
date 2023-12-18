@@ -122,7 +122,6 @@ public class IWASpawnEvents {
     }
 
     public static void giveArmorNaturally(Raider raider, RandomSource random, DifficultyInstance instance) {
-        if (random.nextFloat() < 0.15F * instance.getSpecialMultiplier()) {
             float difficultyChance = raider.level().getDifficulty() == Difficulty.HARD ? 0.1F : 0.25F;
             boolean flag = true;
             for (EquipmentSlot equipmentslottype : EquipmentSlot.values()) {
@@ -136,11 +135,9 @@ public class IWASpawnEvents {
                     }
                 }
             }
-        }
     }
 
     public static void giveArmorNaturally(Vex vex, RandomSource random, DifficultyInstance instance) {
-        if (random.nextFloat() < 0.15F * instance.getSpecialMultiplier()) {
             float difficultyChance = vex.level().getDifficulty() == Difficulty.HARD ? 0.1F : 0.25F;
             boolean flag = true;
             for (EquipmentSlot equipmentslottype : EquipmentSlot.values()) {
@@ -153,7 +150,6 @@ public class IWASpawnEvents {
                         vex.setItemSlot(equipmentslottype, stack);
                     }
                 }
-            }
         }
     }
 }
