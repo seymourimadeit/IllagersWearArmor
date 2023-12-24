@@ -130,6 +130,7 @@ public class IllagerBipedModel<T extends AbstractIllager> extends HumanoidModel<
                 default:
                     break;
             }
+            this.setupAttackAnimation(p_102928_, p_102931_);
         }
     }
 
@@ -141,6 +142,7 @@ public class IllagerBipedModel<T extends AbstractIllager> extends HumanoidModel<
         }
     }
 
+    @Override
     protected void setupAttackAnimation(T pLivingEntity, float pAgeInTicks) {
         if (this.attackTime > 0.0F && pLivingEntity.getArmPose() == AbstractIllager.IllagerArmPose.ATTACKING) {
             AnimationUtils.swingWeaponDown(this.rightArm, this.leftArm, pLivingEntity, this.attackTime, pAgeInTicks);

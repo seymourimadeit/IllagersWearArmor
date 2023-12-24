@@ -138,18 +138,16 @@ public class IWASpawnEvents {
     }
 
     public static void giveArmorNaturally(Vex vex, RandomSource random, DifficultyInstance instance) {
-        if (random.nextFloat() < 0.15F * instance.getSpecialMultiplier()) {
-            float difficultyChance = vex.level().getDifficulty() == Difficulty.HARD ? 0.1F : 0.25F;
-            boolean flag = true;
-            for (EquipmentSlot equipmentslottype : EquipmentSlot.values()) {
-                if (equipmentslottype.getType() == EquipmentSlot.Type.ARMOR) {
-                    if (!flag && random.nextFloat() < difficultyChance) {
-                        break;
-                    }
-                    flag = false;
-                    for (ItemStack stack : getVexNaturalSpawnItemsFromLootTable(vex, equipmentslottype)) {
-                        vex.setItemSlot(equipmentslottype, stack);
-                    }
+        float difficultyChance = vex.level().getDifficulty() == Difficulty.HARD ? 0.1F : 0.25F;
+        boolean flag = true;
+        for (EquipmentSlot equipmentslottype : EquipmentSlot.values()) {
+            if (equipmentslottype.getType() == EquipmentSlot.Type.ARMOR) {
+                if (!flag && random.nextFloat() < difficultyChance) {
+                    break;
+                }
+                flag = false;
+                for (ItemStack stack : getVexNaturalSpawnItemsFromLootTable(vex, equipmentslottype)) {
+                    vex.setItemSlot(equipmentslottype, stack);
                 }
             }
         }
