@@ -1,22 +1,19 @@
 package tallestegg.illagersweararmor;
 
 import com.google.common.collect.Lists;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.config.ModConfigEvent;
+import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-@EventBusSubscriber(modid = IllagersWearArmor.MODID, bus = EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = IllagersWearArmor.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class IWAConfig {
-    public static final ForgeConfigSpec COMMON_SPEC;
+    public static final ModConfigSpec COMMON_SPEC;
     public static final CommonConfig COMMON;
-    public static final ForgeConfigSpec CLIENT_SPEC;
+    public static final ModConfigSpec CLIENT_SPEC;
     public static final ClientConfig CLIENT;
     public static float Wave1Chances;
     public static float Wave2Chances;
@@ -33,13 +30,13 @@ public class IWAConfig {
 
     static {
         {
-            final Pair<CommonConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder()
+            final Pair<CommonConfig, ModConfigSpec> specPair = new ModConfigSpec.Builder()
                     .configure(CommonConfig::new);
             COMMON = specPair.getLeft();
             COMMON_SPEC = specPair.getRight();
         }
         {
-            final Pair<ClientConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder()
+            final Pair<ClientConfig, ModConfigSpec> specPair = new ModConfigSpec.Builder()
                     .configure(ClientConfig::new);
             CLIENT = specPair.getLeft();
             CLIENT_SPEC = specPair.getRight();
@@ -76,18 +73,18 @@ public class IWAConfig {
 
     public static class CommonConfig {
 
-        public final ForgeConfigSpec.DoubleValue Wave1;
-        public final ForgeConfigSpec.DoubleValue Wave2;
-        public final ForgeConfigSpec.DoubleValue Wave3;
-        public final ForgeConfigSpec.DoubleValue Wave4;
-        public final ForgeConfigSpec.DoubleValue Wave5;
-        public final ForgeConfigSpec.DoubleValue Wave6;
-        public final ForgeConfigSpec.DoubleValue Wave7;
-        public final ForgeConfigSpec.DoubleValue Wave8;
-        public final ForgeConfigSpec.BooleanValue IllagerArmor;
-        public final ForgeConfigSpec.ConfigValue<List<String>> ArmorBlackList;
+        public final ModConfigSpec.DoubleValue Wave1;
+        public final ModConfigSpec.DoubleValue Wave2;
+        public final ModConfigSpec.DoubleValue Wave3;
+        public final ModConfigSpec.DoubleValue Wave4;
+        public final ModConfigSpec.DoubleValue Wave5;
+        public final ModConfigSpec.DoubleValue Wave6;
+        public final ModConfigSpec.DoubleValue Wave7;
+        public final ModConfigSpec.DoubleValue Wave8;
+        public final ModConfigSpec.BooleanValue IllagerArmor;
+        public final ModConfigSpec.ConfigValue<List<String>> ArmorBlackList;
 
-        public CommonConfig(ForgeConfigSpec.Builder builder) {
+        public CommonConfig(ModConfigSpec.Builder builder) {
             Wave1 = builder.translation(IllagersWearArmor.MODID + ".config.wave1").defineInRange("Wave 1 Armor Chances",
                     0.30F, 0.0001F, 100F);
             Wave2 = builder.translation(IllagersWearArmor.MODID + ".config.wave2").defineInRange("Wave 2 Armor Chances",
@@ -113,11 +110,11 @@ public class IWAConfig {
     }
 
     public static class ClientConfig {
-        public final ForgeConfigSpec.BooleanValue IllagerCrossArms;
-        public final ForgeConfigSpec.DoubleValue EnchanterHelmetHeight;
-        public final ForgeConfigSpec.BooleanValue pillagerRenderer;
+        public final ModConfigSpec.BooleanValue IllagerCrossArms;
+        public final ModConfigSpec.DoubleValue EnchanterHelmetHeight;
+        public final ModConfigSpec.BooleanValue pillagerRenderer;
 
-        public ClientConfig(ForgeConfigSpec.Builder builder) {
+        public ClientConfig(ModConfigSpec.Builder builder) {
             IllagerCrossArms = builder.translation(IllagersWearArmor.MODID + ".config.illagerCrossArms")
                     .define("Have Illagers cross their arms when neutral?", true);
             EnchanterHelmetHeight = builder.translation(IllagersWearArmor.MODID + ".config.height").defineInRange("Height of the Enchanters helmet", -15.0F, -500.0F, 100F);

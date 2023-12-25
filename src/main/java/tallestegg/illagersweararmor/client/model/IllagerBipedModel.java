@@ -7,12 +7,12 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.item.ArmorItem;
-import net.minecraftforge.registries.ForgeRegistries;
 import tallestegg.illagersweararmor.IWAConfig;
 
 public class IllagerBipedModel<T extends AbstractIllager> extends HumanoidModel<T> {
@@ -82,7 +82,7 @@ public class IllagerBipedModel<T extends AbstractIllager> extends HumanoidModel<
         this.arms.y = 3.0F;
         this.arms.z = -1.0F;
         this.arms.xRot = -0.75F;
-        boolean flag = armpose == AbstractIllager.IllagerArmPose.CROSSED && IWAConfig.crossArms && !p_102928_.getType().equals(ForgeRegistries.ENTITY_TYPES.getValue(new ResourceLocation("hunterillager:hunterillager")));
+        boolean flag = armpose == AbstractIllager.IllagerArmPose.CROSSED && IWAConfig.crossArms && !p_102928_.getType().equals(Registries.ENTITY_TYPE.registry().equals(new ResourceLocation("hunterillager:hunterillager")));
         this.arms.visible = flag;
         if (flag) {
             this.leftArm.y = 3.0F;

@@ -18,15 +18,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraftforge.event.entity.living.MobSpawnEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.MobSpawnEvent;
 import tallestegg.illagersweararmor.loot_tables.IWALootTables;
 
 import java.util.List;
 import java.util.Map;
 
-@Mod.EventBusSubscriber(modid = IllagersWearArmor.MODID)
 public class IWASpawnEvents {
     private static final Map<EquipmentSlot, ResourceLocation> VEX_NATURAL_SPAWN_EQUIPMENT_SLOT_ITEMS = Util.make(Maps.newHashMap(),
             (slotItems) -> {

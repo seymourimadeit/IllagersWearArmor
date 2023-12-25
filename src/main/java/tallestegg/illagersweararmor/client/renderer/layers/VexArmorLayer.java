@@ -18,6 +18,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.client.ClientHooks;
 
 import javax.annotation.Nullable;
 import java.util.Map;
@@ -182,7 +183,7 @@ public class VexArmorLayer extends RenderLayer<Vex, VexModel> {
      * Hook to allow item-sensitive armor model. for HumanoidArmorLayer.
      */
     protected net.minecraft.client.model.Model getArmorModelHook(Vex entity, ItemStack itemStack, EquipmentSlot slot, HumanoidModel model) {
-        return net.minecraftforge.client.ForgeHooksClient.getArmorModel(entity, itemStack, slot, model);
+        return ClientHooks.getArmorModel(entity, itemStack, slot, model);
     }
 
     /**
@@ -205,7 +206,7 @@ public class VexArmorLayer extends RenderLayer<Vex, VexModel> {
         }
         String s1 = String.format(java.util.Locale.ROOT, "%s:textures/models/armor/%s_layer_%d%s.png", domain, texture, (usesInnerModel(slot) ? 2 : 1), type == null ? "" : String.format(java.util.Locale.ROOT, "_%s", type));
 
-        s1 = net.minecraftforge.client.ForgeHooksClient.getArmorTexture(entity, stack, s1, slot, type);
+        s1 = ClientHooks.getArmorTexture(entity, stack, s1, slot, type);
         ResourceLocation resourcelocation = ARMOR_LOCATION_CACHE.get(s1);
 
         if (resourcelocation == null) {

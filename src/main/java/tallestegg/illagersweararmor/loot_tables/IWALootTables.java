@@ -8,11 +8,10 @@ import com.google.common.collect.HashBiMap;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.neoforged.fml.common.Mod;
 import tallestegg.illagersweararmor.IllagersWearArmor;
 
-@EventBusSubscriber(modid = IllagersWearArmor.MODID, bus = Bus.MOD)
+
 public class IWALootTables {
     public static final BiMap<ResourceLocation, LootContextParamSet> REGISTRY = HashBiMap.create();
     public static final LootContextParamSet SLOT = register("slot", (table) -> {
