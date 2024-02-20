@@ -19,7 +19,7 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.LivingEvent;
 import net.neoforged.neoforge.event.entity.living.MobSpawnEvent;
 import tallestegg.illagersweararmor.loot_tables.IWALootTables;
 
@@ -53,23 +53,39 @@ public class IWASpawnEvents {
     @SubscribeEvent
     public static void finalizeSpawn(MobSpawnEvent.FinalizeSpawn event) {
         MobSpawnType spawnType = event.getSpawnType();
-        RandomSource rSource = event.getLevel().getRandom();
-        LivingEntity entity = (LivingEntity) event.getEntity();
+        LivingEntity entity = event.getEntity();
         if (!IWAConfig.ArmorBlackList.contains(entity.getEncodeId())) {
             if (entity instanceof Raider raider) {
                 if (entity instanceof AbstractIllager || entity instanceof Witch) {
                     if (IWAConfig.IllagerArmor) {
                         if (raider.getCurrentRaid() != null && spawnType == MobSpawnType.EVENT) {
-                            giveArmorOnRaids(raider, rSource);
+                            raider.getTags().add("raidArmorSpawn");
                         } else {
-                            giveArmorNaturally(raider, rSource);
+                            raider.getTags().add("naturalArmorSpawn");
                         }
                     }
                 }
             }
-            if (event.getEntity() instanceof Vex vex) {
-                giveArmorNaturally(vex, rSource, event.getDifficulty());
+            if (event.getEntity() instanceof Vex vex)
+                vex.getTags().add("naturalArmorSpawn");
+        }
+    }
+
+    @SubscribeEvent
+    public static void tickEntity(LivingEvent.LivingTickEvent event) {
+        RandomSource rSource = event.getEntity().level().getRandom();
+        if (event.getEntity() instanceof Raider raider) {
+            if (raider.getTags().contains("raidArmorSpawn")) {
+                giveArmorOnRaids(raider, raider.getRandom());
+                raider.getTags().remove("raidArmorSpawn");
+            } else if (raider.getTags().contains("naturalArmorSpawn")) {
+                giveArmorNaturally(raider, rSource);
+                raider.getTags().remove("naturalArmorSpawn");
             }
+        }
+        if (event.getEntity() instanceof Vex vex && vex.getTags().contains("naturalArmorSpawn")) {
+            giveArmorNaturally(vex, rSource, vex.level().getCurrentDifficultyAt(vex.blockPosition()));
+            vex.getTags().remove("naturalArmorSpawn");
         }
     }
 

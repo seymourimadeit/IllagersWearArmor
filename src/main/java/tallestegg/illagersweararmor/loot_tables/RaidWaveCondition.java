@@ -1,19 +1,12 @@
 package tallestegg.illagersweararmor.loot_tables;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializationContext;
-
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
-import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 
 public record RaidWaveCondition(int wave) implements LootItemCondition {
     public static final Codec<RaidWaveCondition> CODEC = RecordCodecBuilder.create((p_297204_) -> {
