@@ -1,6 +1,6 @@
 package tallestegg.illagersweararmor.client.renderer.mod_compat;
 
-/*import com.izofar.takesapillage.TakesAPillageMod;
+import com.izofar.takesapillage.TakesAPillageMod;
 import com.izofar.takesapillage.entity.Legioner;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.HumanoidModel;
@@ -37,4 +37,4 @@ public class LegionerBipedRenderer extends IllagerBipedRenderer<Legioner> {
         }
         return bipedmodel$armpose;
     }
-}*/
+}
