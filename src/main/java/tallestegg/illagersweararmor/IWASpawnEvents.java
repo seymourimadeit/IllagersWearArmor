@@ -90,6 +90,8 @@ public class IWASpawnEvents {
     }
 
     public static void giveArmorOnRaids(Raider raider, RandomSource pRandom) {
+        if (raider.getCurrentRaid() == null)
+            return;
         float difficultyChance = raider.level().getDifficulty() == Difficulty.HARD ? 0.1F : 0.25F;
         int illagerWaves = raider.getCurrentRaid().getGroupsSpawned();
         float waveChances = IWAHelper.getWaveArmorChances(illagerWaves);
