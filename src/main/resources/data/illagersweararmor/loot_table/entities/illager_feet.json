@@ -1,25 +1,25 @@
 {
-  "type": "zillagersweararmor:slot",
+  "type": "illagersweararmor:slot",
   "pools": [
     {
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:leather_chestplate",
+          "name": "minecraft:leather_boots",
           "conditions": [
             {
-              "condition": "zillagersweararmor:wave",
+              "condition": "illagersweararmor:wave",
               "wave": 1
             }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:golden_chestplate",
+          "name": "minecraft:golden_boots",
           "conditions": [
             {
-              "condition": "zillagersweararmor:wave",
+              "condition": "illagersweararmor:wave",
               "wave": 1
             },
             {
@@ -30,20 +30,20 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:golden_chestplate",
+          "name": "minecraft:golden_boots",
           "conditions": [
             {
-              "condition": "zillagersweararmor:wave",
+              "condition": "illagersweararmor:wave",
               "wave": 2
             }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:chainmail_chestplate",
+          "name": "minecraft:chainmail_boots",
           "conditions": [
             {
-              "condition": "zillagersweararmor:wave",
+              "condition": "illagersweararmor:wave",
               "wave": 2
             },
             {
@@ -54,20 +54,20 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:chainmail_chestplate",
+          "name": "minecraft:chainmail_boots",
           "conditions": [
             {
-              "condition": "zillagersweararmor:wave",
+              "condition": "illagersweararmor:wave",
               "wave": 3
             }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_chestplate",
+          "name": "minecraft:iron_boots",
           "conditions": [
             {
-              "condition": "zillagersweararmor:wave",
+              "condition": "illagersweararmor:wave",
               "wave": 3
             },
             {
@@ -78,20 +78,20 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_chestplate",
+          "name": "minecraft:iron_boots",
           "conditions": [
             {
-              "condition": "zillagersweararmor:wave",
+              "condition": "illagersweararmor:wave",
               "wave": 4
             }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:diamond_chestplate",
+          "name": "minecraft:diamond_boots",
           "conditions": [
             {
-              "condition": "zillagersweararmor:wave",
+              "condition": "illagersweararmor:wave",
               "wave": 4
             },
             {
@@ -102,40 +102,40 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:diamond_chestplate",
+          "name": "minecraft:diamond_boots",
           "conditions": [
             {
-              "condition": "zillagersweararmor:wave",
+              "condition": "illagersweararmor:wave",
               "wave": 5
             }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:diamond_chestplate",
+          "name": "minecraft:diamond_boots",
           "conditions": [
             {
-              "condition": "zillagersweararmor:wave",
+              "condition": "illagersweararmor:wave",
               "wave": 6
             }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:diamond_chestplate",
+          "name": "minecraft:diamond_boots",
           "conditions": [
             {
-              "condition": "zillagersweararmor:wave",
+              "condition": "illagersweararmor:wave",
               "wave": 7
             }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:diamond_chestplate",
+          "name": "minecraft:diamond_boots",
           "conditions": [
             {
-              "condition": "zillagersweararmor:wave",
+              "condition": "illagersweararmor:wave",
               "wave": 8
             }
           ]

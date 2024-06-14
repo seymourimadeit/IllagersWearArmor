@@ -10,7 +10,7 @@ import net.minecraft.world.entity.monster.Evoker;
 import tallestegg.illagersweararmor.client.model.IllagerBipedModel;
 
 public class EvokerBipedRenderer extends IllagerBipedRenderer<Evoker> {
-    private static final ResourceLocation PILLAGER = new ResourceLocation("textures/entity/illager/evoker.png");
+    private static final ResourceLocation PILLAGER = ResourceLocation.withDefaultNamespace("textures/entity/illager/evoker.png");
 
     public EvokerBipedRenderer(Context builder) {
         super(builder);

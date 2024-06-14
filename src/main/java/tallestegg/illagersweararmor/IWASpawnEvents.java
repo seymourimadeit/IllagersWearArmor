@@ -2,6 +2,7 @@ package tallestegg.illagersweararmor;
 
 import com.google.common.collect.Maps;
 import net.minecraft.Util;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -19,15 +20,17 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
 import net.neoforged.neoforge.event.entity.living.MobSpawnEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import tallestegg.illagersweararmor.loot_tables.IWALootTables;
 
 import java.util.List;
 import java.util.Map;
 
 public class IWASpawnEvents {
-    private static final Map<EquipmentSlot, ResourceLocation> VEX_NATURAL_SPAWN_EQUIPMENT_SLOT_ITEMS = Util.make(Maps.newHashMap(),
+    private static final Map<EquipmentSlot, ResourceKey<LootTable>> VEX_NATURAL_SPAWN_EQUIPMENT_SLOT_ITEMS = Util.make(Maps.newHashMap(),
             (slotItems) -> {
                 slotItems.put(EquipmentSlot.HEAD, IWALootTables.VEX_HELMET);
                 slotItems.put(EquipmentSlot.CHEST, IWALootTables.VEX_CHEST);
@@ -35,14 +38,14 @@ public class IWASpawnEvents {
                 slotItems.put(EquipmentSlot.FEET, IWALootTables.VEX_FEET);
             });
 
-    private static final Map<EquipmentSlot, ResourceLocation> EQUIPMENT_SLOT_ITEMS = Util.make(Maps.newHashMap(),
+    private static final Map<EquipmentSlot, ResourceKey<LootTable>> EQUIPMENT_SLOT_ITEMS = Util.make(Maps.newHashMap(),
             (slotItems) -> {
                 slotItems.put(EquipmentSlot.HEAD, IWALootTables.ILLAGER_HELMET);
                 slotItems.put(EquipmentSlot.CHEST, IWALootTables.ILLAGER_CHEST);
                 slotItems.put(EquipmentSlot.LEGS, IWALootTables.ILLAGER_LEGGINGS);
                 slotItems.put(EquipmentSlot.FEET, IWALootTables.ILLAGER_FEET);
             });
-    private static final Map<EquipmentSlot, ResourceLocation> NATURAL_SPAWN_EQUIPMENT_SLOT_ITEMS = Util.make(Maps.newHashMap(),
+    private static final Map<EquipmentSlot, ResourceKey<LootTable>> NATURAL_SPAWN_EQUIPMENT_SLOT_ITEMS = Util.make(Maps.newHashMap(),
             (slotItems) -> {
                 slotItems.put(EquipmentSlot.HEAD, IWALootTables.NATURAL_SPAWN_ILLAGER_HELMET);
                 slotItems.put(EquipmentSlot.CHEST, IWALootTables.NATURAL_SPAWN_ILLAGER_CHEST);
@@ -51,7 +54,7 @@ public class IWASpawnEvents {
             });
 
     @SubscribeEvent
-    public static void finalizeSpawn(MobSpawnEvent.FinalizeSpawn event) {
+    public static void finalizeSpawn(FinalizeSpawnEvent event) {
         MobSpawnType spawnType = event.getSpawnType();
         LivingEntity entity = event.getEntity();
         if (!IWAConfig.ArmorBlackList.contains(entity.getEncodeId())) {
@@ -72,7 +75,7 @@ public class IWASpawnEvents {
     }
 
     @SubscribeEvent
-    public static void tickEntity(LivingEvent.LivingTickEvent event) {
+    public static void tickEntity(EntityTickEvent.Pre event) {
         RandomSource rSource = event.getEntity().level().getRandom();
         if (event.getEntity() instanceof Raider raider) {
             if (raider.getTags().contains("raidArmorSpawn")) {
@@ -113,7 +116,7 @@ public class IWASpawnEvents {
 
     public static List<ItemStack> getItemsFromLootTable(Raider raider, EquipmentSlot slot) {
         if (EQUIPMENT_SLOT_ITEMS.containsKey(slot)) {
-            LootTable loot = raider.level().getServer().getLootData().getLootTable(EQUIPMENT_SLOT_ITEMS.get(slot));
+            LootTable loot = raider.level().getServer().reloadableRegistries().getLootTable(EQUIPMENT_SLOT_ITEMS.get(slot));
             LootParams.Builder lootcontext$builder = (new LootParams.Builder((ServerLevel) raider.level()).withParameter(LootContextParams.THIS_ENTITY, raider));
             return loot.getRandomItems(lootcontext$builder.create(IWALootTables.SLOT));
         }
@@ -122,7 +125,7 @@ public class IWASpawnEvents {
 
     public static List<ItemStack> getNaturalSpawnItemsFromLootTable(Raider raider, EquipmentSlot slot) {
         if (NATURAL_SPAWN_EQUIPMENT_SLOT_ITEMS.containsKey(slot)) {
-            LootTable loot = raider.level().getServer().getLootData().getLootTable(NATURAL_SPAWN_EQUIPMENT_SLOT_ITEMS.get(slot));
+            LootTable loot = raider.level().getServer().reloadableRegistries().getLootTable(NATURAL_SPAWN_EQUIPMENT_SLOT_ITEMS.get(slot));
             LootParams.Builder lootcontext$builder = (new LootParams.Builder((ServerLevel) raider.level()).withParameter(LootContextParams.THIS_ENTITY, raider));
             return loot.getRandomItems(lootcontext$builder.create(IWALootTables.SLOT));
         }
@@ -131,7 +134,7 @@ public class IWASpawnEvents {
 
     public static List<ItemStack> getVexNaturalSpawnItemsFromLootTable(Vex vex, EquipmentSlot slot) {
         if (NATURAL_SPAWN_EQUIPMENT_SLOT_ITEMS.containsKey(slot)) {
-            LootTable loot = vex.level().getServer().getLootData().getLootTable(VEX_NATURAL_SPAWN_EQUIPMENT_SLOT_ITEMS.get(slot));
+            LootTable loot = vex.level().getServer().reloadableRegistries().getLootTable(VEX_NATURAL_SPAWN_EQUIPMENT_SLOT_ITEMS.get(slot));
             LootParams.Builder lootcontext$builder = (new LootParams.Builder((ServerLevel) vex.level()).withParameter(LootContextParams.THIS_ENTITY, vex));
             return loot.getRandomItems(lootcontext$builder.create(IWALootTables.SLOT));
         }
@@ -142,7 +145,7 @@ public class IWASpawnEvents {
         float difficultyChance = raider.level().getDifficulty() == Difficulty.HARD ? 0.1F : 0.25F;
         boolean flag = true;
         for (EquipmentSlot equipmentslottype : EquipmentSlot.values()) {
-            if (equipmentslottype.getType() == EquipmentSlot.Type.ARMOR) {
+            if (equipmentslottype.getType() == EquipmentSlot.Type.HUMANOID_ARMOR) {
                 if (!flag && random.nextFloat() < difficultyChance) {
                     break;
                 }
@@ -158,7 +161,7 @@ public class IWASpawnEvents {
         float difficultyChance = vex.level().getDifficulty() == Difficulty.HARD ? 0.1F : 0.25F;
         boolean flag = true;
         for (EquipmentSlot equipmentslottype : EquipmentSlot.values()) {
-            if (equipmentslottype.getType() == EquipmentSlot.Type.ARMOR) {
+            if (equipmentslottype.getType() == EquipmentSlot.Type.HUMANOID_ARMOR) {
                 if (!flag && random.nextFloat() < difficultyChance) {
                     break;
                 }

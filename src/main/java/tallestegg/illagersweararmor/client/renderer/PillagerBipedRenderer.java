@@ -6,7 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.monster.Pillager;
 
 public class PillagerBipedRenderer extends IllagerBipedRenderer<Pillager> {
-    private static final ResourceLocation PILLAGER = new ResourceLocation("textures/entity/illager/pillager.png");
+    private static final ResourceLocation PILLAGER = ResourceLocation.withDefaultNamespace("textures/entity/illager/pillager.png");
 
     public PillagerBipedRenderer(Context builder) {
         super(builder);

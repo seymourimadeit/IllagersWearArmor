@@ -12,7 +12,7 @@ import net.minecraft.world.phys.Vec3;
 import tallestegg.illagersweararmor.client.model.IllagerBipedModel;
 
 public class IllusionerBipedRenderer extends IllagerBipedRenderer<Illusioner> {
-    private static final ResourceLocation PILLAGER = new ResourceLocation("textures/entity/illager/illusioner.png");
+    private static final ResourceLocation PILLAGER = ResourceLocation.withDefaultNamespace("textures/entity/illager/illusioner.png");
 
     public IllusionerBipedRenderer(Context builder) {
         super(builder);

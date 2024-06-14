@@ -82,7 +82,7 @@ public class IllagerBipedModel<T extends AbstractIllager> extends HumanoidModel<
         this.arms.y = 3.0F;
         this.arms.z = -1.0F;
         this.arms.xRot = -0.75F;
-        boolean flag = armpose == AbstractIllager.IllagerArmPose.CROSSED && IWAConfig.crossArms && !p_102928_.getType().equals(Registries.ENTITY_TYPE.registry().equals(new ResourceLocation("hunterillager:hunterillager")));
+        boolean flag = armpose == AbstractIllager.IllagerArmPose.CROSSED && IWAConfig.crossArms;
         this.arms.visible = flag;
         if (flag) {
             this.leftArm.y = 3.0F;

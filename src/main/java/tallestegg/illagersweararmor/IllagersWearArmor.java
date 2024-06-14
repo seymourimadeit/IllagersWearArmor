@@ -5,6 +5,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
@@ -18,12 +19,12 @@ import tallestegg.illagersweararmor.loot_tables.RaidWaveCondition;
 @Mod(IllagersWearArmor.MODID)
 public class IllagersWearArmor {
     private static final DeferredRegister<LootItemConditionType> LOOT_CONDITION_TYPES = DeferredRegister.create(Registries.LOOT_CONDITION_TYPE, IllagersWearArmor.MODID);
-    public static final String MODID = "zillagersweararmor";
+    public static final String MODID = "illagersweararmor";
 
-    public IllagersWearArmor(IEventBus modEventBus, Dist dist) {
+    public IllagersWearArmor(IEventBus modEventBus, Dist dist, ModContainer container) {
         modEventBus.addListener(this::registerLootData);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, IWAConfig.COMMON_SPEC);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, IWAConfig.CLIENT_SPEC);
+        container.registerConfig(ModConfig.Type.COMMON, IWAConfig.COMMON_SPEC);
+        container.registerConfig(ModConfig.Type.CLIENT, IWAConfig.CLIENT_SPEC);
         LOOT_CONDITION_TYPES.register(modEventBus);
         NeoForge.EVENT_BUS.register(IWASpawnEvents.class);
     }

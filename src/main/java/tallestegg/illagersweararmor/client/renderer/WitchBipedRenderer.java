@@ -18,7 +18,7 @@ import tallestegg.illagersweararmor.client.model.WitchBipedModel;
 import tallestegg.illagersweararmor.client.renderer.layers.WitchBipedItemLayer;
 
 public class WitchBipedRenderer<T extends Witch> extends MobRenderer<T, WitchBipedModel<T>> {
-    private static final ResourceLocation WITCH_LOCATION = new ResourceLocation("textures/entity/witch.png");
+    private static final ResourceLocation WITCH_LOCATION =ResourceLocation.withDefaultNamespace("textures/entity/witch.png");
 
     public WitchBipedRenderer(EntityRendererProvider.Context builder) {
         super(builder, new WitchBipedModel(builder.bakeLayer(IWAClientEvents.WITCH)), 0.5F);

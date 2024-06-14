@@ -1,12 +1,12 @@
 {
-  "type": "zillagersweararmor:slot",
+  "type": "illagersweararmor:slot",
   "pools": [
     {
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:leather_boots",
+          "name": "minecraft:leather_helmet",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
@@ -16,7 +16,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:golden_boots",
+          "name": "minecraft:golden_helmet",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
@@ -26,27 +26,27 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:chainmail_boots",
+          "name": "minecraft:chainmail_helmet",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.0129
+              "chance": 0.0012
             }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_boots",
+          "name": "minecraft:iron_helmet",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.00127
+              "chance": 0.00129
             }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:diamond_boots",
+          "name": "minecraft:diamond_helmet",
           "conditions": [
             {
               "condition": "minecraft:random_chance",

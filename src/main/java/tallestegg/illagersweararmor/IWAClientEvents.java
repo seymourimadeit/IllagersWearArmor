@@ -7,6 +7,7 @@ import net.minecraft.world.entity.EntityType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import tallestegg.illagersweararmor.client.model.IllagerArmorModel;
@@ -15,26 +16,28 @@ import tallestegg.illagersweararmor.client.model.WitchBipedModel;
 import tallestegg.illagersweararmor.client.renderer.*;
 import tallestegg.illagersweararmor.client.renderer.layers.VexArmorLayer;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+import static net.minecraft.resources.ResourceLocation.fromNamespaceAndPath;
+
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class IWAClientEvents {
     public static ModelLayerLocation BIPEDILLAGER = new ModelLayerLocation(
-            new ResourceLocation(IllagersWearArmor.MODID + "illagerbiped"), "illagerbiped");
+            ResourceLocation.parse(IllagersWearArmor.MODID + "illagerbiped"), "illagerbiped");
     public static ModelLayerLocation BIPEDILLAGER_ARMOR_OUTER_LAYER = new ModelLayerLocation(
-            new ResourceLocation(IllagersWearArmor.MODID + "illagerbiped_outerarmor"), "illagerbiped_outerarmor");
+            ResourceLocation.parse(IllagersWearArmor.MODID + "illagerbiped_outerarmor"), "illagerbiped_outerarmor");
     public static ModelLayerLocation ENCHANTER_ARMOR_OUTER_LAYER = new ModelLayerLocation(
-            new ResourceLocation(IllagersWearArmor.MODID + "enchanterbiped_outerarmor"), "enchanterbiped_outerarmor");
+            ResourceLocation.parse(IllagersWearArmor.MODID + "enchanterbiped_outerarmor"), "enchanterbiped_outerarmor");
     public static ModelLayerLocation BIPEDILLAGER_ARMOR_INNER_LAYER = new ModelLayerLocation(
-            new ResourceLocation(IllagersWearArmor.MODID + "illagerbiped_innerarmor"), "illagerbiped_innerarmor");
+            ResourceLocation.parse(IllagersWearArmor.MODID + "illagerbiped_innerarmor"), "illagerbiped_innerarmor");
     public static ModelLayerLocation SKRIMISHER = new ModelLayerLocation(
-            new ResourceLocation(IllagersWearArmor.MODID + "skrimisherbiped"), "skrimisherbiped");
+            ResourceLocation.parse(IllagersWearArmor.MODID + "skrimisherbiped"), "skrimisherbiped");
     public static ModelLayerLocation WITCH = new ModelLayerLocation(
-            new ResourceLocation(IllagersWearArmor.MODID + "witch_biped"), "witch_biped");
+            ResourceLocation.parse(IllagersWearArmor.MODID + "witch_biped"), "witch_biped");
     public static ModelLayerLocation VEX_BIPED = new ModelLayerLocation(
-            new ResourceLocation(IllagersWearArmor.MODID + "vex_biped"), "vex_biped");
+            ResourceLocation.parse(IllagersWearArmor.MODID + "vex_biped"), "vex_biped");
     public static ModelLayerLocation VEX_ARMOR_OUTER_LAYER = new ModelLayerLocation(
-            new ResourceLocation(IllagersWearArmor.MODID + "vex_outerarmor"), "vex_outerarmor");
+            ResourceLocation.parse(IllagersWearArmor.MODID + "vex_outerarmor"), "vex_outerarmor");
     public static ModelLayerLocation VEX_ARMOR_INNER_LAYER = new ModelLayerLocation(
-            new ResourceLocation(IllagersWearArmor.MODID + "vex_innerarmor"), "vex_innerarmor");
+            ResourceLocation.parse(IllagersWearArmor.MODID + "vex_innerarmor"), "vex_innerarmor");
 
     @SubscribeEvent
     public static void render(EntityRenderersEvent.RegisterRenderers event) {
@@ -55,7 +58,7 @@ public class IWAClientEvents {
     @SubscribeEvent
     public static void addLayer(EntityRenderersEvent.AddLayers event) {
         VexRenderer renderer = event.getRenderer(EntityType.VEX);
-        renderer.addLayer(new VexArmorLayer(renderer, event.getEntityModels()));
+        renderer.addLayer(new VexArmorLayer(renderer, event.getEntityModels(), event.getContext().getModelManager()));
     }
 
     @SubscribeEvent

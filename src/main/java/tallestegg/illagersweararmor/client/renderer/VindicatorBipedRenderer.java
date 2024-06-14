@@ -10,7 +10,7 @@ import net.minecraft.world.entity.monster.Vindicator;
 import tallestegg.illagersweararmor.client.model.IllagerBipedModel;
 
 public class VindicatorBipedRenderer extends IllagerBipedRenderer<Vindicator> {
-    private static final ResourceLocation PILLAGER = new ResourceLocation("textures/entity/illager/vindicator.png");
+    private static final ResourceLocation PILLAGER = ResourceLocation.withDefaultNamespace("textures/entity/illager/vindicator.png");
 
     public VindicatorBipedRenderer(Context builder) {
         super(builder);

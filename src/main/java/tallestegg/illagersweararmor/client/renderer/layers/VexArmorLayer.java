@@ -9,29 +9,39 @@ import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.ModelManager;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.monster.Vex;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.client.ClientHooks;
+import net.minecraft.world.item.armortrim.ArmorTrim;
+import net.minecraft.world.item.component.DyedItemColor;
 
-import javax.annotation.Nullable;
 import java.util.Map;
 
 public class VexArmorLayer extends RenderLayer<Vex, VexModel> {
     private static final Map<String, ResourceLocation> ARMOR_LOCATION_CACHE = Maps.newHashMap();
     private final HumanoidModel innerModel;
     private final HumanoidModel outerModel;
+    private final TextureAtlas armorTrimAtlas;
 
-    public VexArmorLayer(RenderLayerParent<Vex, VexModel> pRenderer, EntityModelSet modelSets) {
+    public VexArmorLayer(RenderLayerParent<Vex, VexModel> pRenderer, EntityModelSet modelSets, ModelManager modelManager) {
         super(pRenderer);
         this.innerModel = new HumanoidModel<>(modelSets.bakeLayer(ModelLayers.ARMOR_STAND_INNER_ARMOR));
         this.outerModel = new HumanoidModel<>(modelSets.bakeLayer(ModelLayers.ARMOR_STAND_OUTER_ARMOR));
+        this.armorTrimAtlas = modelManager.getAtlas(Sheets.ARMOR_TRIMS_SHEET);
     }
 
     public void copyPropertiesTo(HumanoidModel pModel) {
@@ -54,29 +64,31 @@ public class VexArmorLayer extends RenderLayer<Vex, VexModel> {
         this.renderArmorPiece(pMatrixStack, pBuffer, pLivingEntity, EquipmentSlot.HEAD, pPackedLight, this.getArmorModel(EquipmentSlot.HEAD));
     }
 
-    private void renderArmorPiece(PoseStack pPoseStack, MultiBufferSource pBuffer, Vex pLivingEntity, EquipmentSlot pSlot, int p_117123_, HumanoidModel pModel) {
-        ItemStack itemstack = pLivingEntity.getItemBySlot(pSlot);
-        if (itemstack.getItem() instanceof ArmorItem) {
-            ArmorItem armoritem = (ArmorItem) itemstack.getItem();
-            if (armoritem.getEquipmentSlot() == pSlot) {
-                this.setPartVisibility(pModel, pSlot);
-                net.minecraft.client.model.Model model = getArmorModelHook(pLivingEntity, itemstack, pSlot, pModel);
-                boolean flag = this.usesInnerModel(pSlot);
-                boolean flag1 = itemstack.hasFoil();
-                if (armoritem instanceof net.minecraft.world.item.DyeableLeatherItem) {
-                    int i = ((net.minecraft.world.item.DyeableLeatherItem) armoritem).getColor(itemstack);
-                    float f = (float) (i >> 16 & 255) / 255.0F;
-                    float f1 = (float) (i >> 8 & 255) / 255.0F;
-                    float f2 = (float) (i & 255) / 255.0F;
-                    this.renderModel(pPoseStack, pBuffer, p_117123_, flag1, model, f, f1, f2, this.getArmorResource(pLivingEntity, itemstack, pSlot, null));
-                    this.renderModel(pPoseStack, pBuffer, p_117123_, flag1, model, 1.0F, 1.0F, 1.0F, this.getArmorResource(pLivingEntity, itemstack, pSlot, "overlay"));
-                } else {
-                    this.renderModel(pPoseStack, pBuffer, p_117123_, flag1, model, 1.0F, 1.0F, 1.0F, this.getArmorResource(pLivingEntity, itemstack, pSlot, null));
+    private void renderArmorPiece(PoseStack p_117119_, MultiBufferSource p_117120_, Vex p_117121_, EquipmentSlot p_117122_, int p_117123_, HumanoidModel p_117124_) {
+        ItemStack itemstack = p_117121_.getItemBySlot(p_117122_);
+        if (itemstack.getItem() instanceof ArmorItem armoritem) {
+            if (armoritem.getEquipmentSlot() == p_117122_) {
+                this.getParentModel().copyPropertiesTo(p_117124_);
+                this.setPartVisibility(p_117124_, p_117122_);
+                net.minecraft.client.model.Model model = getArmorModelHook(p_117121_, itemstack, p_117122_, p_117124_);
+                boolean flag = this.usesInnerModel(p_117122_);
+                ArmorMaterial armormaterial = armoritem.getMaterial().value();
+                int i = itemstack.is(ItemTags.DYEABLE) ? FastColor.ARGB32.opaque(DyedItemColor.getOrDefault(itemstack, -6265536)) : -1;
+
+                for (ArmorMaterial.Layer armormaterial$layer : armormaterial.layers()) {
+                    int j = armormaterial$layer.dyeable() ? i : -1;
+                    var texture = net.neoforged.neoforge.client.ClientHooks.getArmorTexture(p_117121_, itemstack, armormaterial$layer, flag, p_117122_);
+                    this.renderModel(p_117119_, p_117120_, p_117123_, p_117124_, j, texture);
                 }
-            }
-            if (armoritem.getEquipmentSlot() == EquipmentSlot.CHEST) {
-                pPoseStack.pushPose();
-                pPoseStack.popPose();
+
+                ArmorTrim armortrim = itemstack.get(DataComponents.TRIM);
+                if (armortrim != null) {
+                    this.renderTrim(armoritem.getMaterial(), p_117119_, p_117120_, p_117123_, armortrim, model, flag);
+                }
+
+                if (itemstack.hasFoil()) {
+                    this.renderGlint(p_117119_, p_117120_, p_117123_, model);
+                }
             }
         }
     }
@@ -154,67 +166,47 @@ public class VexArmorLayer extends RenderLayer<Vex, VexModel> {
 
     }
 
-    private void renderModel(PoseStack pPoseStack, MultiBufferSource pBuffer, int p_117109_, ArmorItem p_117110_, boolean p_117111_, HumanoidModel pModel, boolean p_117113_, float p_117114_, float p_117115_, float p_117116_, @Nullable String p_117117_) {
-        renderModel(pPoseStack, pBuffer, p_117109_, p_117111_, pModel, p_117114_, p_117115_, p_117116_, this.getArmorLocation(p_117110_, p_117113_, p_117117_));
+    private void renderModel(PoseStack p_289664_, MultiBufferSource p_289689_, int p_289681_, HumanoidModel p_289658_, int p_350798_, ResourceLocation p_324344_) {
+        renderModel(p_289664_, p_289689_, p_289681_, (net.minecraft.client.model.Model) p_289658_, p_350798_, p_324344_);
+    }
+    private void renderModel(PoseStack p_289664_, MultiBufferSource p_289689_, int p_289681_, net.minecraft.client.model.Model p_289658_, int p_350798_, ResourceLocation p_324344_) {
+        VertexConsumer vertexconsumer = p_289689_.getBuffer(RenderType.armorCutoutNoCull(p_324344_));
+        p_289658_.renderToBuffer(p_289664_, vertexconsumer, p_289681_, OverlayTexture.NO_OVERLAY, p_350798_);
     }
 
-    private void renderModel(PoseStack pPoseStack, MultiBufferSource pBuffer, int p_117109_, boolean p_117111_, net.minecraft.client.model.Model pModel, float p_117114_, float p_117115_, float p_117116_, ResourceLocation armorResource) {
-        VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(pBuffer, RenderType.armorCutoutNoCull(armorResource), false, p_117111_);
-        pModel.renderToBuffer(pPoseStack, vertexconsumer, p_117109_, OverlayTexture.NO_OVERLAY, p_117114_, p_117115_, p_117116_, 1.0F);
+    private void renderTrim(
+            Holder<ArmorMaterial> p_323506_, PoseStack p_289687_, MultiBufferSource p_289643_, int p_289683_, ArmorTrim p_289692_, HumanoidModel p_289663_, boolean p_289651_
+    ) {
+        renderTrim(p_323506_, p_289687_, p_289643_, p_289683_, p_289692_, (net.minecraft.client.model.Model) p_289663_, p_289651_);
+    }
+    private void renderTrim(
+            Holder<ArmorMaterial> p_323506_, PoseStack p_289687_, MultiBufferSource p_289643_, int p_289683_, ArmorTrim p_289692_, net.minecraft.client.model.Model p_289663_, boolean p_289651_
+    ) {
+        TextureAtlasSprite textureatlassprite = this.armorTrimAtlas
+                .getSprite(p_289651_ ? p_289692_.innerTexture(p_323506_) : p_289692_.outerTexture(p_323506_));
+        VertexConsumer vertexconsumer = textureatlassprite.wrap(p_289643_.getBuffer(Sheets.armorTrimsSheet(p_289692_.pattern().value().decal())));
+        p_289663_.renderToBuffer(p_289687_, vertexconsumer, p_289683_, OverlayTexture.NO_OVERLAY);
     }
 
-    private HumanoidModel getArmorModel(EquipmentSlot pSlot) {
-        return this.usesInnerModel(pSlot) ? this.innerModel : this.outerModel;
+    private void renderGlint(PoseStack p_289673_, MultiBufferSource p_289654_, int p_289649_, VexModel p_289659_) {
+        renderGlint(p_289673_, p_289654_, p_289649_, (net.minecraft.client.model.Model) p_289659_);
+    }
+    private void renderGlint(PoseStack p_289673_, MultiBufferSource p_289654_, int p_289649_, net.minecraft.client.model.Model p_289659_) {
+        p_289659_.renderToBuffer(p_289673_, p_289654_.getBuffer(RenderType.armorEntityGlint()), p_289649_, OverlayTexture.NO_OVERLAY);
     }
 
-    private boolean usesInnerModel(EquipmentSlot pSlot) {
-        return pSlot == EquipmentSlot.LEGS;
+    private HumanoidModel getArmorModel(EquipmentSlot p_117079_) {
+        return this.usesInnerModel(p_117079_) ? this.innerModel : this.outerModel;
     }
 
-    @Deprecated //Use the more sensitive version getArmorResource below
-    private ResourceLocation getArmorLocation(ArmorItem p_117081_, boolean p_117082_, @Nullable String p_117083_) {
-        String s = "textures/models/armor/" + p_117081_.getMaterial().getName() + "_layer_" + (p_117082_ ? 2 : 1) + (p_117083_ == null ? "" : "_" + p_117083_) + ".png";
-        return ARMOR_LOCATION_CACHE.computeIfAbsent(s, ResourceLocation::new);
+    private boolean usesInnerModel(EquipmentSlot p_117129_) {
+        return p_117129_ == EquipmentSlot.LEGS;
     }
-
-    /*=================================== FORGE START =========================================*/
 
     /**
      * Hook to allow item-sensitive armor model. for HumanoidArmorLayer.
      */
     protected net.minecraft.client.model.Model getArmorModelHook(Vex entity, ItemStack itemStack, EquipmentSlot slot, HumanoidModel model) {
-        return ClientHooks.getArmorModel(entity, itemStack, slot, model);
+        return net.neoforged.neoforge.client.ClientHooks.getArmorModel(entity, itemStack, slot, model);
     }
-
-    /**
-     * More generic ForgeHook version of the above function, it allows for Items to have more control over what texture they provide.
-     *
-     * @param entity Entity wearing the armor
-     * @param stack  ItemStack for the armor
-     * @param slot   Slot ID that the item is in
-     * @param type   Subtype, can be null or "overlay"
-     * @return ResourceLocation pointing at the armor's texture
-     */
-    public ResourceLocation getArmorResource(net.minecraft.world.entity.Entity entity, ItemStack stack, EquipmentSlot slot, @Nullable String type) {
-        ArmorItem item = (ArmorItem) stack.getItem();
-        String texture = item.getMaterial().getName();
-        String domain = "minecraft";
-        int idx = texture.indexOf(':');
-        if (idx != -1) {
-            domain = texture.substring(0, idx);
-            texture = texture.substring(idx + 1);
-        }
-        String s1 = String.format(java.util.Locale.ROOT, "%s:textures/models/armor/%s_layer_%d%s.png", domain, texture, (usesInnerModel(slot) ? 2 : 1), type == null ? "" : String.format(java.util.Locale.ROOT, "_%s", type));
-
-        s1 = ClientHooks.getArmorTexture(entity, stack, s1, slot, type);
-        ResourceLocation resourcelocation = ARMOR_LOCATION_CACHE.get(s1);
-
-        if (resourcelocation == null) {
-            resourcelocation = new ResourceLocation(s1);
-            ARMOR_LOCATION_CACHE.put(s1, resourcelocation);
-        }
-
-        return resourcelocation;
-    }
-    /*=================================== FORGE END ===========================================*/
 }

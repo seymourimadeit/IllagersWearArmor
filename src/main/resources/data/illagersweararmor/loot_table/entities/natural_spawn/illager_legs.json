@@ -1,22 +1,22 @@
 {
-  "type": "zillagersweararmor:slot",
+  "type": "illagersweararmor:slot",
   "pools": [
     {
       "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:leather_chestplate",
+          "name": "minecraft:leather_leggings",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.037
+              "chance": 0.034
             }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:golden_chestplate",
+          "name": "minecraft:golden_leggings",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
@@ -26,27 +26,27 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:chainmail_chestplate",
+          "name": "minecraft:chainmail_leggings",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.0129
+              "chance": 0.012
             }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_chestplate",
+          "name": "minecraft:iron_leggings",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.00127
+              "chance": 0.00129
             }
           ]
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:diamond_chestplate",
+          "name": "minecraft:diamond_leggings",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
