@@ -68,7 +68,7 @@ public class VexArmorLayer extends RenderLayer<Vex, VexModel> {
         ItemStack itemstack = p_117121_.getItemBySlot(p_117122_);
         if (itemstack.getItem() instanceof ArmorItem armoritem) {
             if (armoritem.getEquipmentSlot() == p_117122_) {
-                this.getParentModel().copyPropertiesTo(p_117124_);
+                this.copyPropertiesTo(p_117124_);
                 this.setPartVisibility(p_117124_, p_117122_);
                 net.minecraft.client.model.Model model = getArmorModelHook(p_117121_, itemstack, p_117122_, p_117124_);
                 boolean flag = this.usesInnerModel(p_117122_);
