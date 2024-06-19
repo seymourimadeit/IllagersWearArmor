@@ -26,24 +26,17 @@ jobs:
       - name: mc-publish
         uses: Kir-Antipov/mc-publish@v3.3.0
         with:
-          curseforge-id: 407488
-          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
-          files-primary: build/libs/!(*-@(javadoc|sources)).jar
-          version-type: release
-          loaders: neoforge
-          game-versions: 1.21
-          java: 17
-          name: ""
-      - name: mc-publish
-        uses: Kir-Antipov/mc-publish@v3.3.0
-        with:
           modrinth-id: xXNP32XJ
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          curseforge-id: 407488
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+          files: build/libs/!(*-@(javadoc|sources)).jar
           version-type: release
           loaders: neoforge
           game-versions: 1.21
-          java: 17
+          java: 21
           name: ""
+          changelog-file: changelog-1.21.*
 
 
 
