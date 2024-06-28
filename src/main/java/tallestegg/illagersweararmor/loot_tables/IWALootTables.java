@@ -1,23 +1,32 @@
 package tallestegg.illagersweararmor.loot_tables;
 
-import java.util.function.Consumer;
-
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 import tallestegg.illagersweararmor.IllagersWearArmor;
+
+import java.util.function.Consumer;
 
 @EventBusSubscriber(modid = IllagersWearArmor.MODID, bus = Bus.MOD)
 public class IWALootTables {
     public static final BiMap<ResourceLocation, LootContextParamSet> REGISTRY = HashBiMap.create();
+    public static final DeferredRegister<LootItemFunctionType> LOOT_ITEM_FUNCTION_TYPES = DeferredRegister.create(Registries.LOOT_FUNCTION_TYPE, IllagersWearArmor.MODID);
+    public static final DeferredRegister<LootItemConditionType> LOOT_ITEM_CONDITION_TYPES = DeferredRegister.create(Registries.LOOT_CONDITION_TYPE, IllagersWearArmor.MODID);
     public static final LootContextParamSet SLOT = register("slot", (table) -> {
         table.required(LootContextParams.THIS_ENTITY);
     });
+
+    public static final RegistryObject<LootItemConditionType> WAVE = LOOT_ITEM_CONDITION_TYPES.register("wave", () -> new LootItemConditionType(new RaidWaveCondition.Serializer()));
+    public static final RegistryObject<LootItemFunctionType> ARMOR_SLOT = LOOT_ITEM_FUNCTION_TYPES.register("slot", () ->  new LootItemFunctionType(new ArmorSlotFunction.Serializer()));
 
     public static final ResourceLocation ILLAGER_HELMET = new ResourceLocation(IllagersWearArmor.MODID,
             "entities/illager_helmet");

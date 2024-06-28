@@ -5,52 +5,52 @@
       "rolls": 1,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "minecraft:leather_boots",
+          "type": "minecraft:loot_table",
+          "name": "zillagersweararmor:entities/leather",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.037
+              "chance": 0.22
             }
           ]
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:golden_boots",
+          "type": "minecraft:loot_table",
+          "name": "zillagersweararmor:entities/iron",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.048
+              "chance": 0.13
             }
           ]
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:chainmail_boots",
+          "type": "minecraft:loot_table",
+          "name": "zillagersweararmor:entities/gold",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.0129
+              "chance": 0.33
             }
           ]
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_boots",
+          "type": "minecraft:loot_table",
+          "name": "zillagersweararmor:entities/chainmail",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.00127
+              "chance": 0.27
             }
           ]
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:diamond_boots",
+          "type": "minecraft:loot_table",
+          "name": "zillagersweararmor:entities/diamond",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.0004
+              "chance": 0.004
             }
           ]
         }

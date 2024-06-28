@@ -22,6 +22,7 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.MobSpawnEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
 import tallestegg.illagersweararmor.loot_tables.IWALootTables;
 
 import java.util.List;
@@ -75,18 +76,17 @@ public class IWASpawnEvents {
 
     @SubscribeEvent
     public static void tickEntity(LivingEvent.LivingTickEvent event) {
-        RandomSource rSource = event.getEntity().level().getRandom();
         if (event.getEntity() instanceof Raider raider) {
             if (raider.getTags().contains("raidArmorSpawn")) {
                 giveArmorOnRaids(raider, raider.getRandom());
                 raider.getTags().remove("raidArmorSpawn");
             } else if (raider.getTags().contains("naturalArmorSpawn")) {
-                giveArmorNaturally(raider, rSource);
+                giveArmorNaturally(raider);
                 raider.getTags().remove("naturalArmorSpawn");
             }
         }
         if (event.getEntity() instanceof Vex vex && vex.getTags().contains("naturalArmorSpawn")) {
-            giveArmorNaturally(vex, rSource, vex.level().getCurrentDifficultyAt(vex.blockPosition()));
+            giveArmorNaturally(vex);
             vex.getTags().remove("naturalArmorSpawn");
         }
     }
@@ -94,81 +94,31 @@ public class IWASpawnEvents {
     public static void giveArmorOnRaids(Raider raider, RandomSource pRandom) {
         if (raider.getCurrentRaid() == null)
             return;
-        float difficultyChance = raider.level().getDifficulty() == Difficulty.HARD ? 0.1F : 0.25F;
-        int illagerWaves = raider.getCurrentRaid().getGroupsSpawned();
-        float waveChances = IWAHelper.getWaveArmorChances(illagerWaves);
-        if (pRandom.nextFloat() < waveChances) {
-            boolean flag = true;
-            for (EquipmentSlot equipmentslottype : EquipmentSlot.values()) {
-                if (!flag && pRandom.nextFloat() < difficultyChance) {
-                    break;
-                }
-                flag = false;
-                if (getItemsFromLootTable(raider, equipmentslottype) != null) {
-                    for (ItemStack stack : getItemsFromLootTable(raider, equipmentslottype)) {
-                        raider.setItemSlot(equipmentslottype, stack);
-                    }
-                }
-            }
-        }
+        if (pRandom.nextFloat() < IWAHelper.getWaveArmorChances(raider.getWave()))
+            getItemsFromLootTable(raider);
     }
 
-    public static List<ItemStack> getItemsFromLootTable(Raider raider, EquipmentSlot slot) {
-        if (EQUIPMENT_SLOT_ITEMS.containsKey(slot)) {
-            LootTable loot = raider.level().getServer().getLootData().getLootTable(EQUIPMENT_SLOT_ITEMS.get(slot));
-            LootParams.Builder lootcontext$builder = (new LootParams.Builder((ServerLevel) raider.level()).withParameter(LootContextParams.THIS_ENTITY, raider));
-            return loot.getRandomItems(lootcontext$builder.create(IWALootTables.SLOT));
+    public static List<ItemStack> getItemsFromLootTable(LivingEntity entity) {
+        boolean raiding = entity instanceof Raider raider && raider.getCurrentRaid() != null;
+        LootTable loot = entity.level().getServer().getLootData().getLootTable(getLootTable(entity, raiding));
+        if (loot == LootTable.EMPTY) {
+            String inRaid = raiding ? "_raid" : "";
+            ResourceLocation lootTable = new ResourceLocation(IllagersWearArmor.MODID, "entities/illager" + inRaid);
+            loot = entity.level().getServer().getLootData().getLootTable(lootTable);
+
         }
-        return null;
+        LootParams.Builder lootcontext$builder = (new LootParams.Builder((ServerLevel) entity.level()).withParameter(LootContextParams.THIS_ENTITY, entity));
+        return loot.getRandomItems(lootcontext$builder.create(IWALootTables.SLOT));
     }
 
-    public static List<ItemStack> getNaturalSpawnItemsFromLootTable(Raider raider, EquipmentSlot slot) {
-        if (NATURAL_SPAWN_EQUIPMENT_SLOT_ITEMS.containsKey(slot)) {
-            LootTable loot = raider.level().getServer().getLootData().getLootTable(NATURAL_SPAWN_EQUIPMENT_SLOT_ITEMS.get(slot));
-            LootParams.Builder lootcontext$builder = (new LootParams.Builder((ServerLevel) raider.level()).withParameter(LootContextParams.THIS_ENTITY, raider));
-            return loot.getRandomItems(lootcontext$builder.create(IWALootTables.SLOT));
-        }
-        return null;
+    public static void giveArmorNaturally(LivingEntity raider) {
+        getItemsFromLootTable(raider);
     }
 
-    public static List<ItemStack> getVexNaturalSpawnItemsFromLootTable(Vex vex, EquipmentSlot slot) {
-        if (NATURAL_SPAWN_EQUIPMENT_SLOT_ITEMS.containsKey(slot)) {
-            LootTable loot = vex.level().getServer().getLootData().getLootTable(VEX_NATURAL_SPAWN_EQUIPMENT_SLOT_ITEMS.get(slot));
-            LootParams.Builder lootcontext$builder = (new LootParams.Builder((ServerLevel) vex.level()).withParameter(LootContextParams.THIS_ENTITY, vex));
-            return loot.getRandomItems(lootcontext$builder.create(IWALootTables.SLOT));
-        }
-        return null;
-    }
-
-    public static void giveArmorNaturally(Raider raider, RandomSource random) {
-            float difficultyChance = raider.level().getDifficulty() == Difficulty.HARD ? 0.1F : 0.25F;
-            boolean flag = true;
-            for (EquipmentSlot equipmentslottype : EquipmentSlot.values()) {
-                if (equipmentslottype.getType() == EquipmentSlot.Type.ARMOR) {
-                    if (!flag && random.nextFloat() < difficultyChance) {
-                        break;
-                    }
-                    flag = false;
-                    for (ItemStack stack : getNaturalSpawnItemsFromLootTable(raider, equipmentslottype)) {
-                        raider.setItemSlot(equipmentslottype, stack);
-                    }
-                }
-            }
-    }
-
-    public static void giveArmorNaturally(Vex vex, RandomSource random, DifficultyInstance instance) {
-            float difficultyChance = vex.level().getDifficulty() == Difficulty.HARD ? 0.1F : 0.25F;
-            boolean flag = true;
-            for (EquipmentSlot equipmentslottype : EquipmentSlot.values()) {
-                if (equipmentslottype.getType() == EquipmentSlot.Type.ARMOR) {
-                    if (!flag && random.nextFloat() < difficultyChance) {
-                        break;
-                    }
-                    flag = false;
-                    for (ItemStack stack : getVexNaturalSpawnItemsFromLootTable(vex, equipmentslottype)) {
-                        vex.setItemSlot(equipmentslottype, stack);
-                    }
-                }
-        }
+    public static ResourceLocation getLootTable(LivingEntity entity, boolean raid) {
+        String illagerName = ForgeRegistries.ENTITY_TYPES.getKey(entity.getType()).getPath();
+        String inRaid = raid ? "_raid" : "";
+        ResourceLocation lootTable = new ResourceLocation(IllagersWearArmor.MODID, "entities/" + illagerName + inRaid);
+        return lootTable;
     }
 }

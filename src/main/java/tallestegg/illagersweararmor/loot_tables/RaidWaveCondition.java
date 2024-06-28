@@ -13,7 +13,6 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
 public class RaidWaveCondition implements LootItemCondition {
     final int wave;
-    public static final LootItemConditionType WAVE = new LootItemConditionType(new RaidWaveCondition.Serializer());
 
     RaidWaveCondition(int wave) {
         this.wave = wave;
@@ -21,7 +20,7 @@ public class RaidWaveCondition implements LootItemCondition {
 
     @Override
     public LootItemConditionType getType() {
-        return WAVE;
+        return IWALootTables.WAVE.get();
     }
 
     @Override

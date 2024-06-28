@@ -1,0 +1,106 @@
+{
+  "type": "zillagersweararmor:slot",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond_helmet"
+        }
+      ],
+      "functions": [
+        {
+          "function": "zillagersweararmor:slot",
+          "slot": "head"
+        },
+        {
+          "function": "minecraft:set_nbt",
+          "tag": "{Trim:{material:\"minecraft:emerald\",pattern:\"minecraft:vex\"}}"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.5
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond_chestplate"
+        }
+      ],
+      "functions": [
+        {
+          "function": "zillagersweararmor:slot",
+          "slot": "chest"
+        },
+        {
+          "function": "minecraft:set_nbt",
+          "tag": "{Trim:{material:\"minecraft:emerald\",pattern:\"minecraft:vex\"}}"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.5
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond_leggings"
+        }
+      ],
+      "functions": [
+        {
+          "function": "zillagersweararmor:slot",
+          "slot": "legs"
+        },
+        {
+          "function": "minecraft:set_nbt",
+          "tag": "{Trim:{material:\"minecraft:emerald\",pattern:\"minecraft:vex\"}}"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.5
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond_boots"
+        }
+      ],
+      "functions": [
+        {
+          "function": "zillagersweararmor:slot",
+          "slot": "feet"
+        },
+        {
+          "function": "minecraft:set_nbt",
+          "tag": "{Trim:{material:\"minecraft:emerald\",pattern:\"minecraft:vex\"}}"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.5
+        }
+      ]
+    }
+  ]
+}
+

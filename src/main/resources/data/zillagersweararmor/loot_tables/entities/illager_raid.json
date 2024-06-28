@@ -1,0 +1,90 @@
+{
+  "type": "zillagersweararmor:slot",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "zillagersweararmor:entities/leather_raid",
+          "conditions": [
+            {
+              "condition": "zillagersweararmor:wave",
+              "wave": 1
+            }
+          ]
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "zillagersweararmor:entities/iron_raid",
+          "conditions": [
+            {
+              "condition": "zillagersweararmor:wave",
+              "wave": 4
+            }
+          ]
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "zillagersweararmor:entities/gold_raid",
+          "conditions": [
+            {
+              "condition": "zillagersweararmor:wave",
+              "wave": 2
+            }
+          ]
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "zillagersweararmor:entities/chainmail_raid",
+          "conditions": [
+            {
+              "condition": "zillagersweararmor:wave",
+              "wave": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "zillagersweararmor:entities/diamond_raid",
+          "conditions": [
+            {
+              "condition": "zillagersweararmor:wave",
+              "wave": 5
+            }
+          ]
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "zillagersweararmor:entities/diamond_raid",
+          "conditions": [
+            {
+              "condition": "zillagersweararmor:wave",
+              "wave": 6
+            }
+          ]
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "zillagersweararmor:entities/diamond_raid",
+          "conditions": [
+            {
+              "condition": "zillagersweararmor:wave",
+              "wave": 7
+            }
+          ]
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "zillagersweararmor:entities/diamond_raid",
+          "conditions": [
+            {
+              "condition": "zillagersweararmor:wave",
+              "wave": 8
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
