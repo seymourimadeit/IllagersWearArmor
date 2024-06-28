@@ -2,9 +2,13 @@ package tallestegg.illagersweararmor;
 
 import com.izofar.takesapillage.init.ModEntityTypes;
 import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.renderer.entity.EvokerRenderer;
+import net.minecraft.client.renderer.entity.IllagerRenderer;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.VexRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.monster.Evoker;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -15,6 +19,7 @@ import tallestegg.illagersweararmor.client.model.IllagerBipedModel;
 import tallestegg.illagersweararmor.client.model.WitchBipedModel;
 import tallestegg.illagersweararmor.client.model.mod_compat.SkirmisherBipedModel;
 import tallestegg.illagersweararmor.client.renderer.*;
+import tallestegg.illagersweararmor.client.renderer.layers.IllagerArmorLayer;
 import tallestegg.illagersweararmor.client.renderer.layers.VexArmorLayer;
 import tallestegg.illagersweararmor.client.renderer.mod_compat.ArcherBipedRenderer;
 import tallestegg.illagersweararmor.client.renderer.mod_compat.LegionerBipedRenderer;
@@ -60,7 +65,11 @@ public class IWAClientEvents {
     @SubscribeEvent
     public static void addLayer(EntityRenderersEvent.AddLayers event) {
         VexRenderer renderer = event.getRenderer(EntityType.VEX);
-        renderer.addLayer(new VexArmorLayer(renderer, event.getEntityModels()));
+        renderer.addLayer(new VexArmorLayer(renderer, event.getEntityModels(), event.getContext().getModelManager()));
+       // LivingEntityRenderer illagerRenderer = event.getRenderer(EntityType.EVOKER);
+        //illagerRenderer.addLayer(new IllagerArmorLayer<Evoker>(illagerRenderer, event.getEntityModels(), event.getContext().getModelManager()));
+        // New system for illager armor rendering that doesn't override the models
+        // Still very WIP ! Will not implement until 100% happy with it
     }
 
     @SubscribeEvent

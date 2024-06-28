@@ -13,10 +13,6 @@
         {
           "function": "zillagersweararmor:slot",
           "slot": "head"
-        },
-        {
-          "function": "minecraft:set_nbt",
-          "tag": "{Trim:{material:\"minecraft:emerald\",pattern:\"minecraft:vex\"}}"
         }
       ],
       "conditions": [
@@ -38,10 +34,6 @@
         {
           "function": "zillagersweararmor:slot",
           "slot": "chest"
-        },
-        {
-          "function": "minecraft:set_nbt",
-          "tag": "{Trim:{material:\"minecraft:emerald\",pattern:\"minecraft:vex\"}}"
         }
       ],
       "conditions": [
@@ -63,10 +55,6 @@
         {
           "function": "zillagersweararmor:slot",
           "slot": "legs"
-        },
-        {
-          "function": "minecraft:set_nbt",
-          "tag": "{Trim:{material:\"minecraft:emerald\",pattern:\"minecraft:vex\"}}"
         }
       ],
       "conditions": [
@@ -82,10 +70,6 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:leather_boots"
-        },
-        {
-          "function": "minecraft:set_nbt",
-          "tag": "{Trim:{material:\"minecraft:emerald\",pattern:\"minecraft:vex\"}}"
         }
       ],
       "functions": [
