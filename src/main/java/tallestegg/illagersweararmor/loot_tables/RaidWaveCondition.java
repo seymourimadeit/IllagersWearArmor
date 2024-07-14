@@ -8,8 +8,6 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
-import net.neoforged.neoforge.common.ToolAction;
-import net.neoforged.neoforge.common.loot.CanToolPerformAction;
 
 public record RaidWaveCondition(int wave) implements LootItemCondition {
     public static final MapCodec<RaidWaveCondition> CODEC = RecordCodecBuilder.mapCodec((p_297204_) -> {
