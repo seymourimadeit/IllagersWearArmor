@@ -19,7 +19,6 @@ public class IWAHelper {
             return IWAConfig.Wave7Chances;
         case 8:
             return IWAConfig.Wave8Chances;
-
         }
         return 0;
     }

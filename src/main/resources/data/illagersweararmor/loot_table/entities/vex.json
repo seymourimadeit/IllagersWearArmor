@@ -5,52 +5,52 @@
       "rolls": 1,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "minecraft:leather_helmet",
+          "type": "minecraft:loot_table",
+          "value": "illagersweararmor:entities/armor_sets/leather",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.037
+              "chance": 0.22
             }
           ]
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:golden_helmet",
+          "type": "minecraft:loot_table",
+          "value": "illagersweararmor:entities/armor_sets/iron",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.048
+              "chance": 0.13
             }
           ]
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:chainmail_helmet",
+          "type": "minecraft:loot_table",
+          "value": "illagersweararmor:entities/armor_sets/gold",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.0012
+              "chance": 0.33
             }
           ]
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:iron_helmet",
+          "type": "minecraft:loot_table",
+          "value": "illagersweararmor:entities/armor_sets/chainmail",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.00129
+              "chance": 0.27
             }
           ]
         },
         {
-          "type": "minecraft:item",
-          "name": "minecraft:diamond_helmet",
+          "type": "minecraft:loot_table",
+          "value": "illagersweararmor:entities/armor_sets/diamond",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.0004
+              "chance": 0.004
             }
           ]
         }

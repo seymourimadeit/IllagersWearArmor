@@ -14,7 +14,6 @@ import net.neoforged.neoforge.common.loot.CanToolPerformAction;
 public record RaidWaveCondition(int wave) implements LootItemCondition {
     public static final MapCodec<RaidWaveCondition> CODEC = RecordCodecBuilder.mapCodec((p_297204_) -> {
         return p_297204_.group(Codec.INT.fieldOf("wave").forGetter(raidWaveCondition -> raidWaveCondition.wave())).apply(p_297204_, RaidWaveCondition::new);
-
     });
 
     public static final LootItemConditionType TYPE = new LootItemConditionType(CODEC);

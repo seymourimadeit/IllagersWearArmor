@@ -9,9 +9,13 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import tallestegg.illagersweararmor.IllagersWearArmor;
 
 
@@ -20,6 +24,11 @@ public class IWALootTables {
     public static final LootContextParamSet SLOT = register("slot", (table) -> {
         table.required(LootContextParams.THIS_ENTITY);
     });
+
+    public static final DeferredRegister<LootItemFunctionType<?>> LOOT_ITEM_FUNCTION_TYPES = DeferredRegister.create(Registries.LOOT_FUNCTION_TYPE, IllagersWearArmor.MODID);
+    public static final DeferredRegister<LootItemConditionType> LOOT_ITEM_CONDITION_TYPES = DeferredRegister.create(Registries.LOOT_CONDITION_TYPE, IllagersWearArmor.MODID);
+    public static final DeferredHolder<LootItemConditionType, LootItemConditionType> WAVE = LOOT_ITEM_CONDITION_TYPES.register("wave", () -> RaidWaveCondition.TYPE);
+    public static final DeferredHolder<LootItemFunctionType<?>, LootItemFunctionType<ArmorSlotFunction>> ARMOR_SLOT = LOOT_ITEM_FUNCTION_TYPES.register("slot", () ->  new LootItemFunctionType<>(ArmorSlotFunction.CODEC));
 
     public static final ResourceKey<LootTable> ILLAGER_HELMET = registerLootTable(
             "entities/illager_helmet");

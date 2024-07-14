@@ -1,0 +1,130 @@
+{
+  "type": "illagersweararmor:slot",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond_helmet"
+        }
+      ],
+      "functions": [
+        {
+          "function": "illagersweararmor:slot",
+          "slot": "head"
+        },
+        {
+          "function": "minecraft:set_components",
+          "components": {
+            "minecraft:trim": {
+              "material": "minecraft:emerald",
+              "pattern": "minecraft:vex",
+              "show_in_tooltip": true
+            }
+          }
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.04
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond_chestplate"
+        }
+      ],
+      "functions": [
+        {
+          "function": "illagersweararmor:slot",
+          "slot": "chest"
+        },
+        {
+          "function": "minecraft:set_components",
+          "components": {
+            "minecraft:trim": {
+              "material": "minecraft:emerald",
+              "pattern": "minecraft:vex",
+              "show_in_tooltip": true
+            }
+          }
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.04
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond_leggings"
+        }
+      ],
+      "functions": [
+        {
+          "function": "illagersweararmor:slot",
+          "slot": "legs"
+        },
+        {
+          "function": "minecraft:set_components",
+          "components": {
+            "minecraft:trim": {
+              "material": "minecraft:emerald",
+              "pattern": "minecraft:vex",
+              "show_in_tooltip": true
+            }
+          }
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.04
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond_boots"
+        }
+      ],
+      "functions": [
+        {
+          "function": "illagersweararmor:slot",
+          "slot": "feet"
+        },
+        {
+          "function": "minecraft:set_components",
+          "components": {
+            "minecraft:trim": {
+              "material": "minecraft:emerald",
+              "pattern": "minecraft:vex",
+              "show_in_tooltip": true
+            }
+          }
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.04
+        }
+      ]
+    }
+  ]
+}
+
