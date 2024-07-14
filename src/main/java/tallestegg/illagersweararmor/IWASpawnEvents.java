@@ -1,13 +1,8 @@
 package tallestegg.illagersweararmor;
 
-import com.google.common.collect.Maps;
-import net.minecraft.Util;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.monster.AbstractIllager;
@@ -26,33 +21,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 import tallestegg.illagersweararmor.loot_tables.IWALootTables;
 
 import java.util.List;
-import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = IllagersWearArmor.MODID)
 public class IWASpawnEvents {
-    private static final Map<EquipmentSlot, ResourceLocation> VEX_NATURAL_SPAWN_EQUIPMENT_SLOT_ITEMS = Util.make(Maps.newHashMap(),
-            (slotItems) -> {
-                slotItems.put(EquipmentSlot.HEAD, IWALootTables.VEX_HELMET);
-                slotItems.put(EquipmentSlot.CHEST, IWALootTables.VEX_CHEST);
-                slotItems.put(EquipmentSlot.LEGS, IWALootTables.VEX_LEGGINGS);
-                slotItems.put(EquipmentSlot.FEET, IWALootTables.VEX_FEET);
-            });
-
-    private static final Map<EquipmentSlot, ResourceLocation> EQUIPMENT_SLOT_ITEMS = Util.make(Maps.newHashMap(),
-            (slotItems) -> {
-                slotItems.put(EquipmentSlot.HEAD, IWALootTables.ILLAGER_HELMET);
-                slotItems.put(EquipmentSlot.CHEST, IWALootTables.ILLAGER_CHEST);
-                slotItems.put(EquipmentSlot.LEGS, IWALootTables.ILLAGER_LEGGINGS);
-                slotItems.put(EquipmentSlot.FEET, IWALootTables.ILLAGER_FEET);
-            });
-    private static final Map<EquipmentSlot, ResourceLocation> NATURAL_SPAWN_EQUIPMENT_SLOT_ITEMS = Util.make(Maps.newHashMap(),
-            (slotItems) -> {
-                slotItems.put(EquipmentSlot.HEAD, IWALootTables.NATURAL_SPAWN_ILLAGER_HELMET);
-                slotItems.put(EquipmentSlot.CHEST, IWALootTables.NATURAL_SPAWN_ILLAGER_CHEST);
-                slotItems.put(EquipmentSlot.LEGS, IWALootTables.NATURAL_SPAWN_ILLAGER_LEGGINGS);
-                slotItems.put(EquipmentSlot.FEET, IWALootTables.NATURAL_SPAWN_ILLAGER_FEET);
-            });
-
     @SubscribeEvent
     public static void finalizeSpawn(MobSpawnEvent.FinalizeSpawn event) {
         MobSpawnType spawnType = event.getSpawnType();
