@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "zillagersweararmor:entities/leather",
+          "name": "zillagersweararmor:entities/armor_sets/leather",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
@@ -16,7 +16,7 @@
         },
         {
           "type": "minecraft:loot_table",
-          "name": "zillagersweararmor:entities/iron",
+          "name": "zillagersweararmor:entities/armor_sets/iron",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
@@ -26,7 +26,7 @@
         },
         {
           "type": "minecraft:loot_table",
-          "name": "zillagersweararmor:entities/gold",
+          "name": "zillagersweararmor:entities/armor_sets/gold",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
@@ -36,7 +36,7 @@
         },
         {
           "type": "minecraft:loot_table",
-          "name": "zillagersweararmor:entities/chainmail",
+          "name": "zillagersweararmor:entities/armor_sets/chainmail",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
@@ -46,7 +46,7 @@
         },
         {
           "type": "minecraft:loot_table",
-          "name": "zillagersweararmor:entities/diamond",
+          "name": "zillagersweararmor:entities/armor_sets/diamond",
           "conditions": [
             {
               "condition": "minecraft:random_chance",
