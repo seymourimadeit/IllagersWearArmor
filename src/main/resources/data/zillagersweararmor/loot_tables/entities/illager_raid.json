@@ -56,7 +56,7 @@
         },
         {
           "type": "minecraft:loot_table",
-          "name": "zillagersweararmor:entities/armor_sets/raid_armor_sets//diamond_raid",
+          "name": "zillagersweararmor:entities/armor_sets/raid_armor_sets/diamond_raid",
           "conditions": [
             {
               "condition": "zillagersweararmor:wave",
