@@ -1,3 +1,4 @@
 - Replaced by slot system for armor datapacks in order to support armor sets
 - Armor sets can be defined by entity:
     - See https://github.com/seymourimadeit/IllagersWearArmor/tree/1.20.1/src/main/resources/data/illagersweararmor/loot_table/entities for reference
+    - Please note that since this update changes everything about how armor datapacks work, old armor changing datapacks will have to be modified in order to work! If you do not want to change anything about armor datapacks, do not update to this version!

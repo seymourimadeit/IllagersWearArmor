@@ -52,12 +52,12 @@ public class IWASpawnEvents {
                 giveArmorOnRaids(raider, raider.getRandom());
                 raider.getTags().remove("raidArmorSpawn");
             } else if (raider.getTags().contains("naturalArmorSpawn")) {
-                giveArmorNaturally(raider);
+                getItemsFromLootTable(raider);
                 raider.getTags().remove("naturalArmorSpawn");
             }
         }
         if (event.getEntity() instanceof Vex vex && vex.getTags().contains("naturalArmorSpawn")) {
-            giveArmorNaturally(vex);
+            getItemsFromLootTable(vex);
             vex.getTags().remove("naturalArmorSpawn");
         }
     }
@@ -80,10 +80,6 @@ public class IWASpawnEvents {
         }
         LootParams.Builder lootcontext$builder = (new LootParams.Builder((ServerLevel) entity.level()).withParameter(LootContextParams.THIS_ENTITY, entity));
         return loot.getRandomItems(lootcontext$builder.create(IWALootTables.SLOT));
-    }
-
-    public static void giveArmorNaturally(LivingEntity raider) {
-        getItemsFromLootTable(raider);
     }
 
     public static ResourceLocation getLootTable(LivingEntity entity, boolean raid) {
