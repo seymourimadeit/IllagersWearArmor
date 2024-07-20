@@ -27,15 +27,6 @@ public class IllagerArmorModel<T extends AbstractIllager> extends HumanoidModel<
                 PartPose.offset(0.0F, 1.0F, 0.0F));
         return LayerDefinition.create(meshdefinition, 64, 32);
     }
-    
-    public static LayerDefinition createOuterEnchanterArmorLayer() {
-        MeshDefinition meshdefinition = HumanoidModel.createMesh(new CubeDeformation(1.0F), 0.0F);
-        PartDefinition partdefinition = meshdefinition.getRoot();
-        partdefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, IWAConfig.EnchanterHelmetHeight, -4.0F,
-                8.0F, 8.0F, 8.0F, new CubeDeformation(1.0F)), PartPose.offset(0.0F, 1.0F, 0.0F));
-        return LayerDefinition.create(meshdefinition, 64, 32);
-    }
-
 
     public static LayerDefinition createInnerArmorLayer() {
         MeshDefinition meshdefinition = HumanoidModel.createMesh(new CubeDeformation(0.5F), 0.0F);

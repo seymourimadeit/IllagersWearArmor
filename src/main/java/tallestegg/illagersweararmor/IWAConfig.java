@@ -1,5 +1,6 @@
 package tallestegg.illagersweararmor;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -24,8 +25,7 @@ public class IWAConfig {
     public static float Wave6Chances;
     public static float Wave7Chances;
     public static float Wave8Chances;
-    public static float EnchanterHelmetHeight;
-    public static List<String> ArmorBlackList;
+    public static List<? extends String> ArmorBlackList;
     public static boolean IllagerArmor;
     public static boolean crossArms;
 
@@ -58,7 +58,6 @@ public class IWAConfig {
     }
 
     public static void bakeClientConfig() {
-        EnchanterHelmetHeight = CLIENT.EnchanterHelmetHeight.get().floatValue();
         crossArms = CLIENT.IllagerCrossArms.get();
     }
 
@@ -83,7 +82,7 @@ public class IWAConfig {
         public final ModConfigSpec.DoubleValue Wave7;
         public final ModConfigSpec.DoubleValue Wave8;
         public final ModConfigSpec.BooleanValue IllagerArmor;
-        public final ModConfigSpec.ConfigValue<List<String>> ArmorBlackList;
+        public final ModConfigSpec.ConfigValue<List<? extends String>> ArmorBlackList;
 
         public CommonConfig(ModConfigSpec.Builder builder) {
             Wave1 = builder.translation(IllagersWearArmor.MODID + ".config.wave1").defineInRange("Wave 1 Armor Chances",
@@ -104,7 +103,7 @@ public class IWAConfig {
                     0.48F, 0.0001F, 100F);
             ArmorBlackList = builder.translation(IllagersWearArmor.MODID + ".config.blacklist")
                     .comment("This will make sure any entity id in this list wont spawn with armor. Example outputs would be \"minecraft:vex\" and \"minecraft:vex\",\"minecraft:witch\"")
-                    .define("Illager Armor BlackList", Lists.newArrayList("minecraft:vex"));
+                    .defineListAllowEmpty("Illager Armor BlackList", ImmutableList.of("minecraft:vex"), () -> "minecraft:vex", obj -> true);
             IllagerArmor = builder.translation(IllagersWearArmor.MODID + ".config.illagerArmor")
                     .define("Have Illagers spawn with armor at all?", true);
         }
@@ -112,14 +111,10 @@ public class IWAConfig {
 
     public static class ClientConfig {
         public final ModConfigSpec.BooleanValue IllagerCrossArms;
-        public final ModConfigSpec.DoubleValue EnchanterHelmetHeight;
-        public final ModConfigSpec.BooleanValue pillagerRenderer;
 
         public ClientConfig(ModConfigSpec.Builder builder) {
             IllagerCrossArms = builder.translation(IllagersWearArmor.MODID + ".config.illagerCrossArms")
                     .define("Have Illagers cross their arms when neutral?", true);
-            EnchanterHelmetHeight = builder.translation(IllagersWearArmor.MODID + ".config.height").defineInRange("Height of the Enchanters helmet", -15.0F, -500.0F, 100F);
-            pillagerRenderer = builder.define("Allow new pillager renderer", true);
         }
     }
 }

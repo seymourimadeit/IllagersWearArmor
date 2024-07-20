@@ -11,6 +11,8 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.client.gui.ConfigurationScreen;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.RegisterEvent;
@@ -27,5 +29,12 @@ public class IllagersWearArmor {
         IWALootTables.LOOT_ITEM_CONDITION_TYPES.register(modEventBus);
         IWALootTables.LOOT_ITEM_FUNCTION_TYPES.register(modEventBus);
         NeoForge.EVENT_BUS.register(IWASpawnEvents.class);
+    }
+
+    @Mod(value = IllagersWearArmor.MODID, dist = Dist.CLIENT)
+    public static class IWAClient {
+        public IWAClient(IEventBus modEventBus, Dist dist, ModContainer container) {
+            container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
+        }
     }
 }
