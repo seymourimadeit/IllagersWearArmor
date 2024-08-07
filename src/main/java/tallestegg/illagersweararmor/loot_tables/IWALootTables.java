@@ -30,35 +30,6 @@ public class IWALootTables {
     public static final DeferredHolder<LootItemConditionType, LootItemConditionType> WAVE = LOOT_ITEM_CONDITION_TYPES.register("wave", () -> RaidWaveCondition.TYPE);
     public static final DeferredHolder<LootItemFunctionType<?>, LootItemFunctionType<ArmorSlotFunction>> ARMOR_SLOT = LOOT_ITEM_FUNCTION_TYPES.register("slot", () ->  new LootItemFunctionType<>(ArmorSlotFunction.CODEC));
 
-    public static final ResourceKey<LootTable> ILLAGER_HELMET = registerLootTable(
-            "entities/illager_helmet");
-    public static final ResourceKey<LootTable> ILLAGER_CHEST = registerLootTable(
-            "entities/illager_chestplate");
-    public static final ResourceKey<LootTable> ILLAGER_LEGGINGS = registerLootTable(
-            "entities/illager_legs");
-    public static final ResourceKey<LootTable> ILLAGER_FEET = registerLootTable(
-            "entities/illager_feet");
-    public static final ResourceKey<LootTable> NATURAL_SPAWN_ILLAGER_HELMET = registerLootTable(
-            "entities/natural_spawn/illager_helmet");
-    public static final ResourceKey<LootTable> NATURAL_SPAWN_ILLAGER_CHEST = registerLootTable(
-            "entities/natural_spawn/illager_chestplate");
-    public static final ResourceKey<LootTable> NATURAL_SPAWN_ILLAGER_LEGGINGS = registerLootTable(
-            "entities/natural_spawn/illager_legs");
-    public static final ResourceKey<LootTable> NATURAL_SPAWN_ILLAGER_FEET = registerLootTable(
-            "entities/natural_spawn/illager_feet");
-    public static final ResourceKey<LootTable> VEX_HELMET = registerLootTable(
-            "entities/natural_spawn/vex_helmet");
-    public static final ResourceKey<LootTable> VEX_CHEST = registerLootTable(
-            "entities/natural_spawn/vex_chestplate");
-    public static final ResourceKey<LootTable> VEX_LEGGINGS = registerLootTable(
-            "entities/natural_spawn/vex_legs");
-    public static final ResourceKey<LootTable> VEX_FEET = registerLootTable(
-            "entities/natural_spawn/vex_feet");
-
-    public static ResourceKey<LootTable> registerLootTable(String id) {
-        return ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(IllagersWearArmor.MODID, id));
-    }
-    
     public static LootContextParamSet register(String p_81429_, Consumer<LootContextParamSet.Builder> p_81430_) {
         LootContextParamSet.Builder lootcontextparamset$builder = new LootContextParamSet.Builder();
         p_81430_.accept(lootcontextparamset$builder);
