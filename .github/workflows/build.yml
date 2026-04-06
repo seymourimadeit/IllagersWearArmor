@@ -10,16 +10,16 @@ jobs:
         with:
           fetch-depth: 1000
           fetch-tags: true
-      - name: Setup JDK 17
+      - name: Setup JDK 21
         uses: actions/setup-java@v2
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
       - name: Build with Gradle
         uses: gradle/actions/setup-gradle@v3
         with:
           arguments: build
-          gradle-version: 8.9
+          gradle-version: 9.1.0
       - uses: BrycensRanch/read-properties-action@v1
         id: version
         with:
@@ -37,8 +37,8 @@ jobs:
           files: build/libs/!(*-@(javadoc|sources)).jar
           version-type: release
           loaders: neoforge
-          game-versions: 1.21.1
-          java: 21
+          game-versions: 26.1.1
+          java: 25
           name: ""
           changelog-file: changelog-1.21.*
       - name: Nuke Changelog dot txt
