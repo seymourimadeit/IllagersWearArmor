@@ -6,23 +6,13 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_helmet"
+          "name": "minecraft:copper_helmet"
         }
       ],
       "functions": [
         {
           "function": "illagersweararmor:slot",
           "slot": "head"
-        },
-        {
-          "function": "minecraft:set_components",
-          "components": {
-            "minecraft:trim": {
-              "material": "minecraft:emerald",
-              "pattern": "minecraft:sentry",
-              "show_in_tooltip": true
-            }
-          }
         }
       ],
       "conditions": [
@@ -37,23 +27,13 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_chestplate"
+          "name": "minecraft:copper_chestplate"
         }
       ],
       "functions": [
         {
           "function": "illagersweararmor:slot",
           "slot": "chest"
-        },
-        {
-          "function": "minecraft:set_components",
-          "components": {
-            "minecraft:trim": {
-              "material": "minecraft:emerald",
-              "pattern": "minecraft:sentry",
-              "show_in_tooltip": true
-            }
-          }
         }
       ],
       "conditions": [
@@ -68,23 +48,13 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_leggings"
+          "name": "minecraft:copper_leggings"
         }
       ],
       "functions": [
         {
           "function": "illagersweararmor:slot",
           "slot": "legs"
-        },
-        {
-          "function": "minecraft:set_components",
-          "components": {
-            "minecraft:trim": {
-              "material": "minecraft:emerald",
-              "pattern": "minecraft:sentry",
-              "show_in_tooltip": true
-            }
-          }
         }
       ],
       "conditions": [
@@ -99,23 +69,13 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:iron_boots"
+          "name": "minecraft:copper_boots"
         }
       ],
       "functions": [
         {
           "function": "illagersweararmor:slot",
           "slot": "feet"
-        },
-        {
-          "function": "minecraft:set_components",
-          "components": {
-            "minecraft:trim": {
-              "material": "minecraft:emerald",
-              "pattern": "minecraft:sentry",
-              "show_in_tooltip": true
-            }
-          }
         }
       ],
       "conditions": [

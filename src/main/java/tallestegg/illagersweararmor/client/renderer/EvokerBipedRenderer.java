@@ -1,32 +1,35 @@
 package tallestegg.illagersweararmor.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.monster.Evoker;
-import tallestegg.illagersweararmor.client.model.IllagerBipedModel;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.monster.illager.Evoker;
+import tallestegg.illagersweararmor.client.model.render_states.IllagerBipedRenderState;
+
+import java.util.Objects;
 
 public class EvokerBipedRenderer extends IllagerBipedRenderer<Evoker> {
-    private static final ResourceLocation PILLAGER = ResourceLocation.withDefaultNamespace("textures/entity/illager/evoker.png");
+    private static final Identifier PILLAGER = Identifier.withDefaultNamespace("textures/entity/illager/evoker.png");
 
     public EvokerBipedRenderer(Context builder) {
         super(builder);
-        this.addLayer(new ItemInHandLayer<Evoker, IllagerBipedModel<Evoker>>(this, builder.getItemInHandRenderer()) {
-            @Override
-            public void render(PoseStack p_116352_, MultiBufferSource p_116353_, int p_116354_, Evoker p_116355_, float p_116356_, float p_116357_, float p_116358_, float p_116359_, float p_116360_, float p_116361_) {
-                if (p_116355_.isAggressive() || p_116355_.isCastingSpell()) {
-                    super.render(p_116352_, p_116353_, p_116354_, p_116355_, p_116356_, p_116357_, p_116358_, p_116359_,
-                            p_116360_, p_116361_);
+        this.addLayer(new ItemInHandLayer<>(this) {
+            {
+                Objects.requireNonNull(EvokerBipedRenderer.this);
+            }
+
+            public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, IllagerBipedRenderState state, float yRot, float xRot) {
+                if (state.isCastingSpell) {
+                    super.submit(poseStack, submitNodeCollector, lightCoords, state, yRot, xRot);
                 }
             }
         });
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Evoker p_115720_) {
+    public Identifier getTextureLocation(IllagerBipedRenderState state) {
         return PILLAGER;
     }
 }

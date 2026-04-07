@@ -1,21 +1,17 @@
 package tallestegg.illagersweararmor.client.model;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterables;
 import net.minecraft.client.model.AnimationUtils;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.monster.AbstractIllager;
-import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.entity.monster.illager.AbstractIllager;
 import tallestegg.illagersweararmor.IWAConfig;
+import tallestegg.illagersweararmor.client.model.render_states.IllagerBipedRenderState;
 
-public class IllagerBipedModel<T extends AbstractIllager> extends HumanoidModel<T> {
+public class IllagerBipedModel<S extends IllagerBipedRenderState> extends HumanoidModel<S> {
     public ModelPart nose = this.head.getChild("nose");
     public ModelPart jacket = this.body.getChild("jacket");
     public ModelPart arms;
@@ -64,21 +60,15 @@ public class IllagerBipedModel<T extends AbstractIllager> extends HumanoidModel<
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
 
-    @Override
-    protected Iterable<ModelPart> bodyParts() {
-        return Iterables.concat(super.bodyParts(), ImmutableList.of(this.arms, this.jacket));
-    }
+
+
+
 
     @Override
-    public void setupAnim(T p_102928_, float p_102929_, float p_102930_, float p_102931_, float p_102932_,
-                          float p_102933_) {
-        super.setupAnim(p_102928_, p_102929_, p_102930_, p_102931_, p_102932_, p_102933_);
-        AbstractIllager.IllagerArmPose armpose = p_102928_.getArmPose();
-        this.jacket.copyFrom(this.body);
-        boolean isWearingChestplateOrLeggings = p_102928_.getItemBySlot(EquipmentSlot.CHEST)
-                .getItem() instanceof ArmorItem
-                || p_102928_.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof ArmorItem;
-        this.jacket.visible = !isWearingChestplateOrLeggings;
+    public void setupAnim(S state) {
+        super.setupAnim(state);
+        AbstractIllager.IllagerArmPose armpose = state.armPose;
+        this.jacket.visible = !state.isWearingChestplateOrLegging;
         this.arms.y = 3.0F;
         this.arms.z = -1.0F;
         this.arms.xRot = -0.75F;
@@ -97,10 +87,10 @@ public class IllagerBipedModel<T extends AbstractIllager> extends HumanoidModel<
         if (armpose != null) {
             switch (armpose) {
                 case ATTACKING:
-                    if (p_102928_.getMainHandItem().isEmpty()) {
-                        AnimationUtils.animateZombieArms(this.leftArm, this.rightArm, true, this.attackTime, p_102931_);
+                    if (state.getMainHandItemState().isEmpty()) {
+                        AnimationUtils.animateZombieArms(this.leftArm, this.rightArm, true, state);
                     } else {
-                        this.holdWeaponHigh(p_102928_);
+                        this.holdWeaponHigh(state);
                     }
                     break;
                 case SPELLCASTING:
@@ -108,8 +98,8 @@ public class IllagerBipedModel<T extends AbstractIllager> extends HumanoidModel<
                     this.rightArm.x = -5.0F;
                     this.leftArm.z = 0.0F;
                     this.leftArm.x = 5.0F;
-                    this.rightArm.xRot = Mth.cos(p_102931_ * 0.6662F) * 0.25F;
-                    this.leftArm.xRot = Mth.cos(p_102931_ * 0.6662F) * 0.25F;
+                    this.rightArm.xRot = Mth.cos(state.ageInTicks * 0.6662F) * 0.25F;
+                    this.leftArm.xRot = Mth.cos(state.ageInTicks * 0.6662F) * 0.25F;
                     this.rightArm.zRot = 2.3561945F;
                     this.leftArm.zRot = -2.3561945F;
                     this.rightArm.yRot = 0.0F;
@@ -118,24 +108,24 @@ public class IllagerBipedModel<T extends AbstractIllager> extends HumanoidModel<
                 case CELEBRATING:
                     this.rightArm.z = 0.0F;
                     this.rightArm.x = -5.0F;
-                    this.rightArm.xRot = Mth.cos(p_102931_ * 0.6662F) * 0.05F;
+                    this.rightArm.xRot = Mth.cos(state.ageInTicks * 0.6662F) * 0.05F;
                     this.rightArm.zRot = 2.670354F;
                     this.rightArm.yRot = 0.0F;
                     this.leftArm.z = 0.0F;
                     this.leftArm.x = 5.0F;
-                    this.leftArm.xRot = Mth.cos(p_102931_ * 0.6662F) * 0.05F;
+                    this.leftArm.xRot = Mth.cos(state.ageInTicks * 0.6662F) * 0.05F;
                     this.leftArm.zRot = -2.3561945F;
                     this.leftArm.yRot = 0.0F;
                     break;
                 default:
                     break;
             }
-            this.setupAttackAnimation(p_102928_, p_102931_);
+            this.setupAttackAnimation(state);
         }
     }
 
-    private void holdWeaponHigh(T pMob) {
-        if (pMob.isLeftHanded()) {
+    private void holdWeaponHigh(S pMob) {
+        if (pMob.mainArm == HumanoidArm.LEFT) {
             this.leftArm.xRot = -1.8F;
         } else {
             this.rightArm.xRot = -1.8F;
@@ -143,11 +133,11 @@ public class IllagerBipedModel<T extends AbstractIllager> extends HumanoidModel<
     }
 
     @Override
-    protected void setupAttackAnimation(T pLivingEntity, float pAgeInTicks) {
-        if (this.attackTime > 0.0F && pLivingEntity.getArmPose() == AbstractIllager.IllagerArmPose.ATTACKING) {
-            AnimationUtils.swingWeaponDown(this.rightArm, this.leftArm, pLivingEntity, this.attackTime, pAgeInTicks);
+    protected void setupAttackAnimation(S pLivingEntity) {
+        if (pLivingEntity.attackTime > 0.0F && pLivingEntity.armPose == AbstractIllager.IllagerArmPose.ATTACKING) {
+            AnimationUtils.swingWeaponDown(this.rightArm, this.leftArm, pLivingEntity.mainArm, pLivingEntity.attackTime, pLivingEntity.ageInTicks);
         } else {
-            super.setupAttackAnimation(pLivingEntity, pAgeInTicks);
+            super.setupAttackAnimation(pLivingEntity);
         }
     }
 }

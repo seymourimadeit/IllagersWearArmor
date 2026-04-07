@@ -1,17 +1,16 @@
 package tallestegg.illagersweararmor.client.model;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterables;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.VillagerLikeModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.monster.Witch;
-import net.minecraft.world.item.ArmorItem;
+import tallestegg.illagersweararmor.client.model.render_states.IllagerBipedRenderState;
 
-public class WitchBipedModel<T extends Witch> extends HumanoidModel<T> {
+public class WitchBipedModel<T extends IllagerBipedRenderState> extends HumanoidModel<T> implements VillagerLikeModel {
     public final ModelPart nose;
     public final ModelPart arms;
     public final ModelPart jacket;
@@ -53,40 +52,38 @@ public class WitchBipedModel<T extends Witch> extends HumanoidModel<T> {
     }
 
     @Override
-    protected Iterable<ModelPart> bodyParts() {
-        return Iterables.concat(super.bodyParts(), ImmutableList.of(this.arms, this.body));
-    }
-
-    @Override
-    public void setupAnim(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
+    public void setupAnim(T pEntity) {
         this.nose.setPos(0.0F, -2.0F, 0.0F);
-        float f = 0.01F * (float) (pEntity.getId() % 10);
-        this.nose.xRot = Mth.sin((float) pEntity.tickCount * f) * 4.5F * ((float) Math.PI / 180F);
+        float f = 0.01F * (float) (pEntity.entityId % 10);
+        this.nose.xRot = Mth.sin((float) pEntity.ageInTicks * f) * 4.5F * ((float) Math.PI / 180F);
         this.nose.yRot = 0.0F;
-        this.nose.zRot = Mth.cos((float) pEntity.tickCount * f) * 2.5F * ((float) Math.PI / 180F);
+        this.nose.zRot = Mth.cos((float) pEntity.ageInTicks * f) * 2.5F * ((float) Math.PI / 180F);
         if (this.holdingItem) {
             this.nose.setPos(0.0F, 1.0F, -1.5F);
             this.nose.xRot = -0.9F;
         }
-        super.setupAnim(pEntity, pLimbSwing, pLimbSwingAmount, pAgeInTicks, pNetHeadYaw, pHeadPitch);
+        super.setupAnim(pEntity);
+        this.jacket.visible = !pEntity.isWearingChestplateOrLegging;
+        if (!pEntity.headEquipment.isEmpty()) {
+            this.witchHat.y = -13.0F;
+        } else {
+            this.witchHat.resetPose();
+        }
         this.leftArm.y = 3.0F;
         this.leftArm.z = -1.0F;
         this.leftArm.xRot = -0.75F;
         this.rightArm.y = 3.0F;
         this.rightArm.z = -1.0F;
         this.rightArm.xRot = -0.75F;
-        boolean isWearingChestplateOrLeggings = pEntity.getItemBySlot(EquipmentSlot.CHEST)
-                .getItem() instanceof ArmorItem
-                || pEntity.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof ArmorItem;
-        this.jacket.visible = !isWearingChestplateOrLeggings;
-        if (pEntity.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof ArmorItem) {
-            this.witchHat.y = -13.0F;
-        } else {
-            this.witchHat.resetPose();
-        }
     }
 
-    public void setHoldingItem(boolean pHoldingItem) {
-        this.holdingItem = pHoldingItem;
+    public ModelPart getNose() {
+        return nose;
+    }
+
+    @Override
+    public void translateToArms(EntityRenderState state, PoseStack outputPoseStack) {
+        this.root.translateAndRotate(outputPoseStack);
+        this.arms.translateAndRotate(outputPoseStack);
     }
 }

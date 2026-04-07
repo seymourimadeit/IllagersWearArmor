@@ -7,13 +7,13 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import tallestegg.illagersweararmor.client.renderer.IllagerBipedRenderer;
 
 public class LegionerBipedRenderer extends IllagerBipedRenderer<Legioner> {
-    private static final ResourceLocation LEGIONER = new ResourceLocation(TakesAPillageMod.MODID, "textures/entity/legioner.png");
+    private static final Identifier LEGIONER = new Identifier(TakesAPillageMod.MODID, "textures/entity/legioner.png");
 
     public LegionerBipedRenderer(EntityRendererProvider.Context builder) {
         super(builder);
@@ -21,7 +21,7 @@ public class LegionerBipedRenderer extends IllagerBipedRenderer<Legioner> {
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Legioner legioner) {
+    public Identifier getTextureLocation(Legioner legioner) {
         return LEGIONER;
     }
 

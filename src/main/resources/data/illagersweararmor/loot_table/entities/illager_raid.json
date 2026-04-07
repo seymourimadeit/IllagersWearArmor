@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "value": "illagersweararmor:entities/armor_sets/raid_armor_sets/leather_raid",
+          "value": "illagersweararmor:entities/armor_sets/raid_armor_sets/copper_raid",
           "conditions": [
             {
               "condition": "illagersweararmor:wave",

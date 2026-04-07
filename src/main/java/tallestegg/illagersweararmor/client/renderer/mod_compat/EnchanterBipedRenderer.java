@@ -18,7 +18,7 @@ import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ElytraLayer;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
@@ -31,7 +31,7 @@ import tallestegg.illagersweararmor.client.model.IllagerBipedModel;
 import tallestegg.illagersweararmor.client.model.mod_compat.EnchanterBipedModel;
 
 public class EnchanterBipedRenderer extends MobRenderer<EnchanterEntity, EnchanterBipedModel<EnchanterEntity>> {
-    private static final ResourceLocation ILLAGER = new ResourceLocation(EnchantWithMob.MODID, "textures/entity/enchanter.png");
+    private static final Identifier ILLAGER = new Identifier(EnchantWithMob.MODID, "textures/entity/enchanter.png");
     protected final BookModel bookModel;
 
     public EnchanterBipedRenderer(EntityRendererProvider.Context builder) {
@@ -137,7 +137,7 @@ public class EnchanterBipedRenderer extends MobRenderer<EnchanterEntity, Enchant
     }
 
     @Override
-    public ResourceLocation getTextureLocation(EnchanterEntity p_110775_1_) {
+    public Identifier getTextureLocation(EnchanterEntity p_110775_1_) {
         return ILLAGER;
     }
 }*/

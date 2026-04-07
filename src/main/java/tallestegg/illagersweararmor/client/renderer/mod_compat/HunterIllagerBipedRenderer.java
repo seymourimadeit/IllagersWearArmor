@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.ElytraLayer;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.CrossbowItem;
@@ -25,7 +25,7 @@ import tallestegg.illagersweararmor.client.model.IllagerBipedModel;
 
 public class HunterIllagerBipedRenderer
         extends MobRenderer<Hunter, HunterIllagerBipedModel<Hunter>> {
-    private static final ResourceLocation ILLAGER = new ResourceLocation(HunterIllager.MODID,
+    private static final Identifier ILLAGER = new Identifier(HunterIllager.MODID,
             "textures/entity/hunter.png");
 
     public HunterIllagerBipedRenderer(EntityRendererProvider.Context renderManagerIn) {
@@ -111,7 +111,7 @@ public class HunterIllagerBipedRenderer
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Hunter p_110775_1_) {
+    public Identifier getTextureLocation(Hunter p_110775_1_) {
         return ILLAGER;
     }
 }*/

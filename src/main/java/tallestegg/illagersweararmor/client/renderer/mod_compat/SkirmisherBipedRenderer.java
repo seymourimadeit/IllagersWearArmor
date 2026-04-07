@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import tallestegg.illagersweararmor.IWAClientEvents;
 import tallestegg.illagersweararmor.client.model.IllagerArmorModel;
 import tallestegg.illagersweararmor.client.model.mod_compat.EnchanterBipedModel;
@@ -17,7 +17,7 @@ import tallestegg.illagersweararmor.client.model.mod_compat.SkirmisherBipedModel
 import tallestegg.illagersweararmor.client.renderer.IllagerBipedRenderer;
 
 public class SkirmisherBipedRenderer extends MobRenderer<Skirmisher, SkirmisherBipedModel<Skirmisher>> {
-    private static final ResourceLocation LEGIONER = new ResourceLocation(TakesAPillageMod.MODID, "textures/entity/skirmisher.png");
+    private static final Identifier LEGIONER = new Identifier(TakesAPillageMod.MODID, "textures/entity/skirmisher.png");
 
     public SkirmisherBipedRenderer(EntityRendererProvider.Context builder) {
         super(builder, new SkirmisherBipedModel<>(builder.bakeLayer(IWAClientEvents.SKRIMISHER)), 0.5F);
@@ -28,7 +28,7 @@ public class SkirmisherBipedRenderer extends MobRenderer<Skirmisher, SkirmisherB
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Skirmisher legioner) {
+    public Identifier getTextureLocation(Skirmisher legioner) {
         return LEGIONER;
     }
 }*/

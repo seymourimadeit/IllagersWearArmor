@@ -1,62 +1,67 @@
 package tallestegg.illagersweararmor.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.state.level.CameraRenderState;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.monster.Illusioner;
+import net.minecraft.world.entity.monster.illager.Illusioner;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import tallestegg.illagersweararmor.client.model.IllagerBipedModel;
+import tallestegg.illagersweararmor.client.model.render_states.IllagerBipedRenderState;
+
+import java.util.Objects;
 
 public class IllusionerBipedRenderer extends IllagerBipedRenderer<Illusioner> {
-    private static final ResourceLocation PILLAGER = ResourceLocation.withDefaultNamespace("textures/entity/illager/illusioner.png");
+    private static final Identifier PILLAGER = Identifier.withDefaultNamespace("textures/entity/illager/illusioner.png");
 
     public IllusionerBipedRenderer(Context builder) {
         super(builder);
-        this.addLayer(new ItemInHandLayer<>(this, builder.getItemInHandRenderer()) {
-            @Override
-            public void render(PoseStack p_116352_, MultiBufferSource p_116353_, int p_116354_, Illusioner p_116355_,
-                               float p_116356_, float p_116357_, float p_116358_, float p_116359_, float p_116360_,
-                               float p_116361_) {
-                if (p_116355_.isCastingSpell() || p_116355_.isAggressive()) {
-                    super.render(p_116352_, p_116353_, p_116354_, p_116355_, p_116356_, p_116357_, p_116358_, p_116359_,
-                            p_116360_, p_116361_);
+        this.addLayer(new ItemInHandLayer<>(this) {
+            {
+                Objects.requireNonNull(IllusionerBipedRenderer.this);
+            }
+            public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, IllagerBipedRenderState state, float yRot, float xRot) {
+                if (state.isCastingSpell || state.isAggressive) {
+                    super.submit(poseStack, submitNodeCollector, lightCoords, state, yRot, xRot);
                 }
             }
         });
     }
 
     @Override
-    public void render(Illusioner p_114952_, float p_114953_, float p_114954_, PoseStack p_114955_,
-            MultiBufferSource p_114956_, int p_114957_) {
-        if (p_114952_.isInvisible()) {
-            Vec3[] avec3 = p_114952_.getIllusionOffsets(p_114954_);
-            float f = this.getBob(p_114952_, p_114954_);
-
-            for (int i = 0; i < avec3.length; ++i) {
-                p_114955_.pushPose();
-                p_114955_.translate(avec3[i].x + (double) Mth.cos((float) i + f * 0.5F) * 0.025D,
-                        avec3[i].y + (double) Mth.cos((float) i + f * 0.75F) * 0.0125D,
-                        avec3[i].z + (double) Mth.cos((float) i + f * 0.7F) * 0.025D);
-                super.render(p_114952_, p_114953_, p_114954_, p_114955_, p_114956_, p_114957_);
-                p_114955_.popPose();
-            }
-        } else {
-            super.render(p_114952_, p_114953_, p_114954_, p_114955_, p_114956_, p_114957_);
-        }
-
-    }
-
-    @Override
-    public ResourceLocation getTextureLocation(Illusioner p_115720_) {
+    public Identifier getTextureLocation(IllagerBipedRenderState state) {
         return PILLAGER;
     }
+    @Override
+    public void submit(IllagerBipedRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera) {
+        if (state.isInvisible) {
+            Vec3[] offsets = state.illusionOffsets;
+
+            for (int i = 0; i < offsets.length; i++) {
+                poseStack.pushPose();
+                poseStack.translate(
+                        offsets[i].x + Mth.cos(i + state.ageInTicks * 0.5F) * 0.025,
+                        offsets[i].y + Mth.cos(i + state.ageInTicks * 0.75F) * 0.0125,
+                        offsets[i].z + Mth.cos(i + state.ageInTicks * 0.7F) * 0.025
+                );
+                super.submit(state, poseStack, submitNodeCollector, camera);
+                poseStack.popPose();
+            }
+        } else {
+            super.submit(state, poseStack, submitNodeCollector, camera);
+        }
+    }
 
     @Override
-    protected boolean isBodyVisible(Illusioner p_114959_) {
+    protected boolean isBodyVisible(IllagerBipedRenderState state) {
         return true;
+    }
+
+    @Override
+    protected AABB getBoundingBoxForCulling(Illusioner entity) {
+        return super.getBoundingBoxForCulling(entity).inflate(3.0, 0.0, 3.0);
     }
 }

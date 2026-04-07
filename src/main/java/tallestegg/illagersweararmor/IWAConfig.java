@@ -11,7 +11,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;
 
-@EventBusSubscriber(modid = IllagersWearArmor.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = IllagersWearArmor.MODID)
 public class IWAConfig {
     public static final ModConfigSpec COMMON_SPEC;
     public static final CommonConfig COMMON;

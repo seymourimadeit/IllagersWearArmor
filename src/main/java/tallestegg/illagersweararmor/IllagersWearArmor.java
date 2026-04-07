@@ -1,23 +1,14 @@
 package tallestegg.illagersweararmor;
 
-import net.minecraft.core.registries.Registries;
-import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.RegisterEvent;
 import tallestegg.illagersweararmor.loot_tables.IWALootTables;
-import tallestegg.illagersweararmor.loot_tables.RaidWaveCondition;
 
 @Mod(IllagersWearArmor.MODID)
 public class IllagersWearArmor {

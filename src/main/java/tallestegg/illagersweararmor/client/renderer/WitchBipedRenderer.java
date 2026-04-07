@@ -1,49 +1,62 @@
 package tallestegg.illagersweararmor.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.model.WitchModel;
-import net.minecraft.client.model.geom.ModelLayers;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.renderer.entity.ArmorModelSet;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.CustomHeadLayer;
-import net.minecraft.client.renderer.entity.layers.ElytraLayer;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
-import net.minecraft.client.renderer.entity.layers.WitchItemLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.monster.Witch;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import tallestegg.illagersweararmor.IWAClientEvents;
 import tallestegg.illagersweararmor.client.model.IllagerArmorModel;
 import tallestegg.illagersweararmor.client.model.WitchBipedModel;
+import tallestegg.illagersweararmor.client.model.render_states.WitchBipedRenderState;
 import tallestegg.illagersweararmor.client.renderer.layers.WitchBipedItemLayer;
 
-public class WitchBipedRenderer<T extends Witch> extends MobRenderer<T, WitchBipedModel<T>> {
-    private static final ResourceLocation WITCH_LOCATION =ResourceLocation.withDefaultNamespace("textures/entity/witch.png");
+public class WitchBipedRenderer<T extends Witch> extends MobRenderer<T, WitchBipedRenderState, WitchBipedModel<WitchBipedRenderState>> {
+    private static final Identifier WITCH_LOCATION = Identifier.withDefaultNamespace("textures/entity/witch/witch.png");
 
     public WitchBipedRenderer(EntityRendererProvider.Context builder) {
         super(builder, new WitchBipedModel(builder.bakeLayer(IWAClientEvents.WITCH)), 0.5F);
-        this.addLayer(new WitchBipedItemLayer<>(this, builder.getItemInHandRenderer()));
-        this.addLayer(new CustomHeadLayer<>(this, builder.getModelSet(), builder.getItemInHandRenderer()));
-        this.addLayer(new ElytraLayer<>(this, builder.getModelSet()));
-        this.addLayer(new HumanoidArmorLayer(this,
-                new IllagerArmorModel<>(builder.bakeLayer(IWAClientEvents.BIPEDILLAGER_ARMOR_INNER_LAYER)),
-                new IllagerArmorModel<>(builder.bakeLayer(IWAClientEvents.BIPEDILLAGER_ARMOR_OUTER_LAYER)), builder.getModelManager()));
+        this.addLayer(new WitchBipedItemLayer<>(this));
+        this.addLayer(new CustomHeadLayer<>(this, builder.getModelSet(), builder.getPlayerSkinRenderCache()));
+        ArmorModelSet<HumanoidModel<WitchBipedRenderState>> armorModels =
+                ArmorModelSet.bake(IWAClientEvents.ILLAGER_ARMOR, builder.getModelSet(), IllagerArmorModel::new);
+        this.addLayer(new HumanoidArmorLayer(this, armorModels, builder.getEquipmentRenderer()));
     }
 
     @Override
-    public void render(T pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
-        this.model.setHoldingItem(!pEntity.getMainHandItem().isEmpty());
-        super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
+    public WitchBipedRenderState createRenderState() {
+        return new WitchBipedRenderState();
     }
 
     @Override
-    public ResourceLocation getTextureLocation(T pEntity) {
+    public void extractRenderState(T entity, WitchBipedRenderState state, float partialTicks) {
+        super.extractRenderState(entity, state, partialTicks);
+        HumanoidMobRenderer.extractHumanoidRenderState(entity, state, partialTicks, this.itemModelResolver);
+        WitchBipedRenderState.extractHoldingEntityRenderState(entity, state, this.itemModelResolver);
+        state.isWearingChestplateOrLegging = entity.hasItemInSlot(EquipmentSlot.CHEST) || entity.hasItemInSlot(EquipmentSlot.LEGS);
+        state.entityId = entity.getId();
+        ItemStack mainHandItem = entity.getMainHandItem();
+        state.isHoldingItem = !mainHandItem.isEmpty();
+        state.isHoldingPotion = mainHandItem.is(Items.POTION);
+    }
+
+
+    @Override
+    protected void scale(WitchBipedRenderState state, PoseStack poseStack) {
+        super.scale(state, poseStack);
+        poseStack.scale(0.9375F, 0.9375F, 0.9375F);
+    }
+
+    @Override
+    public Identifier getTextureLocation(WitchBipedRenderState state) {
         return WITCH_LOCATION;
-    }
-
-    @Override
-    protected void scale(T pLivingEntity, PoseStack pMatrixStack, float pPartialTickTime) {
-        float f = 0.9375F;
-        pMatrixStack.scale(0.9375F, 0.9375F, 0.9375F);
     }
 }
