@@ -15,6 +15,7 @@ public class WitchBipedItemLayer<S extends WitchBipedRenderState, M extends Witc
         super(renderer);
     }
 
+    @Override
     public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, S state, float yRot, float xRot) {
         ItemStackRenderState item = state.heldItem;
         if (!item.isEmpty()) {

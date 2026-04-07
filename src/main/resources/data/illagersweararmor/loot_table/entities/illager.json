@@ -14,6 +14,17 @@
             }
           ]
         },
+
+        {
+          "type": "minecraft:loot_table",
+          "value": "illagersweararmor:entities/armor_sets/copper",
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.32
+            }
+          ]
+        },
         {
           "type": "minecraft:loot_table",
           "value": "illagersweararmor:entities/armor_sets/iron",

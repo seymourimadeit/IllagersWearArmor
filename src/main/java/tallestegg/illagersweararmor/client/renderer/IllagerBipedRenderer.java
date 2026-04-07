@@ -58,7 +58,7 @@ public abstract class IllagerBipedRenderer<T extends AbstractIllager> extends Mo
             state.isCastingSpell = spellcasterIllager.isCastingSpell();
         if (entity instanceof Illusioner iLlusioner)
             state.illusionOffsets = iLlusioner.getIllusionOffsets(partialTick);
-        state.isWearingChestplateOrLegging = entity.hasItemInSlot(EquipmentSlot.CHEST) || entity.hasItemInSlot(EquipmentSlot.LEGS);
+        state.isWearingChestplateOrLegging = entity.hasItemInSlot(EquipmentSlot.CHEST);
         if (state.isUsingItem) {
             state.useItemHand = entity.getUsedItemHand();
             state.ticksUsingItem = entity.getTicksUsingItem();

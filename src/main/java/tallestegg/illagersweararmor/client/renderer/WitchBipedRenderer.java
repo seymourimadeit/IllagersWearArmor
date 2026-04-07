@@ -41,7 +41,7 @@ public class WitchBipedRenderer<T extends Witch> extends MobRenderer<T, WitchBip
         super.extractRenderState(entity, state, partialTicks);
         HumanoidMobRenderer.extractHumanoidRenderState(entity, state, partialTicks, this.itemModelResolver);
         WitchBipedRenderState.extractHoldingEntityRenderState(entity, state, this.itemModelResolver);
-        state.isWearingChestplateOrLegging = entity.hasItemInSlot(EquipmentSlot.CHEST) || entity.hasItemInSlot(EquipmentSlot.LEGS);
+        state.isWearingChestplateOrLegging = entity.hasItemInSlot(EquipmentSlot.CHEST);
         state.entityId = entity.getId();
         ItemStack mainHandItem = entity.getMainHandItem();
         state.isHoldingItem = !mainHandItem.isEmpty();

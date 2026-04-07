@@ -6,8 +6,12 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.entity.ArmorModelSet;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
+import net.minecraft.world.entity.monster.illager.AbstractIllager;
+import tallestegg.illagersweararmor.IWAConfig;
+import tallestegg.illagersweararmor.client.model.render_states.IllagerBipedRenderState;
+import tallestegg.illagersweararmor.client.model.render_states.WitchBipedRenderState;
 
-public class IllagerArmorModel<T extends HumanoidRenderState> extends HumanoidModel<T> {
+public class IllagerArmorModel<T extends IllagerBipedRenderState> extends HumanoidModel<T> {
     public IllagerArmorModel(ModelPart part) {
         super(part);
     }
@@ -28,5 +32,20 @@ public class IllagerArmorModel<T extends HumanoidRenderState> extends HumanoidMo
                 PartPose.offset(0.0F, 1.0F, 0.0F)
         );
         return meshdefinition;
+    }
+
+    @Override
+    public void setupAnim(T state) {
+        super.setupAnim(state);
+        AbstractIllager.IllagerArmPose armpose = state.armPose;
+        boolean flag = armpose == AbstractIllager.IllagerArmPose.CROSSED && IWAConfig.crossArms || state instanceof WitchBipedRenderState;
+        if (flag) {
+            this.leftArm.y = 3.0F;
+            this.leftArm.z = -1.0F;
+            this.leftArm.xRot = -0.75F;
+            this.rightArm.y = 3.0F;
+            this.rightArm.z = -1.0F;
+            this.rightArm.xRot = -0.75F;
+        }
     }
 }

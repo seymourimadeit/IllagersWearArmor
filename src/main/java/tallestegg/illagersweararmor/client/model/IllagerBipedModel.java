@@ -60,10 +60,6 @@ public class IllagerBipedModel<S extends IllagerBipedRenderState> extends Humano
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
 
-
-
-
-
     @Override
     public void setupAnim(S state) {
         super.setupAnim(state);

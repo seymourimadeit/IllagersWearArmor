@@ -9,8 +9,9 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 import tallestegg.illagersweararmor.client.model.render_states.IllagerBipedRenderState;
+import tallestegg.illagersweararmor.client.model.render_states.WitchBipedRenderState;
 
-public class WitchBipedModel<T extends IllagerBipedRenderState> extends HumanoidModel<T> implements VillagerLikeModel {
+public class WitchBipedModel<T extends WitchBipedRenderState> extends HumanoidModel<T> implements VillagerLikeModel {
     public final ModelPart nose;
     public final ModelPart arms;
     public final ModelPart jacket;
@@ -53,15 +54,6 @@ public class WitchBipedModel<T extends IllagerBipedRenderState> extends Humanoid
 
     @Override
     public void setupAnim(T pEntity) {
-        this.nose.setPos(0.0F, -2.0F, 0.0F);
-        float f = 0.01F * (float) (pEntity.entityId % 10);
-        this.nose.xRot = Mth.sin((float) pEntity.ageInTicks * f) * 4.5F * ((float) Math.PI / 180F);
-        this.nose.yRot = 0.0F;
-        this.nose.zRot = Mth.cos((float) pEntity.ageInTicks * f) * 2.5F * ((float) Math.PI / 180F);
-        if (this.holdingItem) {
-            this.nose.setPos(0.0F, 1.0F, -1.5F);
-            this.nose.xRot = -0.9F;
-        }
         super.setupAnim(pEntity);
         this.jacket.visible = !pEntity.isWearingChestplateOrLegging;
         if (!pEntity.headEquipment.isEmpty()) {
@@ -75,6 +67,13 @@ public class WitchBipedModel<T extends IllagerBipedRenderState> extends Humanoid
         this.rightArm.y = 3.0F;
         this.rightArm.z = -1.0F;
         this.rightArm.xRot = -0.75F;
+        float speed = 0.01F * (pEntity.entityId % 10);
+        this.nose.xRot = Mth.sin(pEntity.ageInTicks * speed) * 4.5F * (float) (Math.PI / 180.0);
+        this.nose.zRot = Mth.cos(pEntity.ageInTicks * speed) * 2.5F * (float) (Math.PI / 180.0);
+        if (pEntity.isHoldingItem) {
+            this.nose.setPos(0.0F, 1.0F, -1.5F);
+            this.nose.xRot = -0.9F;
+        }
     }
 
     public ModelPart getNose() {
@@ -83,7 +82,5 @@ public class WitchBipedModel<T extends IllagerBipedRenderState> extends Humanoid
 
     @Override
     public void translateToArms(EntityRenderState state, PoseStack outputPoseStack) {
-        this.root.translateAndRotate(outputPoseStack);
-        this.arms.translateAndRotate(outputPoseStack);
     }
 }
