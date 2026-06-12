@@ -1,0 +1,201 @@
+package tallestegg.illagersweararmor.client.renderer.layers;
+
+import com.google.common.collect.Maps;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.IllagerModel;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.ModelManager;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.AbstractIllager;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.armortrim.ArmorTrim;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import org.joml.Vector3f;
+import tallestegg.illagersweararmor.IWAConfig;
+
+import java.util.Map;
+
+public class IllagerArmorLayer<T extends AbstractIllager, M extends IllagerModel<T>, A extends HumanoidModel<T>> extends RenderLayer<T, M> {
+    private static final Map<String, ResourceLocation> ARMOR_LOCATION_CACHE = Maps.newHashMap();
+    private final A innerModel;
+    private final A outerModel;
+    private final TextureAtlas armorTrimAtlas;
+
+    public IllagerArmorLayer(RenderLayerParent<T, M> renderer, A innerModel, A outerModel, ModelManager modelManager) {
+        super(renderer);
+        this.innerModel = innerModel;
+        this.outerModel = outerModel;
+        this.armorTrimAtlas = modelManager.getAtlas(Sheets.ARMOR_TRIMS_SHEET);
+    }
+
+    public void render(
+            PoseStack poseStack,
+            MultiBufferSource buffer,
+            int packedLight,
+            T livingEntity,
+            float limbSwing,
+            float limbSwingAmount,
+            float partialTicks,
+            float ageInTicks,
+            float netHeadYaw,
+            float headPitch
+    ) {
+        this.copyPropertiesTo(this.innerModel, livingEntity);
+        this.copyPropertiesTo(this.outerModel, livingEntity);
+        this.renderArmorPiece(poseStack, buffer, livingEntity, EquipmentSlot.CHEST, packedLight, this.getArmorModel(EquipmentSlot.CHEST), limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
+        this.renderArmorPiece(poseStack, buffer, livingEntity, EquipmentSlot.LEGS, packedLight, this.getArmorModel(EquipmentSlot.LEGS), limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
+        this.renderArmorPiece(poseStack, buffer, livingEntity, EquipmentSlot.FEET, packedLight, this.getArmorModel(EquipmentSlot.FEET), limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
+        this.renderArmorPiece(poseStack, buffer, livingEntity, EquipmentSlot.HEAD, packedLight, this.getArmorModel(EquipmentSlot.HEAD), limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
+    }
+
+    @Deprecated
+    private void renderArmorPiece(PoseStack poseStack, MultiBufferSource bufferSource, T livingEntity, EquipmentSlot slot, int packedLight, A model) {
+        this.renderArmorPiece(poseStack, bufferSource, livingEntity, slot, packedLight, model, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
+    }
+
+    private void renderArmorPiece(PoseStack poseStack, MultiBufferSource bufferSource, T livingEntity, EquipmentSlot slot, int packedLight, A p_model, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
+        ItemStack itemstack = livingEntity.getItemBySlot(slot);
+        if (itemstack.getItem() instanceof ArmorItem armoritem) {
+            if (armoritem.getEquipmentSlot() == slot) {
+                this.getParentModel().copyPropertiesTo(p_model);
+                this.setPartVisibility(p_model, slot);
+                net.minecraft.client.model.Model model = getArmorModelHook(livingEntity, itemstack, slot, p_model);
+                boolean flag = this.usesInnerModel(slot);
+                ArmorMaterial armormaterial = armoritem.getMaterial().value();
+
+                IClientItemExtensions extensions = IClientItemExtensions.of(itemstack);
+                int fallbackColor = extensions.getDefaultDyeColor(itemstack);
+                for (int layerIdx = 0; layerIdx < armormaterial.layers().size(); layerIdx++) {
+                    ArmorMaterial.Layer armormaterial$layer = armormaterial.layers().get(layerIdx);
+                    int j = extensions.getArmorLayerTintColor(itemstack, livingEntity, armormaterial$layer, layerIdx, fallbackColor);
+                    if (j != 0) {
+                        var texture = net.neoforged.neoforge.client.ClientHooks.getArmorTexture(livingEntity, itemstack, armormaterial$layer, flag, slot);
+                        this.renderModel(poseStack, bufferSource, packedLight, model, j, texture);
+                    }
+                }
+
+                ArmorTrim armortrim = itemstack.get(DataComponents.TRIM);
+                if (armortrim != null) {
+                    this.renderTrim(armoritem.getMaterial(), poseStack, bufferSource, packedLight, armortrim, model, flag);
+                }
+
+                if (itemstack.hasFoil()) {
+                    this.renderGlint(poseStack, bufferSource, packedLight, model);
+                }
+            }
+        }
+    }
+
+    protected void setPartVisibility(A model, EquipmentSlot slot) {
+        model.setAllVisible(false);
+        switch (slot) {
+            case HEAD:
+                model.head.visible = true;
+                model.hat.visible = true;
+                model.head.y = -2;
+                break;
+            case CHEST:
+                model.body.visible = true;
+                model.rightArm.visible = true;
+                model.leftArm.visible = true;
+                model.body.offsetScale(new Vector3f(0.0F, 0.0F, 0.2F));
+                model.rightArm.x -= 1;
+                model.leftArm.x += 1;
+                model.rightArm.offsetScale(new Vector3f(0.0F, 0.0F, 0.2F));
+                model.leftArm.offsetScale(new Vector3f(0.0F, 0.0F, 0.2F));
+                break;
+            case LEGS:
+                model.body.visible = true;
+                model.rightLeg.visible = true;
+                model.leftLeg.visible = true;
+                model.body.offsetScale(new Vector3f(0.0F, 0.0F, 0.3F));
+                model.rightLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.5F));
+                model.leftLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.5F));
+                break;
+            case FEET:
+                model.rightLeg.visible = true;
+                model.leftLeg.visible = true;
+                model.rightLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.4F));
+                model.leftLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.4F));
+
+        }
+    }
+    public void copyPropertiesTo(HumanoidModel model, T livingEntity) {
+        model.head.copyFrom(this.getParentModel().head);
+        model.hat.copyFrom(this.getParentModel().hat);
+        model.rightArm.copyFrom(this.getParentModel().rightArm);
+        model.leftArm.copyFrom(this.getParentModel().leftArm);
+        model.body.copyFrom(this.getParentModel().root);
+        model.rightLeg.copyFrom(this.getParentModel().rightLeg);
+        model.leftLeg.copyFrom(this.getParentModel().leftLeg);
+        boolean flag = livingEntity.getArmPose() == AbstractIllager.IllagerArmPose.CROSSED && IWAConfig.crossArms;
+        if (flag) {
+            model.leftArm.y = 3.0F;
+            model.leftArm.z = -1.0F;
+            model.leftArm.xRot = -0.75F;
+            model.rightArm.y = 3.0F;
+            model.rightArm.z = -1.0F;
+            model.rightArm.xRot = -0.75F;
+        }
+    }
+
+    private void renderModel(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, A model, int dyeColor, ResourceLocation textureLocation) {
+        renderModel(poseStack, bufferSource, packedLight, (net.minecraft.client.model.Model) model, dyeColor, textureLocation);
+    }
+    private void renderModel(PoseStack p_289664_, MultiBufferSource p_289689_, int p_289681_, net.minecraft.client.model.Model p_289658_, int p_350798_, ResourceLocation p_324344_) {
+        VertexConsumer vertexconsumer = p_289689_.getBuffer(RenderType.armorCutoutNoCull(p_324344_));
+        p_289658_.renderToBuffer(p_289664_, vertexconsumer, p_289681_, OverlayTexture.NO_OVERLAY, p_350798_);
+    }
+
+    private void renderTrim(
+            Holder<ArmorMaterial> armorMaterial, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, ArmorTrim trim, A model, boolean innerTexture
+    ) {
+        renderTrim(armorMaterial, poseStack, bufferSource, packedLight, trim, (net.minecraft.client.model.Model) model, innerTexture);
+    }
+    private void renderTrim(
+            Holder<ArmorMaterial> p_323506_, PoseStack p_289687_, MultiBufferSource p_289643_, int p_289683_, ArmorTrim p_289692_, net.minecraft.client.model.Model p_289663_, boolean p_289651_
+    ) {
+        TextureAtlasSprite textureatlassprite = this.armorTrimAtlas
+                .getSprite(p_289651_ ? p_289692_.innerTexture(p_323506_) : p_289692_.outerTexture(p_323506_));
+        VertexConsumer vertexconsumer = textureatlassprite.wrap(p_289643_.getBuffer(Sheets.armorTrimsSheet(p_289692_.pattern().value().decal())));
+        p_289663_.renderToBuffer(p_289687_, vertexconsumer, p_289683_, OverlayTexture.NO_OVERLAY);
+    }
+
+    private void renderGlint(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, A model) {
+        renderGlint(poseStack, bufferSource, packedLight, (net.minecraft.client.model.Model) model);
+    }
+    private void renderGlint(PoseStack p_289673_, MultiBufferSource p_289654_, int p_289649_, net.minecraft.client.model.Model p_289659_) {
+        p_289659_.renderToBuffer(p_289673_, p_289654_.getBuffer(RenderType.armorEntityGlint()), p_289649_, OverlayTexture.NO_OVERLAY);
+    }
+
+    private A getArmorModel(EquipmentSlot slot) {
+        return this.usesInnerModel(slot) ? this.innerModel : this.outerModel;
+    }
+
+    private boolean usesInnerModel(EquipmentSlot slot) {
+        return slot == EquipmentSlot.LEGS;
+    }
+
+    /**
+     * Hook to allow item-sensitive armor model. for HumanoidArmorLayer.
+     */
+    protected net.minecraft.client.model.Model getArmorModelHook(T entity, ItemStack itemStack, EquipmentSlot slot, A model) {
+        return net.neoforged.neoforge.client.ClientHooks.getArmorModel(entity, itemStack, slot, model);
+    }
+}
+

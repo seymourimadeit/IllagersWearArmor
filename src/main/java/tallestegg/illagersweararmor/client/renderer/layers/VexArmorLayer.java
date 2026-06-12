@@ -163,7 +163,6 @@ public class VexArmorLayer extends RenderLayer<Vex, VexModel> {
                 pModel.leftLeg.x = 1.5F;
                 pModel.leftLeg.z = 1.5F;
         }
-
     }
 
     private void renderModel(PoseStack p_289664_, MultiBufferSource p_289689_, int p_289681_, HumanoidModel p_289658_, int p_350798_, ResourceLocation p_324344_) {
