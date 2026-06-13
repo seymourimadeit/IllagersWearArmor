@@ -136,6 +136,7 @@ public class IllagerArmorLayer<T extends AbstractIllager, M extends IllagerModel
 
         }
     }
+
     public void copyPropertiesTo(HumanoidModel model, T livingEntity) {
         model.head.copyFrom(this.getParentModel().head);
         model.hat.copyFrom(this.getParentModel().hat);

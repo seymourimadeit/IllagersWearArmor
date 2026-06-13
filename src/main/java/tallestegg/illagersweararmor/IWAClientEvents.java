@@ -4,8 +4,6 @@ import net.minecraft.client.model.HumanoidArmorModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.IllagerModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.model.geom.ModelLayers;
-import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -35,21 +33,27 @@ public class IWAClientEvents {
 
     @SubscribeEvent
     public static void addLayer(EntityRenderersEvent.AddLayers event) {
-        VexRenderer vexRenderer = event.getRenderer(EntityType.VEX);
         EntityRendererProvider.Context context = event.getContext();
-        vexRenderer.addLayer(new VexArmorLayer(vexRenderer, event.getEntityModels(),context.getModelManager()));
         BuiltInRegistries.ENTITY_TYPE.forEach(entityType -> {
-            if (IWAConfig.CLIENT.renderBlackList.get().contains(BuiltInRegistries.ENTITY_TYPE.getKey(entityType).toString()))
-                return;
+            if (!IWAConfig.CLIENT.renderBlackList.get().contains(BuiltInRegistries.ENTITY_TYPE.getKey(entityType).toString())) {
             EntityRenderer entityRenderer = event.getRenderer(entityType);
-            if (entityRenderer != null && entityRenderer instanceof LivingEntityRenderer<?, ?> livingEntityRenderer && livingEntityRenderer.getModel() instanceof IllagerModel) {
-                livingEntityRenderer.addLayer(new IllagerArmorLayer(livingEntityRenderer, new HumanoidModel(context.bakeLayer(ILLAGER_ARMOR_INNER_LAYER)),
-                        new HumanoidModel(context.bakeLayer(ILLAGER_ARMOR_OUTER_LAYER)), context.getModelManager()));
+                if (entityRenderer != null && entityRenderer instanceof LivingEntityRenderer<?, ?> livingEntityRenderer) {
+                    if (entityType == EntityType.VEX) {
+                        VexRenderer vexRenderer = (VexRenderer) livingEntityRenderer;
+                        vexRenderer.addLayer(new VexArmorLayer(vexRenderer, event.getEntityModels(), context.getModelManager()));
+                    }
+                    if (entityType == EntityType.WITCH) {
+                        WitchRenderer witchRenderer = (WitchRenderer) livingEntityRenderer;
+                        witchRenderer.addLayer(new WitchArmorLayer<>(witchRenderer, new HumanoidModel(context.bakeLayer(WITCH_ARMOR_INNER_LAYER)),
+                                new HumanoidModel(context.bakeLayer(WITCH_ARMOR_OUTER_LAYER)), context.getModelManager()));
+                    }
+                    if (livingEntityRenderer.getModel() instanceof IllagerModel) {
+                        livingEntityRenderer.addLayer(new IllagerArmorLayer(livingEntityRenderer, new HumanoidModel(context.bakeLayer(ILLAGER_ARMOR_INNER_LAYER)),
+                                new HumanoidModel(context.bakeLayer(ILLAGER_ARMOR_OUTER_LAYER)), context.getModelManager()));
+                    }
+                }
             }
         });
-        WitchRenderer witchRenderer = event.getRenderer(EntityType.WITCH);
-        witchRenderer.addLayer(new WitchArmorLayer<>(witchRenderer, new HumanoidModel(context.bakeLayer(WITCH_ARMOR_INNER_LAYER)),
-                new HumanoidModel(context.bakeLayer(WITCH_ARMOR_OUTER_LAYER)), context.getModelManager()));
     }
 
     @SubscribeEvent

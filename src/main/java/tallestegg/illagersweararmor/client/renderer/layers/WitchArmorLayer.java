@@ -55,8 +55,6 @@ public class WitchArmorLayer<T extends Witch, M extends WitchModel<T>, A extends
             float netHeadYaw,
             float headPitch
     ) {
-        if (IWAConfig.CLIENT.renderBlackList.get().contains(BuiltInRegistries.ENTITY_TYPE.getKey(livingEntity.getType())))
-            return;
         this.copyPropertiesTo(this.innerModel, livingEntity);
         this.copyPropertiesTo(this.outerModel, livingEntity);
         this.renderArmorPiece(poseStack, buffer, livingEntity, EquipmentSlot.CHEST, packedLight, this.getArmorModel(EquipmentSlot.CHEST), limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
