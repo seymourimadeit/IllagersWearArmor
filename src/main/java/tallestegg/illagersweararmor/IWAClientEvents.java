@@ -39,6 +39,8 @@ public class IWAClientEvents {
         EntityRendererProvider.Context context = event.getContext();
         vexRenderer.addLayer(new VexArmorLayer(vexRenderer, event.getEntityModels(),context.getModelManager()));
         BuiltInRegistries.ENTITY_TYPE.forEach(entityType -> {
+            if (IWAConfig.CLIENT.renderBlackList.get().contains(BuiltInRegistries.ENTITY_TYPE.getKey(entityType).toString()))
+                return;
             EntityRenderer entityRenderer = event.getRenderer(entityType);
             if (entityRenderer != null && entityRenderer instanceof LivingEntityRenderer<?, ?> livingEntityRenderer && livingEntityRenderer.getModel() instanceof IllagerModel) {
                 livingEntityRenderer.addLayer(new IllagerArmorLayer(livingEntityRenderer, new HumanoidModel(context.bakeLayer(ILLAGER_ARMOR_INNER_LAYER)),
