@@ -59,23 +59,14 @@ public class IWAConfig {
         IllagerArmor = COMMON.IllagerArmor.get();
     }
 
-    public static void bakeClientConfig() {
-        EnchanterHelmetHeight = CLIENT.EnchanterHelmetHeight.get().floatValue();
-        crossArms = CLIENT.IllagerCrossArms.get();
-    }
-
     @SubscribeEvent
     public static void onModConfigEvent(final ModConfigEvent.Loading configEvent) {
         if (configEvent.getConfig().getSpec() == IWAConfig.COMMON_SPEC) {
             bakeCommonConfig();
         }
-        if (configEvent.getConfig().getSpec() == IWAConfig.CLIENT_SPEC) {
-            bakeClientConfig();
-        }
     }
 
     public static class CommonConfig {
-
         public final ForgeConfigSpec.DoubleValue Wave1;
         public final ForgeConfigSpec.DoubleValue Wave2;
         public final ForgeConfigSpec.DoubleValue Wave3;
@@ -113,15 +104,12 @@ public class IWAConfig {
     }
 
     public static class ClientConfig {
-        public final ForgeConfigSpec.BooleanValue IllagerCrossArms;
-        public final ForgeConfigSpec.DoubleValue EnchanterHelmetHeight;
-        public final ForgeConfigSpec.BooleanValue pillagerRenderer;
+        public final ForgeConfigSpec.ConfigValue<List<? extends String>> renderBlackList;
 
         public ClientConfig(ForgeConfigSpec.Builder builder) {
-            IllagerCrossArms = builder.translation(IllagersWearArmor.MODID + ".config.illagerCrossArms")
-                    .define("Have Illagers cross their arms when neutral?", true);
-            EnchanterHelmetHeight = builder.translation(IllagersWearArmor.MODID + ".config.height").defineInRange("Height of the Enchanters helmet", -15.0F, -500.0F, 100F);
-            pillagerRenderer = builder.define("Allow new pillager renderer", true);
+            renderBlackList =  builder
+                    .comment("This will make sure any entity id in this list wont render with armor. Example outputs would be \"minecraft:vex\" and \"minecraft:vex\",\"minecraft:witch\"")
+                    .define("Illager Armor BlackList", new ArrayList<>());
         }
     }
 }

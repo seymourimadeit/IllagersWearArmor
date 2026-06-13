@@ -5,8 +5,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.IllagerModel;
+import net.minecraft.client.model.WitchModel;
 import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
@@ -18,8 +18,8 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.AbstractIllager;
+import net.minecraft.world.entity.monster.Witch;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
@@ -31,40 +31,31 @@ import tallestegg.illagersweararmor.IWAClientEvents;
 import javax.annotation.Nullable;
 import java.util.Map;
 
-public class IllagerArmorLayer <T extends AbstractIllager> extends RenderLayer<T, IllagerModel<T>> {
+import static tallestegg.illagersweararmor.client.renderer.layers.IllagerArmorLayer.armorCrossArms;
+import static tallestegg.illagersweararmor.client.renderer.layers.IllagerArmorLayer.illagerArmorRendering;
+
+public class WitchArmorLayer <T extends Witch> extends RenderLayer<T, WitchModel<T>> {
     private static final Map<String, ResourceLocation> ARMOR_LOCATION_CACHE = Maps.newHashMap();
     private final HumanoidModel innerModel;
     private final HumanoidModel outerModel;
     private final TextureAtlas armorTrimAtlas;
 
-    public IllagerArmorLayer(RenderLayerParent<T, IllagerModel<T>> pRenderer, EntityModelSet modelSets, ModelManager manager) {
+    public WitchArmorLayer(RenderLayerParent<T, WitchModel<T>> pRenderer, EntityModelSet modelSets, ModelManager manager) {
         super(pRenderer);
-        this.innerModel = new HumanoidModel<>(modelSets.bakeLayer(IWAClientEvents.ILLAGER_ARMOR_INNER_LAYER));
-        this.outerModel = new HumanoidModel<>(modelSets.bakeLayer(IWAClientEvents.ILLAGER_ARMOR_OUTER_LAYER));
+        this.innerModel = new HumanoidModel<>(modelSets.bakeLayer(IWAClientEvents.WITCH_ARMOR_INNER_LAYER));
+        this.outerModel = new HumanoidModel<>(modelSets.bakeLayer(IWAClientEvents.WITCH_ARMOR_OUTER_LAYER));
         this.armorTrimAtlas = manager.getAtlas(Sheets.ARMOR_TRIMS_SHEET);
     }
 
-    public void copyPropertiesTo(HumanoidModel model, T livingEntity) {
-        model.head.copyFrom(this.getParentModel().head);
+    public void copyPropertiesTo(HumanoidModel model) {
+        model.head.copyFrom(this.getParentModel().getHead());
         model.hat.copyFrom(this.getParentModel().hat);
-        model.rightArm.copyFrom(this.getParentModel().rightArm);
-        model.leftArm.copyFrom(this.getParentModel().leftArm);
-        model.body.copyFrom(this.getParentModel().root);
+        model.body.copyFrom(this.getParentModel().root());
         model.rightLeg.copyFrom(this.getParentModel().rightLeg);
         model.leftLeg.copyFrom(this.getParentModel().leftLeg);
-        boolean flag = livingEntity.getArmPose() == AbstractIllager.IllagerArmPose.CROSSED;
-        if (flag) {
-            armorCrossArms(model);
-        }
-    }
-
-    public static void armorCrossArms(HumanoidModel model) {
-        model.leftArm.y = 3.0F;
-        model.leftArm.z = -1.0F;
-        model.leftArm.xRot = -0.75F;
-        model.rightArm.y = 3.0F;
-        model.rightArm.z = -1.0F;
-        model.rightArm.xRot = -0.75F;
+        model.leftArm.copyFrom(this.getParentModel().root());
+        model.rightArm.copyFrom(this.getParentModel().root());
+        armorCrossArms(model);
     }
 
     @Override
@@ -81,8 +72,8 @@ public class IllagerArmorLayer <T extends AbstractIllager> extends RenderLayer<T
         if (item instanceof ArmorItem armoritem) {
             if (armoritem.getEquipmentSlot() == pSlot) {
                 this.getParentModel().copyPropertiesTo(pModel);
-                this.copyPropertiesTo(pModel, pLivingEntity);
-                this.setPartVisibility(pLivingEntity, pModel, pSlot);
+                this.copyPropertiesTo(pModel);
+                this.setPartVisibility(pModel, pSlot);
                 net.minecraft.client.model.Model model = getArmorModelHook(pLivingEntity, itemstack, pSlot, pModel);
                 boolean flag = this.usesInnerModel(pSlot);
                 if (armoritem instanceof net.minecraft.world.item.DyeableLeatherItem) {
@@ -106,43 +97,16 @@ public class IllagerArmorLayer <T extends AbstractIllager> extends RenderLayer<T
         }
     }
 
-    protected void setPartVisibility(T illager, HumanoidModel pModel, EquipmentSlot pSlot) {
-        illagerArmorRendering(pModel, pSlot);
+    protected void setPartVisibility(HumanoidModel model, EquipmentSlot slot) {
+        switch(slot) {
+            case CHEST:
+                model.rightArm.x -= 5;
+                model.leftArm.x += 5;
+                break;
+        }
+        illagerArmorRendering(model, slot);
     }
 
-    public static void illagerArmorRendering(HumanoidModel pModel, EquipmentSlot pSlot) {
-        pModel.setAllVisible(false);
-        switch (pSlot) {
-            case HEAD:
-                pModel.head.visible = true;
-                pModel.hat.visible = true;
-                pModel.head.y = -2;
-                break;
-            case CHEST:
-                pModel.body.visible = true;
-                pModel.rightArm.visible = true;
-                pModel.leftArm.visible = true;
-                pModel.body.offsetScale(new Vector3f(0.0F, 0.0F, 0.2F));
-                pModel.rightArm.x -= 1;
-                pModel.leftArm.x += 1;
-                pModel.rightArm.offsetScale(new Vector3f(0.0F, 0.0F, 0.2F));
-                pModel.leftArm.offsetScale(new Vector3f(0.0F, 0.0F, 0.2F));
-                break;
-            case LEGS:
-                pModel.body.visible = true;
-                pModel.rightLeg.visible = true;
-                pModel.leftLeg.visible = true;
-                pModel.body.offsetScale(new Vector3f(0.0F, 0.0F, 0.3F));
-                pModel.rightLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.5F));
-                pModel.leftLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.5F));
-                break;
-            case FEET:
-                pModel.rightLeg.visible = true;
-                pModel.leftLeg.visible = true;
-                pModel.rightLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.4F));
-                pModel.leftLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.4F));
-        }
-    }
     private void renderModel(PoseStack p_289664_, MultiBufferSource p_289689_, int p_289681_, ArmorItem p_289650_, net.minecraft.client.model.Model p_289658_, boolean p_289668_, float p_289678_, float p_289674_, float p_289693_, ResourceLocation armorResource) {
         VertexConsumer vertexconsumer = p_289689_.getBuffer(RenderType.armorCutoutNoCull(armorResource));
         p_289658_.renderToBuffer(p_289664_, vertexconsumer, p_289681_, OverlayTexture.NO_OVERLAY, p_289678_, p_289674_, p_289693_, 1.0F);
