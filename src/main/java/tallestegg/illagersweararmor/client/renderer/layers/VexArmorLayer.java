@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.FastColor;
@@ -28,6 +29,7 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.armortrim.ArmorTrim;
 import net.minecraft.world.item.component.DyedItemColor;
+import tallestegg.illagersweararmor.IWAConfig;
 
 import java.util.Map;
 
@@ -56,6 +58,8 @@ public class VexArmorLayer extends RenderLayer<Vex, VexModel> {
 
     @Override
     public void render(PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight, Vex pLivingEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
+        if (IWAConfig.CLIENT.renderBlackList.get().contains(BuiltInRegistries.ENTITY_TYPE.getKey(pLivingEntity.getType())))
+            return;
         this.copyPropertiesTo(innerModel);
         this.copyPropertiesTo(outerModel);
         this.renderArmorPiece(pMatrixStack, pBuffer, pLivingEntity, EquipmentSlot.CHEST, pPackedLight, this.getArmorModel(EquipmentSlot.CHEST));

@@ -1,1 +1,1 @@
-- Config gui support- [MAJOR] Allow automatic compatibility with most illager mods
+- [MAJOR] Allow automatic compatibility with most illager mods

@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.monster.Witch;
@@ -25,6 +26,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.armortrim.ArmorTrim;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import org.joml.Vector3f;
+import tallestegg.illagersweararmor.IWAConfig;
 
 import java.util.Map;
 
@@ -53,6 +55,8 @@ public class WitchArmorLayer<T extends Witch, M extends WitchModel<T>, A extends
             float netHeadYaw,
             float headPitch
     ) {
+        if (IWAConfig.CLIENT.renderBlackList.get().contains(BuiltInRegistries.ENTITY_TYPE.getKey(livingEntity.getType())))
+            return;
         this.copyPropertiesTo(this.innerModel, livingEntity);
         this.copyPropertiesTo(this.outerModel, livingEntity);
         this.renderArmorPiece(poseStack, buffer, livingEntity, EquipmentSlot.CHEST, packedLight, this.getArmorModel(EquipmentSlot.CHEST), limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
@@ -106,7 +110,6 @@ public class WitchArmorLayer<T extends Witch, M extends WitchModel<T>, A extends
                 model.head.visible = true;
                 model.hat.visible = true;
                 model.head.y = -2;
-                this.getParentModel().hat.y = -12;
                 break;
             case CHEST:
                 model.body.visible = true;

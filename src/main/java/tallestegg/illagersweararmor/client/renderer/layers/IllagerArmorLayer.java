@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -55,6 +56,8 @@ public class IllagerArmorLayer<T extends AbstractIllager, M extends IllagerModel
             float netHeadYaw,
             float headPitch
     ) {
+        if (IWAConfig.CLIENT.renderBlackList.get().contains(BuiltInRegistries.ENTITY_TYPE.getKey(livingEntity.getType())))
+            return;
         this.copyPropertiesTo(this.innerModel, livingEntity);
         this.copyPropertiesTo(this.outerModel, livingEntity);
         this.renderArmorPiece(poseStack, buffer, livingEntity, EquipmentSlot.CHEST, packedLight, this.getArmorModel(EquipmentSlot.CHEST), limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
@@ -143,7 +146,7 @@ public class IllagerArmorLayer<T extends AbstractIllager, M extends IllagerModel
         model.body.copyFrom(this.getParentModel().root);
         model.rightLeg.copyFrom(this.getParentModel().rightLeg);
         model.leftLeg.copyFrom(this.getParentModel().leftLeg);
-        boolean flag = livingEntity.getArmPose() == AbstractIllager.IllagerArmPose.CROSSED && IWAConfig.crossArms;
+        boolean flag = livingEntity.getArmPose() == AbstractIllager.IllagerArmPose.CROSSED;
         if (flag) {
             model.leftArm.y = 3.0F;
             model.leftArm.z = -1.0F;
