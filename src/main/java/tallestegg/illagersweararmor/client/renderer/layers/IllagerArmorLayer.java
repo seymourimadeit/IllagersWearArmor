@@ -16,10 +16,8 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.AbstractIllager;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
@@ -27,7 +25,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.armortrim.ArmorTrim;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import org.joml.Vector3f;
-import tallestegg.illagersweararmor.IWAConfig;
 
 import java.util.Map;
 
@@ -103,37 +100,40 @@ public class IllagerArmorLayer<T extends AbstractIllager, M extends IllagerModel
     }
 
     protected void setPartVisibility(A model, EquipmentSlot slot) {
-        model.setAllVisible(false);
-        switch (slot) {
+        illagerArmorRendering(model, slot);
+    }
+
+    public static void illagerArmorRendering(HumanoidModel pModel, EquipmentSlot pSlot) {
+        pModel.setAllVisible(false);
+        switch (pSlot) {
             case HEAD:
-                model.head.visible = true;
-                model.hat.visible = true;
-                model.head.y = -2;
+                pModel.head.visible = true;
+                pModel.hat.visible = true;
+                pModel.head.y = -2;
                 break;
             case CHEST:
-                model.body.visible = true;
-                model.rightArm.visible = true;
-                model.leftArm.visible = true;
-                model.body.offsetScale(new Vector3f(0.0F, 0.0F, 0.2F));
-                model.rightArm.x -= 1;
-                model.leftArm.x += 1;
-                model.rightArm.offsetScale(new Vector3f(0.0F, 0.0F, 0.2F));
-                model.leftArm.offsetScale(new Vector3f(0.0F, 0.0F, 0.2F));
+                pModel.body.visible = true;
+                pModel.rightArm.visible = true;
+                pModel.leftArm.visible = true;
+                pModel.body.offsetScale(new Vector3f(0.0F, 0.0F, 0.2F));
+                pModel.rightArm.x -= 1;
+                pModel.leftArm.x += 1;
+                pModel.rightArm.offsetScale(new Vector3f(0.0F, 0.0F, 0.2F));
+                pModel.leftArm.offsetScale(new Vector3f(0.0F, 0.0F, 0.2F));
                 break;
             case LEGS:
-                model.body.visible = true;
-                model.rightLeg.visible = true;
-                model.leftLeg.visible = true;
-                model.body.offsetScale(new Vector3f(0.0F, 0.0F, 0.3F));
-                model.rightLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.5F));
-                model.leftLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.5F));
+                pModel.body.visible = true;
+                pModel.rightLeg.visible = true;
+                pModel.leftLeg.visible = true;
+                pModel.body.offsetScale(new Vector3f(0.0F, 0.0F, 0.3F));
+                pModel.rightLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.5F));
+                pModel.leftLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.5F));
                 break;
             case FEET:
-                model.rightLeg.visible = true;
-                model.leftLeg.visible = true;
-                model.rightLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.4F));
-                model.leftLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.4F));
-
+                pModel.rightLeg.visible = true;
+                pModel.leftLeg.visible = true;
+                pModel.rightLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.4F));
+                pModel.leftLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.4F));
         }
     }
 
@@ -147,13 +147,17 @@ public class IllagerArmorLayer<T extends AbstractIllager, M extends IllagerModel
         model.leftLeg.copyFrom(this.getParentModel().leftLeg);
         boolean flag = livingEntity.getArmPose() == AbstractIllager.IllagerArmPose.CROSSED;
         if (flag) {
-            model.leftArm.y = 3.0F;
-            model.leftArm.z = -1.0F;
-            model.leftArm.xRot = -0.75F;
-            model.rightArm.y = 3.0F;
-            model.rightArm.z = -1.0F;
-            model.rightArm.xRot = -0.75F;
+            armorCrossArms(model);
         }
+    }
+
+    public static void armorCrossArms(HumanoidModel model) {
+        model.leftArm.y = 3.0F;
+        model.leftArm.z = -1.0F;
+        model.leftArm.xRot = -0.75F;
+        model.rightArm.y = 3.0F;
+        model.rightArm.z = -1.0F;
+        model.rightArm.xRot = -0.75F;
     }
 
     private void renderModel(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, A model, int dyeColor, ResourceLocation textureLocation) {

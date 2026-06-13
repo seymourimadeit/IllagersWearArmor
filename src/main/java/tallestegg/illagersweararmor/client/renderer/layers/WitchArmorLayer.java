@@ -16,7 +16,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.monster.Witch;
@@ -26,9 +25,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.armortrim.ArmorTrim;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import org.joml.Vector3f;
-import tallestegg.illagersweararmor.IWAConfig;
 
 import java.util.Map;
+
+import static tallestegg.illagersweararmor.client.renderer.layers.IllagerArmorLayer.armorCrossArms;
+import static tallestegg.illagersweararmor.client.renderer.layers.IllagerArmorLayer.illagerArmorRendering;
 
 public class WitchArmorLayer<T extends Witch, M extends WitchModel<T>, A extends HumanoidModel<T>> extends RenderLayer<T, M> {
     private static final Map<String, ResourceLocation> ARMOR_LOCATION_CACHE = Maps.newHashMap();
@@ -55,8 +56,8 @@ public class WitchArmorLayer<T extends Witch, M extends WitchModel<T>, A extends
             float netHeadYaw,
             float headPitch
     ) {
-        this.copyPropertiesTo(this.innerModel, livingEntity);
-        this.copyPropertiesTo(this.outerModel, livingEntity);
+        this.copyPropertiesTo(this.innerModel);
+        this.copyPropertiesTo(this.outerModel);
         this.renderArmorPiece(poseStack, buffer, livingEntity, EquipmentSlot.CHEST, packedLight, this.getArmorModel(EquipmentSlot.CHEST), limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
         this.renderArmorPiece(poseStack, buffer, livingEntity, EquipmentSlot.LEGS, packedLight, this.getArmorModel(EquipmentSlot.LEGS), limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
         this.renderArmorPiece(poseStack, buffer, livingEntity, EquipmentSlot.FEET, packedLight, this.getArmorModel(EquipmentSlot.FEET), limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
@@ -102,41 +103,16 @@ public class WitchArmorLayer<T extends Witch, M extends WitchModel<T>, A extends
     }
 
     protected void setPartVisibility(A model, EquipmentSlot slot) {
-        model.setAllVisible(false);
-        switch (slot) {
-            case HEAD:
-                model.head.visible = true;
-                model.hat.visible = true;
-                model.head.y = -2;
-                break;
+        switch(slot) {
             case CHEST:
-                model.body.visible = true;
-                model.rightArm.visible = true;
-                model.leftArm.visible = true;
-                model.body.offsetScale(new Vector3f(0.0F, 0.0F, 0.2F));
-                model.rightArm.x -= 1;
-                model.leftArm.x += 1;
-                model.rightArm.offsetScale(new Vector3f(0.0F, 0.0F, 0.2F));
-                model.leftArm.offsetScale(new Vector3f(0.0F, 0.0F, 0.2F));
+                model.rightArm.x -= 5;
+                model.leftArm.x += 5;
                 break;
-            case LEGS:
-                model.body.visible = true;
-                model.rightLeg.visible = true;
-                model.leftLeg.visible = true;
-                model.body.offsetScale(new Vector3f(0.0F, 0.0F, 0.3F));
-                model.rightLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.5F));
-                model.leftLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.5F));
-                break;
-            case FEET:
-                model.rightLeg.visible = true;
-                model.leftLeg.visible = true;
-                model.rightLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.4F));
-                model.leftLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.4F));
-
         }
+        illagerArmorRendering(model, slot);
     }
 
-    public void copyPropertiesTo(HumanoidModel model, T livingEntity) {
+    public void copyPropertiesTo(HumanoidModel model) {
         model.head.copyFrom(this.getParentModel().getHead());
         model.hat.copyFrom(this.getParentModel().hat);
         model.body.copyFrom(this.getParentModel().root());
@@ -144,14 +120,7 @@ public class WitchArmorLayer<T extends Witch, M extends WitchModel<T>, A extends
         model.leftLeg.copyFrom(this.getParentModel().leftLeg);
         model.leftArm.copyFrom(this.getParentModel().root());
         model.rightArm.copyFrom(this.getParentModel().root());
-        model.leftArm.y = 3.0F;
-        model.leftArm.x = 5.0F;
-        model.leftArm.z = 1.0F;
-        model.leftArm.xRot = -0.75F;
-        model.rightArm.y = 3.0F;
-        model.rightArm.x = -5.0F;
-        model.rightArm.z = 1.0F;
-        model.rightArm.xRot = -0.75F;
+        armorCrossArms(model);
     }
 
     private void renderModel(PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, A model, int dyeColor, ResourceLocation textureLocation) {
