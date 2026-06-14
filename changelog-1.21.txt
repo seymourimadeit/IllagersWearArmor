@@ -1,1 +1,1 @@
-CHANGELOG:
+CHANGELOG:- [MAJOR] allow automatic compatibility with modded illagers that also inherit IllagerModel
