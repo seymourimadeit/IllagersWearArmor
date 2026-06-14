@@ -1,14 +1,13 @@
 package tallestegg.illagersweararmor;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @EventBusSubscriber(modid = IllagersWearArmor.MODID)
@@ -57,17 +56,10 @@ public class IWAConfig {
         IllagerArmor = COMMON.IllagerArmor.get();
     }
 
-    public static void bakeClientConfig() {
-        crossArms = CLIENT.IllagerCrossArms.get();
-    }
-
     @SubscribeEvent
     public static void onModConfigEvent(final ModConfigEvent.Loading configEvent) {
         if (configEvent.getConfig().getSpec() == IWAConfig.COMMON_SPEC) {
             bakeCommonConfig();
-        }
-        if (configEvent.getConfig().getSpec() == IWAConfig.CLIENT_SPEC) {
-            bakeClientConfig();
         }
     }
 
@@ -110,11 +102,11 @@ public class IWAConfig {
     }
 
     public static class ClientConfig {
-        public final ModConfigSpec.BooleanValue IllagerCrossArms;
-
+        public final ModConfigSpec.ConfigValue<List<? extends String>> renderBlackList;
         public ClientConfig(ModConfigSpec.Builder builder) {
-            IllagerCrossArms = builder.translation(IllagersWearArmor.MODID + ".config.illagerCrossArms")
-                    .define("Have Illagers cross their arms when neutral?", true);
+            renderBlackList =  builder
+                    .comment("This will make sure any entity id in this list wont render with armor. Example outputs would be \"minecraft:vex\" and \"minecraft:vex\",\"minecraft:witch\"")
+                    .defineListAllowEmpty("Illager Armor BlackList", new ArrayList<>(), () -> "", obj -> true);
         }
     }
 }
