@@ -35,7 +35,7 @@ public class IWAClientEvents {
     private static Identifier id(String path) {
         return Identifier.fromNamespaceAndPath(IllagersWearArmor.MODID, path);
     }
-
+    
     public static final ContextKey<ItemStack> HEAD_EQUIPMENT_CONTEXT = new ContextKey<>(
             // The id of your context key. Used for distinguishing between keys internally.
             Identifier.fromNamespaceAndPath(IllagersWearArmor.MODID, "head_equipment_context"));
