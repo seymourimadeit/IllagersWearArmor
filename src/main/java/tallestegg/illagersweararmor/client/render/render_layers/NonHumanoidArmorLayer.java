@@ -9,17 +9,13 @@ import net.minecraft.client.renderer.entity.ArmorModelSet;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EquipmentLayerRenderer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
-import net.minecraft.client.renderer.rendertype.RenderTypes;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.EquipmentClientInfo;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.equipment.Equippable;
-import org.joml.Vector3f;
 import tallestegg.illagersweararmor.IWAClientEvents;
 
 public class NonHumanoidArmorLayer<S extends LivingEntityRenderState, M extends EntityModel<S>, A extends EntityModel<S>> extends RenderLayer<S, M> {
@@ -59,8 +55,10 @@ public class NonHumanoidArmorLayer<S extends LivingEntityRenderState, M extends 
         Equippable equippable = itemStack.get(DataComponents.EQUIPPABLE);
         if (equippable != null && shouldRender(equippable, slot)) {
             A model = this.getArmorModel(state, slot);
+            poseStack.pushPose();
             EquipmentClientInfo.LayerType layerType = state.isBaby && state.entityType != EntityType.ARMOR_STAND ? EquipmentClientInfo.LayerType.HUMANOID_BABY : (this.usesInnerModel(slot) ? EquipmentClientInfo.LayerType.HUMANOID_LEGGINGS : EquipmentClientInfo.LayerType.HUMANOID);
             this.equipmentRenderer.renderLayers(layerType, equippable.assetId().orElseThrow(), model, state, itemStack, poseStack, submitNodeCollector, lightCoords, state.outlineColor);
+            poseStack.popPose();
         }
     }
 
