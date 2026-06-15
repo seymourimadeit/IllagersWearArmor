@@ -39,16 +39,6 @@ public class VillagerArmorModel<T extends HumanoidRenderState> extends HumanoidM
         partdefinition.addOrReplaceChild(
                 "body", CubeListBuilder.create().texOffs(16, 16).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, cubeDeformation), PartPose.offset(0.0F, 0.0F, 0.0F)
         );
-        partdefinition.addOrReplaceChild(
-                "right_arm",
-                CubeListBuilder.create().texOffs(40, 16).addBox(-3.0F, -2.0F, -1.0F, 4.0F, 12.0F, 4.0F, cubeDeformation.extend(-0.4f)),
-                PartPose.offset(-5.0F, 2.0F, 0.0F)
-        );
-        partdefinition.addOrReplaceChild(
-                "left_arm",
-                CubeListBuilder.create().texOffs(40, 16).mirror().addBox(-1.0F, -2.0F, -1.0F, 4.0F, 12.0F, 4.0F, cubeDeformation.extend(-0.4f)),
-                PartPose.offset(5.0F, 2.0F, 0.0F)
-        );
         return meshdefinition;
     }
 }
