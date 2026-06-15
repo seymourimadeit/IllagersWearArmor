@@ -15,6 +15,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import tallestegg.illagersweararmor.client.renderer.layers.IllagerArmorLayer;
 import tallestegg.illagersweararmor.client.renderer.layers.VexArmorLayer;
 import tallestegg.illagersweararmor.client.renderer.layers.WitchArmorLayer;
+import tallestegg.illagersweararmor.client.renderer.model.VillagerArmorModel;
 
 import static net.minecraft.client.model.geom.LayerDefinitions.INNER_ARMOR_DEFORMATION;
 import static net.minecraft.client.model.geom.LayerDefinitions.OUTER_ARMOR_DEFORMATION;
@@ -56,9 +57,9 @@ public class IWAClientEvents {
 
     @SubscribeEvent
     public static void layerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(ILLAGER_ARMOR_OUTER_LAYER, () -> LayerDefinition.create(HumanoidArmorModel.createBodyLayer(OUTER_ARMOR_DEFORMATION), 64, 32));
-        event.registerLayerDefinition(ILLAGER_ARMOR_INNER_LAYER, () -> LayerDefinition.create(HumanoidArmorModel.createBodyLayer(INNER_ARMOR_DEFORMATION), 64, 32));
-        event.registerLayerDefinition(WITCH_ARMOR_OUTER_LAYER, () -> LayerDefinition.create(HumanoidArmorModel.createBodyLayer(OUTER_ARMOR_DEFORMATION), 64, 32));
-        event.registerLayerDefinition(WITCH_ARMOR_INNER_LAYER, () -> LayerDefinition.create(HumanoidArmorModel.createBodyLayer(INNER_ARMOR_DEFORMATION), 64, 32));
+        event.registerLayerDefinition(ILLAGER_ARMOR_OUTER_LAYER, () -> LayerDefinition.create(VillagerArmorModel.createBodyLayer(OUTER_ARMOR_DEFORMATION), 64, 32));
+        event.registerLayerDefinition(ILLAGER_ARMOR_INNER_LAYER, () -> LayerDefinition.create(VillagerArmorModel.createBodyLayer(INNER_ARMOR_DEFORMATION), 64, 32));
+        event.registerLayerDefinition(WITCH_ARMOR_OUTER_LAYER, () -> LayerDefinition.create(VillagerArmorModel.createBodyLayer(OUTER_ARMOR_DEFORMATION), 64, 32));
+        event.registerLayerDefinition(WITCH_ARMOR_INNER_LAYER, () -> LayerDefinition.create(VillagerArmorModel.createBodyLayer(INNER_ARMOR_DEFORMATION), 64, 32));
     }
 }

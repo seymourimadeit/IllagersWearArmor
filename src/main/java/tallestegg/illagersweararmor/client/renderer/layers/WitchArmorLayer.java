@@ -8,9 +8,6 @@ import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.monster.Witch;
 
-import static tallestegg.illagersweararmor.client.renderer.layers.IllagerArmorLayer.armorCrossArms;
-import static tallestegg.illagersweararmor.client.renderer.layers.IllagerArmorLayer.illagerArmorRendering;
-
 public class WitchArmorLayer<T extends Witch> extends NonHumanoidArmorLayer<T, WitchModel<T>> {
     public WitchArmorLayer(RenderLayerParent<T, WitchModel<T>> pRenderer, EntityModelSet modelSets, ModelManager manager) {
         super(pRenderer, modelSets, manager);

@@ -5,7 +5,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.model.IllagerModel;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -26,6 +25,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.armortrim.ArmorTrim;
 import org.joml.Vector3f;
 import tallestegg.illagersweararmor.IWAClientEvents;
+import tallestegg.illagersweararmor.client.renderer.model.VillagerArmorModel;
 
 import javax.annotation.Nullable;
 import java.util.Map;
@@ -44,7 +44,7 @@ public class NonHumanoidArmorLayer<T extends LivingEntity, A extends EntityModel
     }
 
     public NonHumanoidArmorLayer(RenderLayerParent<T, A> pRenderer, EntityModelSet modelSets, ModelManager manager) {
-        this(pRenderer, manager, new HumanoidModel<>(modelSets.bakeLayer(IWAClientEvents.ILLAGER_ARMOR_INNER_LAYER)), new HumanoidModel<>(modelSets.bakeLayer(IWAClientEvents.ILLAGER_ARMOR_OUTER_LAYER)));
+        this(pRenderer, manager, new VillagerArmorModel(modelSets.bakeLayer(IWAClientEvents.ILLAGER_ARMOR_INNER_LAYER)), new VillagerArmorModel(modelSets.bakeLayer(IWAClientEvents.ILLAGER_ARMOR_OUTER_LAYER)));
     }
 
     public static void armorCrossArms(HumanoidModel model) {
@@ -62,31 +62,25 @@ public class NonHumanoidArmorLayer<T extends LivingEntity, A extends EntityModel
             case HEAD:
                 pModel.head.visible = true;
                 pModel.hat.visible = true;
-                pModel.head.y = -2;
                 break;
             case CHEST:
                 pModel.body.visible = true;
                 pModel.rightArm.visible = true;
                 pModel.leftArm.visible = true;
-                pModel.body.offsetScale(new Vector3f(0.0F, 0.0F, 0.2F));
+                pModel.body.offsetScale(new Vector3f(-0.100F, 0.0F, 0.2F));
+                pModel.body.y += 0.5F;
                 pModel.rightArm.x -= 1;
                 pModel.leftArm.x += 1;
-                pModel.rightArm.offsetScale(new Vector3f(0.0F, 0.0F, 0.2F));
-                pModel.leftArm.offsetScale(new Vector3f(0.0F, 0.0F, 0.2F));
                 break;
             case LEGS:
                 pModel.body.visible = true;
                 pModel.rightLeg.visible = true;
                 pModel.leftLeg.visible = true;
-                pModel.body.offsetScale(new Vector3f(0.0F, 0.0F, 0.3F));
-                pModel.rightLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.5F));
-                pModel.leftLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.5F));
+                pModel.body.offsetScale(new Vector3f(-0.100F, 0.0F, 0.2F));
                 break;
             case FEET:
                 pModel.rightLeg.visible = true;
                 pModel.leftLeg.visible = true;
-                pModel.rightLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.4F));
-                pModel.leftLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.4F));
         }
     }
 
