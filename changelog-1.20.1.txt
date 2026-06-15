@@ -1,1 +1,2 @@
-- Allow easier compatibility for illager adding mods - illagers that inherit IllagerModel will now be able to render armor
+CHANGELOG:
+- [MAJOR] allow automatic compatibility with modded illagers that also inherit IllagerModel
