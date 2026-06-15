@@ -24,31 +24,25 @@ public class IllagerArmorLayer<T extends AbstractIllager, M extends IllagerModel
             case HEAD:
                 pModel.head.visible = true;
                 pModel.hat.visible = true;
-                pModel.head.y = -2;
                 break;
             case CHEST:
                 pModel.body.visible = true;
                 pModel.rightArm.visible = true;
                 pModel.leftArm.visible = true;
-                pModel.body.offsetScale(new Vector3f(0.0F, 0.0F, 0.2F));
+                pModel.body.offsetScale(new Vector3f(-0.100F, 0.0F, 0.2F));
+                pModel.body.y += 0.5F;
                 pModel.rightArm.x -= 1;
                 pModel.leftArm.x += 1;
-                pModel.rightArm.offsetScale(new Vector3f(0.0F, 0.0F, 0.2F));
-                pModel.leftArm.offsetScale(new Vector3f(0.0F, 0.0F, 0.2F));
                 break;
             case LEGS:
                 pModel.body.visible = true;
                 pModel.rightLeg.visible = true;
                 pModel.leftLeg.visible = true;
-                pModel.body.offsetScale(new Vector3f(0.0F, 0.0F, 0.3F));
-                pModel.rightLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.5F));
-                pModel.leftLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.5F));
+                pModel.body.offsetScale(new Vector3f(-0.100F, 0.0F, 0.2F));
                 break;
             case FEET:
                 pModel.rightLeg.visible = true;
                 pModel.leftLeg.visible = true;
-                pModel.rightLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.4F));
-                pModel.leftLeg.offsetScale(new Vector3f(0.1F, 0.0F, 0.4F));
         }
     }
 

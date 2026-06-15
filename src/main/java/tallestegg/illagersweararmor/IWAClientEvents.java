@@ -16,6 +16,7 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import tallestegg.illagersweararmor.client.renderer.layers.IllagerArmorLayer;
 import tallestegg.illagersweararmor.client.renderer.layers.VexArmorLayer;
 import tallestegg.illagersweararmor.client.renderer.layers.WitchArmorLayer;
+import tallestegg.illagersweararmor.client.renderer.models.VillagerArmorModel;
 
 import static net.minecraft.client.model.geom.LayerDefinitions.INNER_ARMOR_DEFORMATION;
 import static net.minecraft.client.model.geom.LayerDefinitions.OUTER_ARMOR_DEFORMATION;
@@ -44,12 +45,12 @@ public class IWAClientEvents {
                     }
                     if (entityType == EntityType.WITCH) {
                         WitchRenderer witchRenderer = (WitchRenderer) livingEntityRenderer;
-                        witchRenderer.addLayer(new WitchArmorLayer<>(witchRenderer, new HumanoidModel(context.bakeLayer(WITCH_ARMOR_INNER_LAYER)),
-                                new HumanoidModel(context.bakeLayer(WITCH_ARMOR_OUTER_LAYER)), context.getModelManager()));
+                        witchRenderer.addLayer(new WitchArmorLayer(witchRenderer, new VillagerArmorModel(context.bakeLayer(WITCH_ARMOR_INNER_LAYER)),
+                                new VillagerArmorModel(context.bakeLayer(WITCH_ARMOR_OUTER_LAYER)), context.getModelManager()));
                     }
                     if (livingEntityRenderer.getModel() instanceof IllagerModel) {
-                        livingEntityRenderer.addLayer(new IllagerArmorLayer(livingEntityRenderer, new HumanoidModel(context.bakeLayer(ILLAGER_ARMOR_INNER_LAYER)),
-                                new HumanoidModel(context.bakeLayer(ILLAGER_ARMOR_OUTER_LAYER)), context.getModelManager()));
+                        livingEntityRenderer.addLayer(new IllagerArmorLayer(livingEntityRenderer, new VillagerArmorModel(context.bakeLayer(ILLAGER_ARMOR_INNER_LAYER)),
+                                new VillagerArmorModel(context.bakeLayer(ILLAGER_ARMOR_OUTER_LAYER)), context.getModelManager()));
                     }
                 }
             }
@@ -58,9 +59,9 @@ public class IWAClientEvents {
 
     @SubscribeEvent
     public static void layerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(ILLAGER_ARMOR_OUTER_LAYER, () -> LayerDefinition.create(HumanoidArmorModel.createBodyLayer(OUTER_ARMOR_DEFORMATION), 64, 32));
-        event.registerLayerDefinition(ILLAGER_ARMOR_INNER_LAYER, () -> LayerDefinition.create(HumanoidArmorModel.createBodyLayer(INNER_ARMOR_DEFORMATION), 64, 32));
-        event.registerLayerDefinition(WITCH_ARMOR_OUTER_LAYER, () -> LayerDefinition.create(HumanoidArmorModel.createBodyLayer(OUTER_ARMOR_DEFORMATION), 64, 32));
-        event.registerLayerDefinition(WITCH_ARMOR_INNER_LAYER, () -> LayerDefinition.create(HumanoidArmorModel.createBodyLayer(INNER_ARMOR_DEFORMATION), 64, 32));
+        event.registerLayerDefinition(ILLAGER_ARMOR_OUTER_LAYER, () -> LayerDefinition.create(VillagerArmorModel.createBodyLayer(OUTER_ARMOR_DEFORMATION), 64, 32));
+        event.registerLayerDefinition(ILLAGER_ARMOR_INNER_LAYER, () -> LayerDefinition.create(VillagerArmorModel.createBodyLayer(INNER_ARMOR_DEFORMATION), 64, 32));
+        event.registerLayerDefinition(WITCH_ARMOR_OUTER_LAYER, () -> LayerDefinition.create(VillagerArmorModel.createBodyLayer(OUTER_ARMOR_DEFORMATION), 64, 32));
+        event.registerLayerDefinition(WITCH_ARMOR_INNER_LAYER, () -> LayerDefinition.create(VillagerArmorModel.createBodyLayer(INNER_ARMOR_DEFORMATION), 64, 32));
     }
 }
