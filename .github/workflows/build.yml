@@ -37,7 +37,7 @@ jobs:
           files: build/libs/!(*-@(javadoc|sources)).jar
           version-type: release
           loaders: neoforge
-          game-versions: 26.1.1
+          game-versions: 26.2.0
           java: 25
           name: ""
           changelog-file: changelog-1.21.*

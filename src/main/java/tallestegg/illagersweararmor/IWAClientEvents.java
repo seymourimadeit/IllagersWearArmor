@@ -15,7 +15,7 @@ import net.minecraft.client.renderer.entity.state.IllagerRenderState;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.context.ContextKey;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.monster.illager.AbstractIllager;
 import net.minecraft.world.item.ItemStack;
@@ -88,7 +88,7 @@ public class IWAClientEvents {
                     if (livingEntityRenderer.getModel() instanceof IllagerModel) {
                         livingEntityRenderer.addLayer(new NonHumanoidArmorLayer(livingEntityRenderer, nonHumanoidBake(ILLAGER_ARMOR, context.getModelSet(), modelPart -> new IllagerArmorModel(modelPart)), context.getEquipmentRenderer()));
                     }
-                    if (entityType == EntityType.WITCH) {
+                    if (entityType == EntityTypes.WITCH) {
                         livingEntityRenderer.addLayer(new NonHumanoidArmorLayer(livingEntityRenderer, nonHumanoidBake(WITCH_ARMOR, context.getModelSet(), modelPart -> new WitchModel(modelPart)), context.getEquipmentRenderer()));
                     }
                 }
