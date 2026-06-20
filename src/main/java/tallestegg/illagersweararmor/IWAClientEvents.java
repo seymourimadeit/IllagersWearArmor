@@ -85,12 +85,11 @@ public class IWAClientEvents {
             EntityRenderer entityRenderer = event.getRenderer(entityType);
             if (entityRenderer != null && entityRenderer instanceof LivingEntityRenderer<?, ?, ?> livingEntityRenderer) {
                 if (!IWAConfig.CLIENT.renderBlackList.get().contains(BuiltInRegistries.ENTITY_TYPE.getKey(entityType).toString())) {
-                    if (livingEntityRenderer.getModel() instanceof IllagerModel) {
+                    if (livingEntityRenderer.getModel() instanceof IllagerModel)
                         livingEntityRenderer.addLayer(new NonHumanoidArmorLayer(livingEntityRenderer, nonHumanoidBake(ILLAGER_ARMOR, context.getModelSet(), modelPart -> new IllagerArmorModel(modelPart)), context.getEquipmentRenderer()));
-                    }
-                    if (entityType == EntityTypes.WITCH) {
+
+                    if (entityType == EntityTypes.WITCH)
                         livingEntityRenderer.addLayer(new NonHumanoidArmorLayer(livingEntityRenderer, nonHumanoidBake(WITCH_ARMOR, context.getModelSet(), modelPart -> new WitchModel(modelPart)), context.getEquipmentRenderer()));
-                    }
                 }
             }
         });
