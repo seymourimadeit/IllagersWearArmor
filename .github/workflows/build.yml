@@ -37,6 +37,7 @@ jobs:
           files: build/libs/!(*-@(javadoc|sources)).jar
           version-type: release
           loaders: neoforge
+          environment: client | server
           game-versions: 26.2.0
           java: 25
           name: ""
