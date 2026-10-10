@@ -1,0 +1,103 @@
+{
+  "type": "illagersweararmor:slot",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "condition": {
+            "type": "minecraft:random_chance",
+            "chance": 0.33
+          },
+          "modifier": [
+            {
+              "type": "illagersweararmor:slot",
+              "slot": "head"
+            },
+            {
+              "type": "minecraft:set_components",
+              "components": {
+                "minecraft:trim": {
+                  "material": "minecraft:emerald",
+                  "pattern": "minecraft:sentry"
+                }
+              }
+            }
+          ],
+          "name": "minecraft:golden_helmet"
+        },
+        {
+          "type": "minecraft:item",
+          "condition": {
+            "type": "minecraft:random_chance",
+            "chance": 0.33
+          },
+          "modifier": [
+            {
+              "type": "illagersweararmor:slot",
+              "slot": "chest"
+            },
+            {
+              "type": "minecraft:set_components",
+              "components": {
+                "minecraft:trim": {
+                  "material": "minecraft:emerald",
+                  "pattern": "minecraft:sentry"
+                }
+              }
+            }
+          ],
+          "name": "minecraft:golden_chestplate"
+        },
+        {
+          "type": "minecraft:item",
+          "condition": {
+            "type": "minecraft:random_chance",
+            "chance": 0.33
+          },
+          "modifier": [
+            {
+              "type": "illagersweararmor:slot",
+              "slot": "legs"
+            },
+            {
+              "type": "minecraft:set_components",
+              "components": {
+                "minecraft:trim": {
+                  "material": "minecraft:emerald",
+                  "pattern": "minecraft:sentry"
+                }
+              }
+            }
+          ],
+          "name": "minecraft:golden_leggings"
+        },
+        {
+          "type": "minecraft:item",
+          "condition": {
+            "type": "minecraft:random_chance",
+            "chance": 0.33
+          },
+          "modifier": [
+            {
+              "type": "illagersweararmor:slot",
+              "slot": "feet"
+            },
+            {
+              "type": "minecraft:set_components",
+              "components": {
+                "minecraft:trim": {
+                  "material": "minecraft:emerald",
+                  "pattern": "minecraft:sentry"
+                }
+              }
+            }
+          ],
+          "name": "minecraft:golden_boots"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "illagersweararmor:entities/armor_sets/golden"
+}

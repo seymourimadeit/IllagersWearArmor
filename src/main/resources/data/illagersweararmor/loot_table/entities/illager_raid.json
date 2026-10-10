@@ -1,5 +1,4 @@
 {
-  "type": "illagersweararmor:slot",
   "pools": [
     {
       "rolls": 1,
@@ -7,82 +6,66 @@
         {
           "type": "minecraft:loot_table",
           "value": "illagersweararmor:entities/armor_sets/raid_armor_sets/copper_raid",
-          "conditions": [
-            {
-              "condition": "illagersweararmor:wave",
-              "wave": 1
-            }
-          ]
+          "condition": {
+            "type": "illagersweararmor:wave",
+            "wave": 1
+          }
         },
         {
           "type": "minecraft:loot_table",
           "value": "illagersweararmor:entities/armor_sets/raid_armor_sets/iron_raid",
-          "conditions": [
-            {
-              "condition": "illagersweararmor:wave",
-              "wave": 4
-            }
-          ]
+          "condition": {
+            "type": "illagersweararmor:wave",
+            "wave": 4
+          }
         },
         {
           "type": "minecraft:loot_table",
-          "value": "illagersweararmor:entities/armor_sets/raid_armor_sets/gold_raid",
-          "conditions": [
-            {
-              "condition": "illagersweararmor:wave",
-              "wave": 2
-            }
-          ]
+          "value": "illagersweararmor:entities/armor_sets/raid_armor_sets/golden_raid",
+          "condition": {
+            "type": "illagersweararmor:wave",
+            "wave": 2
+          }
         },
         {
           "type": "minecraft:loot_table",
           "value": "illagersweararmor:entities/armor_sets/raid_armor_sets/chainmail_raid",
-          "conditions": [
-            {
-              "condition": "illagersweararmor:wave",
-              "wave": 3
-            }
-          ]
+          "condition": {
+            "type": "illagersweararmor:wave",
+            "wave": 3
+          }
         },
         {
           "type": "minecraft:loot_table",
           "value": "illagersweararmor:entities/armor_sets/raid_armor_sets/diamond_raid",
-          "conditions": [
-            {
-              "condition": "illagersweararmor:wave",
-              "wave": 5
-            }
-          ]
+          "condition": {
+            "type": "illagersweararmor:wave",
+            "wave": 5
+          }
         },
         {
           "type": "minecraft:loot_table",
           "value": "illagersweararmor:entities/armor_sets/raid_armor_sets/diamond_raid",
-          "conditions": [
-            {
-              "condition": "illagersweararmor:wave",
-              "wave": 6
-            }
-          ]
+          "condition": {
+            "type": "illagersweararmor:wave",
+            "wave": 6
+          }
         },
         {
           "type": "minecraft:loot_table",
           "value": "illagersweararmor:entities/armor_sets/raid_armor_sets/diamond_raid",
-          "conditions": [
-            {
-              "condition": "illagersweararmor:wave",
-              "wave": 7
-            }
-          ]
+          "condition": {
+            "type": "illagersweararmor:wave",
+            "wave": 7
+          }
         },
         {
           "type": "minecraft:loot_table",
           "value": "illagersweararmor:entities/armor_sets/raid_armor_sets/diamond_raid",
-          "conditions": [
-            {
-              "condition": "illagersweararmor:wave",
-              "wave": 8
-            }
-          ]
+          "condition": {
+            "type": "illagersweararmor:wave",
+            "wave": 8
+          }
         }
       ]
     }

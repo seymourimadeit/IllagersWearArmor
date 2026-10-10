@@ -71,7 +71,7 @@ public class IllagerArmorModel<T extends IllagerRenderState> extends HumanoidMod
             if (state.getMainHandItemState().isEmpty()) {
                 AnimationUtils.animateZombieArms(this.leftArm, this.rightArm, true, state);
             } else {
-                AnimationUtils.swingWeaponDown(this.rightArm, this.leftArm, state.mainArm, state.attackAnim, state.ageInTicks);
+                AnimationUtils.swingWeaponDown(this.rightArm, this.leftArm, state.mainArm, state.swingAnimation, state.ageInTicks);
             }
         } else if (pose == AbstractIllager.IllagerArmPose.SPELLCASTING) {
             this.rightArm.z = 0.0F;

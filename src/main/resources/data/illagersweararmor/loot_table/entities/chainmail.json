@@ -1,0 +1,59 @@
+{
+  "type": "illagersweararmor:slot",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "condition": {
+            "type": "minecraft:random_chance",
+            "chance": 0.12
+          },
+          "modifier": {
+            "type": "illagersweararmor:slot",
+            "slot": "head"
+          },
+          "name": "minecraft:chainmail_helmet"
+        },
+        {
+          "type": "minecraft:item",
+          "condition": {
+            "type": "minecraft:random_chance",
+            "chance": 0.12
+          },
+          "modifier": {
+            "type": "illagersweararmor:slot",
+            "slot": "chest"
+          },
+          "name": "minecraft:chainmail_chestplate"
+        },
+        {
+          "type": "minecraft:item",
+          "condition": {
+            "type": "minecraft:random_chance",
+            "chance": 0.12
+          },
+          "modifier": {
+            "type": "illagersweararmor:slot",
+            "slot": "legs"
+          },
+          "name": "minecraft:chainmail_leggings"
+        },
+        {
+          "type": "minecraft:item",
+          "condition": {
+            "type": "minecraft:random_chance",
+            "chance": 0.12
+          },
+          "modifier": {
+            "type": "illagersweararmor:slot",
+            "slot": "feet"
+          },
+          "name": "minecraft:chainmail_boots"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "illagersweararmor:entities/armor_sets/chainmail"
+}

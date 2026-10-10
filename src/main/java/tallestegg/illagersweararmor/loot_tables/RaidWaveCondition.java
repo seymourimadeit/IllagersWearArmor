@@ -3,10 +3,18 @@ package tallestegg.illagersweararmor.loot_tables;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.Holder;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProvider;
+import net.neoforged.neoforge.common.loot.LootTableIdCondition;
+
+import static net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction.simpleBuilder;
 
 public record RaidWaveCondition(int wave) implements LootItemCondition {
     public static final MapCodec<RaidWaveCondition> CODEC = RecordCodecBuilder.mapCodec((p_297204_) -> {
@@ -15,7 +23,7 @@ public record RaidWaveCondition(int wave) implements LootItemCondition {
 
     @Override
     public boolean test(LootContext context) {
-        Raider raider = (Raider) context.getParameter(LootContextParams.THIS_ENTITY);
+        Raider raider = (Raider) context.getOptional(LootContextParams.THIS_ENTITY);
         return raider.getCurrentRaid().getGroupsSpawned() == wave;
     }
 

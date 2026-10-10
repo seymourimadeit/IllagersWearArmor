@@ -73,7 +73,7 @@ public class IWASpawnEvents {
 
         }
         LootParams.Builder lootcontext$builder = (new LootParams.Builder((ServerLevel) entity.level()).withParameter(LootContextParams.THIS_ENTITY, entity));
-        return loot.getRandomItems(lootcontext$builder.create(IWALootTables.SLOT));
+        return loot.getRandomItems(lootcontext$builder.create(IWALootTables.SLOT.get()));
     }
 
     public static ResourceKey<LootTable> getLootTable(LivingEntity entity, boolean raid) {
